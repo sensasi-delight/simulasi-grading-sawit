@@ -27,18 +27,18 @@ export default function DetailDialog(props) {
 		borderRight: 1
 	}
 
+	const sticky = {
+		position: "sticky",
+		left: 0,
+		background: "white"
+	}
+
 	const dataset = props.dataset
 
 	const tableRow = (data) => {
 		return (
-			<TableRow key={data.id}
-				sx={{
-					'td, th': {
-						// whiteSpace: 'nowrap'
-					}
-				}}
-			>
-				<TableCell component="th" scope="row">
+			<TableRow key={data.id}>
+				<TableCell component="th" scope="row" sx={sticky}>
 					{data.name}
 				</TableCell>
 				<TableCell>{formatCell(data.qty, data.unit)}</TableCell>
@@ -46,7 +46,7 @@ export default function DetailDialog(props) {
 				<TableCell>{formatCell(data.weight, 'kg')}</TableCell>
 				<TableCell sx={borderRight}>{rpFormat(data.worth)}</TableCell>
 				<TableCell sx={borderRight}>{data.description}</TableCell>
-				<TableCell>{formatCell(data.cutPercentage*100, '%')}</TableCell>
+				<TableCell>{formatCell(data.cutPercentage * 100, '%')}</TableCell>
 				<TableCell>{formatCell(data.cutWeight, 'kg')}</TableCell>
 				<TableCell>{rpFormat(data.cutWorth)}</TableCell>
 			</TableRow>
@@ -93,17 +93,18 @@ export default function DetailDialog(props) {
 						}
 					}}>
 						<TableHead sx={{
-								'th': {
-									textAlign: 'center'
-								}
-							}}>
+							'th': {
+								textAlign: 'center'
+							}, 
+						}}>
 							<TableRow>
-								<TableCell colSpan={5} sx={borderRight}>TANDAN BUAH SEGAR</TableCell>
+								<TableCell sx={sticky}></TableCell>
+								<TableCell colSpan={4} sx={borderRight}>TANDAN BUAH SEGAR</TableCell>
 								<TableCell sx={borderRight} rowSpan={2}>KETERANGAN</TableCell>
 								<TableCell colSpan={3}>POTONGAN</TableCell>
 							</TableRow>
 							<TableRow>
-								<TableCell>KATEGORI</TableCell>
+								<TableCell sx={sticky}>KATEGORI</TableCell>
 								<TableCell>JUMLAH</TableCell>
 								<TableCell>(%)</TableCell>
 								<TableCell>BOBOT</TableCell>
@@ -117,11 +118,11 @@ export default function DetailDialog(props) {
 							{dataset.map(data => tableRow(data))}
 
 							{dataset.length > 0 &&
-							<TableRow>
-								<TableCell align="right" colSpan={7}>TOTAL</TableCell>
-								<TableCell>{ formatCell(dataset.reduce((a, b) => (a.cutWeight === undefined ? a : a.cutWeight) + b.cutWeight), 'kg') }</TableCell>
-								<TableCell>{ rpFormat(dataset.reduce((a, b) => (a.cutWorth === undefined ? a : a.cutWorth) + b.cutWorth)) }</TableCell>
-							</TableRow>}
+								<TableRow>
+									<TableCell component='th' align="right" colSpan={7}>TOTAL</TableCell>
+									<TableCell component='th'>{formatCell(dataset.reduce((a, b) => (a.cutWeight === undefined ? a : a.cutWeight) + b.cutWeight), 'kg')}</TableCell>
+									<TableCell component='th'>{rpFormat(dataset.reduce((a, b) => (a.cutWorth === undefined ? a : a.cutWorth) + b.cutWorth))}</TableCell>
+								</TableRow>}
 						</TableBody>
 					</Table>
 				</TableContainer>
