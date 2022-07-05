@@ -48,14 +48,6 @@ export default function SummaryTable(props) {
 				</TableHead>
 				<TableBody>
 					{dataset.map(data => addRow(data))}
-
-					{dataset[1].weight === 0 && 
-						addRow({
-							name: 'INSENTIF',
-							weight: dataset[0].weight * 0.04,
-							worth: dataset[0].weight * 0.04 * (dataset[0].worth / dataset[0].weight)
-						})
-					}
 				</TableBody>
 			</Table>
 		</TableContainer>

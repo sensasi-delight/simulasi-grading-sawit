@@ -114,9 +114,16 @@ export default function calculatePalmGrade(formValue) {
 
 
 	returnObj.totalCutWorth = returnObj.totalCutWeight * returnObj.price
+	
+	let incentive = 0
+	if (returnObj.totalCutWorth === 0) {
+		incentive = returnObj.totalWorth * 0.04
+	}
 
 	returnObj.weightDiff = returnObj.totalWeight - returnObj.totalCutWeight
-	returnObj.worthDiff = returnObj.weightDiff * returnObj.price
+	returnObj.worthDiff = returnObj.weightDiff * returnObj.price + incentive
+
+	
 
 	returnObj.summaryDataset = [{
 		name: 'TBS',
@@ -126,11 +133,21 @@ export default function calculatePalmGrade(formValue) {
 		name: 'POTONGAN',
 		weight: returnObj.totalCutWeight,
 		worth: returnObj.totalCutWorth
-	}, {
+	}]
+
+	if (incentive) {
+		returnObj.summaryDataset.push({
+			name: 'INSENTIF',
+			weight: 0,
+			worth: incentive
+		})
+	}
+
+	returnObj.summaryDataset.push({
 		name: 'PENDAPATAN',
 		weight: returnObj.weightDiff,
 		worth: returnObj.worthDiff
-	}]
+	})
 
 	return returnObj
 }
