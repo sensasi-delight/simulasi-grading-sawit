@@ -2,14 +2,18 @@ import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 
 const reportWebVitals = () => {
-	Sentry.init({
-		dsn: process.env.REACT_APP_SENTRY_DSN,
-		integrations: [new BrowserTracing()],
-		tracesSampleRate: process.env.REACT_APP_SENTRY_TRACE_SAMPLE_RATE,
-	});
+	if (process.env.NODE_ENV === 'production') {
+
+		Sentry.init({
+			dsn: process.env.REACT_APP_SENTRY_DSN,
+			integrations: [new BrowserTracing()],
+			tracesSampleRate: process.env.REACT_APP_SENTRY_TRACE_SAMPLE_RATE,
+		});
+	}
 
 	const firebaseConfig = {
 		apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -22,22 +26,25 @@ const reportWebVitals = () => {
 	};
 
 	const app = initializeApp(firebaseConfig);
-	// const ga = getAnalytics(app);
-	getAnalytics(app);
 
-	// console.log(ga.sen);
+	if (process.env.NODE_ENV === 'production') {
 
-	// const sendToAnalytics = ({ id, name, value }) => {
-	// 	logEvent('send', 'event', {
-	// 		eventCategory: 'Web Vitals',
-	// 		eventAction: name,
-	// 		eventValue: Math.round(name === 'CLS' ? value * 1000 : value), // values must be integers
-	// 		eventLabel: id, // id unique to current page load
-	// 		nonInteraction: true, // avoids affecting bounce rate
-	// 	});
-	// }
+		getAnalytics(app);
+	}
 
-	// reportWebVitalsDefault(sendToAnalytics)
+	const messaging = getMessaging(app);
+
+	onMessage(messaging, payload => {
+		window.postMessage(payload)
+	})
+
+	Notification.requestPermission().then((permission) => {
+		if (permission === 'granted') {
+			getToken(messaging)
+				.then(token => process.env.NODE_ENV === 'production' ? undefined : console.log(token))
+				.catch((err) => console.log(err))
+		}
+	})
 }
 
 // defult report web vital

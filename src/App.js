@@ -1,4 +1,5 @@
 // React
+import { useState } from 'react';
 
 // Material UI
 import Avatar from '@mui/material/Avatar';
@@ -9,22 +10,21 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import red from '@mui/material/colors/red';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
 
 // Material Icon
 import PercentOutlinedIcon from '@mui/icons-material/PercentOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 
 // My Components
 import Main from './Main';
 import DisclaimerDialog from './components/DisclaimerDialog';
 
 
-
-
 // ON DEVELOPMENT
-// import { useState } from 'react';
 // import AppBar from '@mui/material/AppBar';
 // import Drawer from '@mui/material/Drawer';
-// import IconButton from '@mui/material/IconButton';
 // import Toolbar from '@mui/material/Toolbar';
 // import MenuIcon from '@mui/icons-material/Menu'
 // import Navbar from './components/Navbar';
@@ -40,11 +40,36 @@ const theme = createTheme({
 });
 
 
+
+
+
 function App() {
 	// const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 	// const handleDrawerOpen = () => {
 	// 	setIsDrawerOpen(true)
 	// }
+
+	const [notifications, setNotifications] = useState([])
+
+	window.onmessage = (event) => {
+		if (event.data.notification) {
+			notifications.push({
+				id: event.data.messageId || Date.now(),
+				text: event.data.notification.body || 'terjadi kesalahan',
+				isShow: true
+			})
+		}
+
+		setNotifications([...notifications])
+	};
+
+	const handleNotifClose = (id) => {
+		const deleteTndex = notifications.findIndex(x => x.id === id);
+		notifications[deleteTndex].isShow = false;
+
+		setNotifications([...notifications])
+	}
+
 
 	return (
 
@@ -109,6 +134,27 @@ function App() {
 						{new Date().getFullYear()}
 						{'.'}
 					</Typography>
+
+
+					{/* {notifications.map(notification => NotifElement(notification))} */}
+					{notifications.map(notification => <Snackbar
+						key={notification.id}
+						anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+						open={notification.isShow}
+						// autoHideDuration={6000}
+						// onClose={() => handleNotifClose(notification.id)}
+						message={notification.text}
+						action={<IconButton
+							size="small"
+							aria-label="close"
+							color="inherit"
+							onClick={() => handleNotifClose(notification.id)}
+						>
+							<CloseIcon fontSize="small" />
+						</IconButton>}
+					/>)}
+
+
 
 				</Container>
 			</ThemeProvider>
