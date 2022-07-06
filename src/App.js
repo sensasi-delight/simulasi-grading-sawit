@@ -22,6 +22,9 @@ import Main from './Main';
 import DisclaimerDialog from './components/DisclaimerDialog';
 
 
+import Button from '@mui/material/Button';
+
+
 // ON DEVELOPMENT
 // import AppBar from '@mui/material/AppBar';
 // import Drawer from '@mui/material/Drawer';
@@ -56,7 +59,9 @@ function App() {
 			notifications.push({
 				id: event.data.messageId || Date.now(),
 				text: event.data.notification.body || 'terjadi kesalahan',
-				isShow: true
+				isShow: true,
+				buttonText: event.data.data.buttonText,
+				buttonUrl: event.data.data.buttonUrl
 			})
 		}
 
@@ -135,23 +140,28 @@ function App() {
 						{'.'}
 					</Typography>
 
-
-					{/* {notifications.map(notification => NotifElement(notification))} */}
 					{notifications.map(notification => <Snackbar
 						key={notification.id}
 						anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
 						open={notification.isShow}
-						// autoHideDuration={6000}
-						// onClose={() => handleNotifClose(notification.id)}
 						message={notification.text}
-						action={<IconButton
-							size="small"
-							aria-label="close"
-							color="inherit"
-							onClick={() => handleNotifClose(notification.id)}
-						>
-							<CloseIcon fontSize="small" />
-						</IconButton>}
+						action={
+							<>
+								{notification.buttonText && 
+									<Button color="warning" size="small" component={Link} href={notification.buttonUrl} target='_blank'>
+										{notification.buttonText}
+									</Button>
+								}
+								<IconButton
+									size="small"
+									aria-label="close"
+									color="inherit"
+									onClick={() => handleNotifClose(notification.id)}
+								>
+									<CloseIcon fontSize="small" />
+								</IconButton>
+							</>
+						}
 					/>)}
 
 
