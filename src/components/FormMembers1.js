@@ -1,25 +1,71 @@
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 
-export default function Form2(props) {
+
+export default function FormMembers1(props) {
 	const formValue = props.formValue
 	const isError = props.isError
 	const handleValueChange = props.handleValueChange
-
+	
 	return (
 		<>
 			<TextField
-				value={formValue.nLongRod}
+				value={formValue.nRipe}
 				onChange={handleValueChange}
-				error={isError.nLongRod}
-				helperText={isError.nLongRod ? 'Mohon melengkapi isian' : ''}
+				error={isError.nRipe}
+				helperText={isError.nRipe ? 'Mohon melengkapi isian' : ''}
+				type="number"
+				size="small"
+				margin="dense"
+				required
+				fullWidth
+				id="nRipe"
+				label="Buah Matang"
+				name="nRipe"
+				autoComplete="off"
+				InputProps={{
+					endAdornment: <InputAdornment position="end">Janjang</InputAdornment>,
+					inputMode: 'numeric',
+					pattern: '[0-9]*',
+					inputProps: { min: 0 }
+				}}
+			/>
+
+			<TextField
+				value={formValue.nRaw}
+				onChange={handleValueChange}
+				error={isError.nRaw}
+				helperText={isError.nRaw ? 'Mohon melengkapi isian' : ''}
+				size="small"
 				margin="dense"
 				type="number"
 				required
 				fullWidth
-				id="nLongRod"
-				label="Tangkai Panjang"
-				name="nLongRod"
+				id="nRaw"
+				label="Buah Mentah"
+				name="nRaw"
+				autoComplete="off"
+				InputProps={{
+					endAdornment: <InputAdornment position="end">Janjang</InputAdornment>,
+					inputMode: 'numeric', pattern: '[0-9]*',
+					inputProps: { min: 0 }
+				}}
+			/>
+
+			<TextField
+				value={formValue.nUnripe}
+				onChange={handleValueChange}
+				error={isError.nUnripe}
+				helperText={isError.nUnripe ? 'Mohon melengkapi isian' : ''}
+				margin="dense"
+				type="number"
+				required
+				size="small"
+
+				fullWidth
+				id="nUnripe"
+				label="Buah Lewat Matang"
+				name="nUnripe"
 				autoComplete="off"
 				InputProps={{
 					endAdornment: <InputAdornment position="end">Janjang</InputAdornment>,
@@ -30,17 +76,19 @@ export default function Form2(props) {
 			/>
 
 			<TextField
-				value={formValue.nSmallLadder}
+				value={formValue.nEmptyLadder}
 				onChange={handleValueChange}
-				error={isError.nSmallLadder}
-				helperText={isError.nSmallLadder ? 'Mohon melengkapi isian' : ''}
+				error={isError.nEmptyLadder}
+				helperText={isError.nEmptyLadder ? 'Mohon melengkapi isian' : ''}
 				margin="dense"
 				type="number"
 				required
 				fullWidth
-				id="nSmallLadder"
-				label="Janjang Kecil < 3kg"
-				name="nSmalladder"
+				size="small"
+
+				id="nEmptyLadder"
+				label="Buah Janjang Kosong"
+				name="nEmptyLadder"
 				autoComplete="off"
 				InputProps={{
 					endAdornment: <InputAdornment position="end">Janjang</InputAdornment>,
@@ -50,65 +98,22 @@ export default function Form2(props) {
 
 			/>
 
-
-
 			<TextField
-				value={formValue.nPiece}
+				value={formValue.nRestan}
 				onChange={handleValueChange}
-				error={isError.nPiece}
-				helperText={isError.nPiece ? 'Mohon melengkapi isian' : ''}
+				error={isError.nRestan}
+				size="small"
+				helperText={isError.nRestan ? 'Mohon melengkapi isian' : ''}
 				margin="dense"
 				type="number"
 				required
 				fullWidth
-				id="nPiece"
-				label="Berondolan"
-				name="nPiece"
+				id="nRestan"
+				label="Buah Menginap"
+				name="nRestan"
 				autoComplete="off"
 				InputProps={{
-					endAdornment: <InputAdornment position="end">kg</InputAdornment>,
-					inputMode: 'numeric', pattern: '[0-9]*',
-					inputProps: { min: 0 }
-				}}
-
-			/>
-
-			<TextField
-				value={formValue.nDirtyPiece}
-				onChange={handleValueChange}
-				error={isError.nDirtyPiece}
-				helperText={isError.nDirtyPiece ? 'Mohon melengkapi isian' : ''}
-				margin="dense"
-				type="number"
-				required
-				fullWidth
-				id="nDirtyPiece"
-				label="Berondolan Kotor"
-				name="nDirtyPiece"
-				autoComplete="off"
-				InputProps={{
-					endAdornment: <InputAdornment position="end">kg</InputAdornment>,
-					inputMode: 'numeric', pattern: '[0-9]*',
-					inputProps: { min: 0 }
-				}}
-
-			/>
-
-			<TextField
-				value={formValue.nWeight}
-				onChange={handleValueChange}
-				error={isError.nWeight}
-				helperText={isError.nWeight ? 'Mohon melengkapi isian' : ''}
-				margin="dense"
-				type="number"
-				required
-				fullWidth
-				id="nWeight"
-				label="Total Bobot Keseluruhan"
-				name="nWeight"
-				autoComplete="off"
-				InputProps={{
-					endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+					endAdornment: <InputAdornment position="end">Janjang</InputAdornment>,
 					inputMode: 'numeric', pattern: '[0-9]*',
 					inputProps: { min: 0 }
 				}}
