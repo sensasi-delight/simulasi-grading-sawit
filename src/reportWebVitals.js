@@ -4,9 +4,16 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
+const isLocalhost = Boolean(
+	window.location.hostname === 'localhost' ||
+	  // [::1] is the IPv6 localhost address.
+	  window.location.hostname === '[::1]' ||
+	  // 127.0.0.0/8 are considered localhost for IPv4.
+	  window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+  );
 
 const reportWebVitals = () => {
-	if (process.env.NODE_ENV === 'production') {
+	if (!isLocalhost) {
 
 		Sentry.init({
 			dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -27,7 +34,7 @@ const reportWebVitals = () => {
 
 	const app = initializeApp(firebaseConfig);
 
-	if (process.env.NODE_ENV === 'production') {
+	if (!isLocalhost) {
 
 		getAnalytics(app);
 	}
@@ -41,7 +48,7 @@ const reportWebVitals = () => {
 	Notification.requestPermission().then((permission) => {
 		if (permission === 'granted') {
 			getToken(messaging)
-				.then(token => process.env.NODE_ENV === 'production' ? undefined : console.log(token))
+				.then(token => !isLocalhost ? undefined : console.log(token))
 				.catch((err) => console.log(err))
 		}
 	})
