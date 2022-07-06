@@ -17,8 +17,8 @@ import BackupTableIcon from '@mui/icons-material/BackupTable';
 // My Components
 import DetailDialog from './components/DetailDialog';
 import SummaryTable from './components/SummaryTable';
-import Form1 from './components/Form1';
-import Form2 from './components/Form2';
+import FormMembers1 from './components/FormMembers1';
+import FormMembers2 from './components/FormMembers2';
 
 // My Helpers
 import calculatePalmGrade from './helpers/calculatePalmGrade';
@@ -55,15 +55,15 @@ export default function Main() {
 	const [activeStep, setActiveStep] = useState(0);
 	const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-	const [formValue, setFormValue] = useState({...formValueDefault});
-	const [isError, setIsError] = useState({...isErrorDefault})
+	const [formValue, setFormValue] = useState({ ...formValueDefault });
+	const [isError, setIsError] = useState({ ...isErrorDefault })
 	const [summaryDataset, setSummaryDataset] = useState([])
 	const [detailDataset, setDetailDataset] = useState([])
 
 	const handleReset = () => {
 		setActiveStep(0)
-		setFormValue({...formValueDefault})
-		setIsError({...isErrorDefault})
+		setFormValue({ ...formValueDefault })
+		setIsError({ ...isErrorDefault })
 		setSummaryDataset([])
 		setDetailDataset([])
 	}
@@ -88,9 +88,11 @@ export default function Main() {
 		}
 		setIsError({ ...isError })
 
-		
+
 		formValue[event.target.id] = event.target.value
 		setFormValue({ ...formValue })
+
+		// setIsForm1Complete(isFormComplete('form1'))
 
 
 		if (!Object.values(formValue).includes('')) {
@@ -98,23 +100,19 @@ export default function Main() {
 		}
 	}
 
-	const handleNext = () => {
+	const handleFormSubmit = (e) => {
+		e.preventDefault();
 
-		let elementList = []
+		let elementList = ['nRipe', 'nRaw', 'nUnripe', 'nEmptyLadder', 'nRestan']
 
-		switch (activeStep) {
-			case 0:
-				elementList = ['nRipe', 'nRaw', 'nUnripe', 'nEmptyLadder', 'nRestan']
-				break;
+		if (e.target.id === 'form2') {
+			elementList = ['nLongRod', 'nSmallLadder', 'nPiece', 'nDirtyPiece', 'nWeight']
+		}
 
-			case 1:
-				elementList = ['nLongRod', 'nSmallLadder', 'nPiece', 'nDirtyPiece', 'nWeight']
-				break;
-
-
-			default:
-				break;
-		};
+		if (e.target.id === 'form3') {
+			document.activeElement.blur()
+			return false
+		}
 
 		elementList.map((value) => {
 			isError[value] = formValue[value] === ''
@@ -122,17 +120,22 @@ export default function Main() {
 		})
 
 		if (!Object.values(isError).includes(true)) {
-			if (activeStep === 1) {
-				calculate()
-			}
-
-			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+			handleNext()
 		}
+
+		return false
 	}
 
-	const handleBack = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep - 1);
-	};
+	const handleNext = () => {
+
+		if (activeStep === 1) {
+			calculate()
+		}
+
+		setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	}
+
+	const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
 	return (
 		<>
@@ -140,42 +143,61 @@ export default function Main() {
 				mt: 4
 			}}>
 				{activeStep === 0 && (
-					<Fade in={activeStep === 0} timeout={{ enter: 500, exit: 0 }}>
-						<Grid item>
-							<Form1 formValue={formValue} handleValueChange={handleValueChange} isError={isError} />
+					<Fade in={activeStep === 0} timeout={{ enter: 700, exit: 0 }}>
+						<Grid item
+							component='form'
+							onSubmit={handleFormSubmit}
+							id="form1"
+						>
+							<FormMembers1
+								formValue={formValue}
+								handleValueChange={handleValueChange}
+								isError={isError}
+							/>
+
+							<Button type='submit' sx={{ display: 'none' }}></Button>
 						</Grid>
 					</Fade>
 				)}
 
 				{activeStep === 1 && (
-					<Fade in={activeStep === 1} timeout={{ enter: 500, exit: 0 }}>
-						<Grid item>
-							<Form2 formValue={formValue} handleValueChange={handleValueChange} isError={isError} />
+					<Fade in={activeStep === 1} timeout={{ enter: 700, exit: 0 }}>
+						<Grid id="form2" item component='form' onSubmit={handleFormSubmit}>
+							<FormMembers2
+								formValue={formValue}
+								handleValueChange={handleValueChange}
+								isError={isError} />
+							<Button type='submit' sx={{ display: 'none' }}></Button>
 						</Grid>
 					</Fade>
 				)}
 
 				{activeStep === 2 && (
-					<Fade in={activeStep === 2} timeout={{ enter: 500, exit: 0 }}>
+					<Fade in={activeStep === 2} timeout={{ enter: 700, exit: 0 }}>
 						<Grid item width="100%">
-							<TextField
-								value={formValue.price}
-								onChange={handleValueChange}
-								fullWidth
-								margin="dense"
-								type="number"
-								required
-								id="price"
-								label="Harga"
-								name="price"
-								autoComplete="off"
-								InputProps={{
-									startAdornment: <InputAdornment position="start">Rp</InputAdornment>,
-									endAdornment: <InputAdornment position="end">/kg</InputAdornment>,
-									inputMode: 'numeric', pattern: '[0-9]*',
-									inputProps: { min: 0 }
-								}}
-							/>
+							<Box component='form' id="form3" onSubmit={handleFormSubmit}>
+								<TextField
+									size="small"
+									autoFocus
+									value={formValue.price}
+									onChange={handleValueChange}
+									fullWidth
+									margin="dense"
+									type="number"
+									required
+									id="price"
+									label="Harga"
+									name="price"
+									autoComplete="off"
+									InputProps={{
+										startAdornment: <InputAdornment position="start">Rp</InputAdornment>,
+										endAdornment: <InputAdornment position="end">/kg</InputAdornment>,
+										inputMode: 'numeric', pattern: '[0-9]*',
+										inputProps: { min: 0 }
+									}}
+								/>
+							</Box>
+
 
 							<SummaryTable dataset={summaryDataset} />
 
@@ -190,7 +212,7 @@ export default function Main() {
 									variant="outlined"
 									onClick={() => handleReset()}>Ulangi
 								</Button>
-								
+
 								<Button
 									variant="contained"
 									startIcon={<BackupTableIcon />}
@@ -199,6 +221,8 @@ export default function Main() {
 
 
 							</Box>
+
+							<Button type='submit' hidden></Button>
 						</Grid>
 					</Fade>
 
@@ -218,7 +242,7 @@ export default function Main() {
 						nextButton={
 							<Button size="small"
 								sx={{ mx: 2 }}
-								onClick={handleNext} disabled={activeStep === 2}>
+								onClick={handleFormSubmit} disabled={activeStep === 2}>
 								Selanjutnya
 								<KeyboardArrowRight />
 							</Button>
