@@ -24,9 +24,6 @@ const Transition = forwardRef(function Transition(props, ref) {
 const areEqual = (oldProps, newProps) => JSON.stringify(oldProps.dataset) === JSON.stringify(newProps.dataset) && oldProps.isOpen === newProps.isOpen
 
 const DetailDialog = (props) => {
-
-	console.log('test');
-
 	const borderRight = {
 		borderRight: 1
 	}
