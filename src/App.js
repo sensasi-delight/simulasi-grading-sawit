@@ -130,15 +130,17 @@ function App() {
 
 					<Main />
 
-
-					<Typography sx={{ mt: 4, mb: 4 }} component='footer' variant="body2" color="text.secondary" align="center" >
-						{'Copyright © '}
-						<Link color="inherit" href="https://github.com/sensasi-apps">
-							Sensasi Apps
-						</Link>{' '}
-						{new Date().getFullYear()}
-						{'.'}
-					</Typography>
+					<Box sx={{ mt: 4, mb: 4, textAlign: 'center' }} component='footer'>
+						<Typography variant="body2" color="text.secondary">
+							{'Copyright © '}
+							<Link color="inherit" href="https://github.com/sensasi-apps">
+								Sensasi Apps
+							</Link>{' '}
+							{new Date().getFullYear()}
+							{'.'}
+						</Typography>
+						<Typography variant='caption' color="text.secondary">v{process.env.REACT_APP_VERSION}</Typography>
+					</Box>
 
 					{notifications.map(notification => <Snackbar
 						key={notification.id}
@@ -147,7 +149,7 @@ function App() {
 						message={notification.text}
 						action={
 							<>
-								{notification.buttonText && 
+								{notification.buttonText &&
 									<Button color="warning" size="small" component={Link} href={notification.buttonUrl} target='_blank'>
 										{notification.buttonText}
 									</Button>
