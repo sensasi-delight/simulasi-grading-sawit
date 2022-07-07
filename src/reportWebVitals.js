@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, setUserProperties } from "firebase/analytics";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 const isLocalhost = Boolean(
@@ -36,7 +36,9 @@ const reportWebVitals = () => {
 
 	if (!isLocalhost) {
 
-		getAnalytics(app);
+		const analytics = getAnalytics(app);
+
+		setUserProperties(analytics, {wpa_version: process.env.REACT_APP_VERSION})
 	}
 
 	const messaging = getMessaging(app);
