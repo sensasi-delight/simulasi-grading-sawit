@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 // Material UI
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
 import Grid from '@mui/material/Grid';
-import InputAdornment from '@mui/material/InputAdornment';
 import MobileStepper from '@mui/material/MobileStepper';
 
 // Material Icon
@@ -17,11 +15,10 @@ import BackupTableIcon from '@mui/icons-material/BackupTable';
 // My Components
 import DetailDialog from './components/DetailDialog';
 import SummaryTable from './components/SummaryTable';
-import FormMembers1 from './components/FormMembers1';
-import FormMembers2 from './components/FormMembers2';
 
 // My Helpers
 import calculatePalmGrade from './helpers/calculatePalmGrade';
+import MyTextField from './components/MyTextField';
 
 const isErrorDefault = {
 	nRipe: false,
@@ -51,28 +48,31 @@ const formValueDefault = {
 	price: ''
 }
 
+
+
+const form1Inputs = ['nRipe', 'nRaw', 'nUnripe', 'nEmptyLadder', 'nRestan']
+const form2Inputs = ['nLongRod', 'nSmallLadder', 'nPiece', 'nDirtyPiece', 'nWeight']
+
 export default function Main() {
 	const [activeStep, setActiveStep] = useState(0);
 	const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-	const [formValue, setFormValue] = useState({ ...formValueDefault });
 	const [isError, setIsError] = useState({ ...isErrorDefault })
 	const [summaryDataset, setSummaryDataset] = useState([])
 	const [detailDataset, setDetailDataset] = useState([])
+	const formValueRef = useRef({ ...formValueDefault });
 
 	const handleReset = () => {
 		setActiveStep(0)
-		setFormValue({ ...formValueDefault })
+		formValueRef.current = { ...formValueDefault }
 		setIsError({ ...isErrorDefault })
 		setSummaryDataset([])
 		setDetailDataset([])
 	}
 
 	const calculate = () => {
-
 		const data = {}
-		Object.entries(formValue).map(([key, value]) => data[key] = parseFloat(value))
-
+		Object.entries(formValueRef.current).map(([key, value]) => data[key] = parseFloat(value))
 
 		const result = calculatePalmGrade(data)
 
@@ -88,25 +88,23 @@ export default function Main() {
 		}
 		setIsError({ ...isError })
 
+		formValueRef.current[event.target.id] = event.target.value
 
-		formValue[event.target.id] = event.target.value
-		setFormValue({ ...formValue })
-
-
-		if (!Object.values(formValue).includes('')) {
+		if (event.target.id === 'price') {
 			calculate()
 		}
 	}
 
+
 	const handleNext = (e) => {
-		
-		e.preventDefault();		
-		
-		let elementList = ['nRipe', 'nRaw', 'nUnripe', 'nEmptyLadder', 'nRestan']
-		
+
+		e.preventDefault();
+
+		let elementList = form1Inputs
+
 		if (activeStep === 1) {
 			calculate()
-			elementList = ['nLongRod', 'nSmallLadder', 'nPiece', 'nDirtyPiece', 'nWeight']
+			elementList = form2Inputs
 		}
 
 		if (activeStep === 2) {
@@ -114,10 +112,9 @@ export default function Main() {
 			return false
 		}
 
-		elementList.map((element) => {
-			isError[element] = formValue[element] === ''
-			return setIsError({ ...isError })
-		})
+		elementList.map(elementId => isError[elementId] = formValueRef.current[elementId] === '')
+
+		setIsError({ ...isError })
 
 		if (!Object.values(isError).includes(true)) {
 			setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -128,9 +125,7 @@ export default function Main() {
 
 	return (
 		<>
-			<Grid container justifyContent="center" sx={{
-				mt: 4
-			}}>
+			<Grid container justifyContent="center" mt={4}>
 				{activeStep === 0 && (
 					<Fade in={activeStep === 0} timeout={{ enter: 700, exit: 0 }}>
 						<Grid item
@@ -138,11 +133,15 @@ export default function Main() {
 							onSubmit={handleNext}
 							id="form1"
 						>
-							<FormMembers1
-								formValue={formValue}
-								handleValueChange={handleValueChange}
-								isError={isError}
-							/>
+							{form1Inputs.map(inputId =>
+								<MyTextField
+									key={inputId}
+									id={inputId}
+									value={formValueRef.current[inputId]}
+									isError={isError[inputId]}
+									handleValueChange={handleValueChange}
+								/>
+							)}
 
 							<Button type='submit' sx={{ display: 'none' }}></Button>
 						</Grid>
@@ -152,10 +151,16 @@ export default function Main() {
 				{activeStep === 1 && (
 					<Fade in={activeStep === 1} timeout={{ enter: 700, exit: 0 }}>
 						<Grid id="form2" item component='form' onSubmit={handleNext}>
-							<FormMembers2
-								formValue={formValue}
-								handleValueChange={handleValueChange}
-								isError={isError} />
+							{form2Inputs.map(inputId =>
+								<MyTextField
+									key={inputId}
+									id={inputId}
+									value={formValueRef.current[inputId]}
+									isError={isError[inputId]}
+									handleValueChange={handleValueChange}
+								/>
+							)}
+
 							<Button type='submit' sx={{ display: 'none' }}></Button>
 						</Grid>
 					</Fade>
@@ -165,26 +170,12 @@ export default function Main() {
 					<Fade in={activeStep === 2} timeout={{ enter: 700, exit: 0 }}>
 						<Grid item width="100%">
 							<Box component='form' id="form3" onSubmit={handleNext}>
-								<TextField
-									size="small"
-									autoFocus
-									value={formValue.price}
-									onChange={handleValueChange}
-									fullWidth
-									margin="dense"
-									type="number"
-									required
+								{<MyTextField
 									id="price"
-									label="Harga"
-									name="price"
-									autoComplete="off"
-									InputProps={{
-										startAdornment: <InputAdornment position="start">Rp</InputAdornment>,
-										endAdornment: <InputAdornment position="end">/kg</InputAdornment>,
-										inputMode: 'numeric', pattern: '[0-9]*',
-										inputProps: { min: 0 }
-									}}
-								/>
+									value={formValueRef.current['price']}
+									isError={isError['price']}
+									handleValueChange={handleValueChange}
+								/>}
 							</Box>
 
 
@@ -192,10 +183,7 @@ export default function Main() {
 
 
 							<Box
-								justifyContent="space-between" display="flex"
-								sx={{
-									mt: 6
-								}}
+								justifyContent="space-between" display="flex" mt={6}
 							>
 								<Button
 									variant="outlined"
