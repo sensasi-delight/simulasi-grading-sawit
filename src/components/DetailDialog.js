@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, memo } from 'react';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,7 +21,11 @@ const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function DetailDialog(props) {
+const areEqual = (oldProps, newProps) => JSON.stringify(oldProps.dataset) === JSON.stringify(newProps.dataset) && oldProps.isOpen === newProps.isOpen
+
+const DetailDialog = (props) => {
+
+	console.log('test');
 
 	const borderRight = {
 		borderRight: 1
@@ -130,3 +134,5 @@ export default function DetailDialog(props) {
 		</Dialog>
 	);
 }
+
+export default memo(DetailDialog, areEqual)
