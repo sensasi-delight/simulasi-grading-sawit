@@ -92,47 +92,36 @@ export default function Main() {
 		formValue[event.target.id] = event.target.value
 		setFormValue({ ...formValue })
 
-		// setIsForm1Complete(isFormComplete('form1'))
-
 
 		if (!Object.values(formValue).includes('')) {
 			calculate()
 		}
 	}
 
-	const handleFormSubmit = (e) => {
-		e.preventDefault();
-
+	const handleNext = (e) => {
+		
+		e.preventDefault();		
+		
 		let elementList = ['nRipe', 'nRaw', 'nUnripe', 'nEmptyLadder', 'nRestan']
-
-		if (e.target.id === 'form2') {
+		
+		if (activeStep === 1) {
+			calculate()
 			elementList = ['nLongRod', 'nSmallLadder', 'nPiece', 'nDirtyPiece', 'nWeight']
 		}
 
-		if (e.target.id === 'form3') {
+		if (activeStep === 2) {
 			document.activeElement.blur()
 			return false
 		}
 
-		elementList.map((value) => {
-			isError[value] = formValue[value] === ''
+		elementList.map((element) => {
+			isError[element] = formValue[element] === ''
 			return setIsError({ ...isError })
 		})
 
 		if (!Object.values(isError).includes(true)) {
-			handleNext()
+			setActiveStep((prevActiveStep) => prevActiveStep + 1);
 		}
-
-		return false
-	}
-
-	const handleNext = () => {
-
-		if (activeStep === 1) {
-			calculate()
-		}
-
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	}
 
 	const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -146,7 +135,7 @@ export default function Main() {
 					<Fade in={activeStep === 0} timeout={{ enter: 700, exit: 0 }}>
 						<Grid item
 							component='form'
-							onSubmit={handleFormSubmit}
+							onSubmit={handleNext}
 							id="form1"
 						>
 							<FormMembers1
@@ -162,7 +151,7 @@ export default function Main() {
 
 				{activeStep === 1 && (
 					<Fade in={activeStep === 1} timeout={{ enter: 700, exit: 0 }}>
-						<Grid id="form2" item component='form' onSubmit={handleFormSubmit}>
+						<Grid id="form2" item component='form' onSubmit={handleNext}>
 							<FormMembers2
 								formValue={formValue}
 								handleValueChange={handleValueChange}
@@ -175,7 +164,7 @@ export default function Main() {
 				{activeStep === 2 && (
 					<Fade in={activeStep === 2} timeout={{ enter: 700, exit: 0 }}>
 						<Grid item width="100%">
-							<Box component='form' id="form3" onSubmit={handleFormSubmit}>
+							<Box component='form' id="form3" onSubmit={handleNext}>
 								<TextField
 									size="small"
 									autoFocus
@@ -242,7 +231,7 @@ export default function Main() {
 						nextButton={
 							<Button size="small"
 								sx={{ mx: 2 }}
-								onClick={handleFormSubmit} disabled={activeStep === 2}>
+								onClick={handleNext} disabled={activeStep === 2}>
 								Selanjutnya
 								<KeyboardArrowRight />
 							</Button>
