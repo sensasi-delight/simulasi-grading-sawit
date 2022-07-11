@@ -2,6 +2,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
+import { GALog } from "../helpers/firebaseClient";
+
+
 const SX = { mt: 4, mb: 4, textAlign: 'center' }
 
 function Footer() {
@@ -9,7 +12,7 @@ function Footer() {
 		<Box sx={SX} component='footer'>
 			<Typography variant="body2" color="text.secondary">
 				{'Copyright © '}
-				<Link color="inherit" href="https://github.com/sensasi-apps">
+				<Link color="inherit" href="https://github.com/sensasi-apps" onClick={(e) => GALog('click_company_page')}>
 					Sensasi Apps
 				</Link>
 				{' ' + new Date().getFullYear() + '.'}
