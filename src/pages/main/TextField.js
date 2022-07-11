@@ -24,7 +24,7 @@ const getUnit = (id) => {
 	return (id === 'price' ? '/' : '') + (unitKgIds.includes(id) ? 'kg' : 'Janjang')
 }
 
-const MyTextField = ({ id, toParent, ...props }) => {
+const MyTextField = ({ id, toParent, onBlur, ...props }) => {
 	// console.count(id);
 
 	const [value, setValue] = useState(isNaN(props.value) ? '' : props.value.toString())
@@ -46,6 +46,8 @@ const MyTextField = ({ id, toParent, ...props }) => {
 		value={value}
 		onChange={handleOnChange}
 		label={inputLabels[id]}
+		
+		onBlur={onBlur}
 
 		error={isError}
 		helperText={isError ? 'Mohon melengkapi isian' : ''}

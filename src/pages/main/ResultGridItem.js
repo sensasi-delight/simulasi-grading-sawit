@@ -14,6 +14,7 @@ import DetailDialog from './DetailDialog';
 import SummaryTable from './SummaryTable';
 import TextField from "./TextField";
 
+import { GALog } from "../../helpers/firebaseClient";
 
 let detailCuts = []
 let totalCutWeight = 0
@@ -30,6 +31,7 @@ const PriceForm = memo(({ onSubmit, value, toParent }) => <Grid item
 		id='price'
 		value={value}
 		toParent={toParent}
+		onBlur={(e) => GALog('enter_price')}
 	/>
 
 	<Button type='submit' sx={{ display: 'none' }}></Button>
@@ -77,20 +79,22 @@ const ResultGridItem = ({ getFormValues, handleReset, ...props }) => {
 				<Box justifyContent="space-between" display="flex" mt={6}>
 					<Button
 						variant="outlined"
-						onClick={() => handleReset()}>Ulangi
+						onClick={() => {
+							GALog('click_reset')
+							return handleReset()
+						}}>Ulangi
 					</Button>
 
 					<Button
 						ref={detailBtnRef}
 						variant="contained"
 						startIcon={<BackupTableIcon />}
-						onClick={() => setIsDetailOpen(true)}>Rincian
+						onClick={() => {
+							GALog('click_detail_cuts')
+							setIsDetailOpen(true)
+						}}>Rincian
 					</Button>
-
-
 				</Box>
-
-				<Button type='submit' hidden></Button>
 
 				<DetailDialog
 					isOpen={isDetailOpen}
