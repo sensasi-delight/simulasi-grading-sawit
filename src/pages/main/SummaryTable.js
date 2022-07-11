@@ -5,12 +5,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-import { formatCell, rpFormat } from "../helpers/CellContentFormat";
+import CurrencyFormattedCell from '../../components/CurrencyFormattedCell';
+import DefaultFormattedCell from '../../components/DefaultFormattedCell';
 
 
-
-export default function SummaryTable(props) {
-	const dataset = props.dataset
+export default function SummaryTable({dataset}) {
+	// const [dataset] = useState(props.dataset || [])
 
 	const addRow = (data) => {
 		return (
@@ -18,12 +18,8 @@ export default function SummaryTable(props) {
 				<TableCell component={data.name === 'PENDAPATAN' ? 'th' : 'td'} scope="row">
 					{data.name}
 				</TableCell>
-				<TableCell component={data.name === 'PENDAPATAN' ? 'th' : 'td'}>
-					{formatCell(data.weight, 'kg')}
-				</TableCell>
-				<TableCell component={data.name === 'PENDAPATAN' ? 'th' : 'td'}>
-					{rpFormat(data.worth)}
-				</TableCell>
+				<DefaultFormattedCell value={data.weight} unit='kg' th={data.name === 'PENDAPATAN'}/>
+				<CurrencyFormattedCell th={data.name === 'PENDAPATAN'} value={data.worth} />
 			</TableRow>
 		)
 	}
