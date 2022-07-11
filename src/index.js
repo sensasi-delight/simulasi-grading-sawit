@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-window.sensasiApps = {}
+
 
 const root = createRoot(document.getElementById('root'));
 root.render(
