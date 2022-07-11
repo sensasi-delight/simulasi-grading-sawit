@@ -40,7 +40,7 @@ if (!isLocalhost && isProduction) {
 		}
 	})
 
-	GALog = (eventName) => logEvent(analytics, eventName)
+	GALog = (eventName, eventParams) => logEvent(analytics, eventName, eventParams)
 }
 
 
