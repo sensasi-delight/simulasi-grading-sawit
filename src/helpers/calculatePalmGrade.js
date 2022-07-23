@@ -1,4 +1,4 @@
-const categories = {
+const CATEGORIES = {
 	nRipe: {
 		name: 'BUAH MATANG',
 		cutPercentage: 0,
@@ -49,8 +49,8 @@ function getCutResult(id, qty, totalLadder, totalWeight, price) {
 	let returnObj = {}
 
 	returnObj.id = id
-	returnObj.name = categories[id].name
-	returnObj.unit = categories[id].unit
+	returnObj.name = CATEGORIES[id].name
+	returnObj.unit = CATEGORIES[id].unit
 	returnObj.qty = qty
 
 	returnObj.percentage = returnObj.qty / totalLadder
@@ -67,20 +67,20 @@ function getCutResult(id, qty, totalLadder, totalWeight, price) {
 	//CALC CUT ----->
 
 	//default
-	returnObj.cutPercentage = categories[returnObj.id].cutPercentage
+	returnObj.cutPercentage = CATEGORIES[returnObj.id].cutPercentage
 	returnObj.cutWeight = returnObj.percentage * totalWeight * returnObj.cutPercentage
 	returnObj.description = '-'
 
 	if (['nUnripe', 'nRestan'].includes(returnObj.id)) {
 		const diff = returnObj.percentage - 0.05
-		returnObj.cutPercentage = diff > 0 ? categories[returnObj.id].cutPercentage : 0
+		returnObj.cutPercentage = diff > 0 ? CATEGORIES[returnObj.id].cutPercentage : 0
 		returnObj.cutWeight = diff > 0 ? diff * totalWeight * returnObj.cutPercentage : 0
 		returnObj.description = diff > 0 ? `Selisih ${(diff * 100).toLocaleString('id-ID', { maximumFractionDigits: 2 })}% dari ketentuan` : 'Persentase TBS < 5%'
 	}
 
 	if (returnObj.id === 'nPiece') {
 		const diff = returnObj.percentage - 0.125
-		returnObj.cutPercentage = diff > 0 ? 0 : categories[returnObj.id].cutPercentage
+		returnObj.cutPercentage = diff > 0 ? 0 : CATEGORIES[returnObj.id].cutPercentage
 		returnObj.cutWeight = diff > 0 ? 0 : diff * -1 * totalWeight * returnObj.cutPercentage
 		returnObj.description = diff > 0 ? 'Persentase TBS > 12,5%' : `Selisih ${(diff * -100).toLocaleString('id-ID', { maximumFractionDigits: 2 })}% dari ketentuan`
 	}
@@ -96,7 +96,7 @@ function getCutResult(id, qty, totalLadder, totalWeight, price) {
 const getDetailCuts = (dataset, totalLadder, totalWeight, pricePerKg) => {
 	let theCuts = []
 
-	Object.keys(categories).map(key => theCuts.push(
+	Object.keys(CATEGORIES).map(key => theCuts.push(
 		getCutResult(key, dataset[key], totalLadder, totalWeight, pricePerKg)
 	))
 
@@ -150,7 +150,7 @@ export default function calculatePalmGrade(dataset) {
 		worth: totalCutWorth
 	}]
 
-	if (getIncentive) {
+	if (incentive) {
 		summaryData.push({
 			name: 'INSENTIF',
 			weight: 0,
