@@ -15,17 +15,24 @@ importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js')
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 firebase.initializeApp({
-	apiKey: "AIzaSyCit2d_g7K_BSdLtZSosZe2wsdomMNkaMU",
-	authDomain: "simulasi-grading-sawit.firebaseapp.com",
-	projectId: "simulasi-grading-sawit",
-	storageBucket: "simulasi-grading-sawit.appspot.com",
-	messagingSenderId: "608340716838",
-	appId: "1:608340716838:web:4bcc8d7a239554e1eb65e7",
-	measurementId: "G-837FSKTDGP"
+  apiKey: "AIzaSyCit2d_g7K_BSdLtZSosZe2wsdomMNkaMU",
+  authDomain: "simulasi-grading-sawit.firebaseapp.com",
+  projectId: "simulasi-grading-sawit",
+  storageBucket: "simulasi-grading-sawit.appspot.com",
+  messagingSenderId: "608340716838",
+  appId: "1:608340716838:web:4bcc8d7a239554e1eb65e7",
+  measurementId: "G-837FSKTDGP"
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
-const messaging = firebase.messaging();
+let messaging = undefined;
 
-messaging.onBackgroundMessage();
+firebase.messaging.isSupported().then(isSupported => {
+
+  if (isSupported) {
+    messaging = firebase.messaging();
+    messaging.onBackgroundMessage();
+  }
+
+})
