@@ -5,7 +5,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Typography from '@mui/material/Typography';
 import grey from '@mui/material/colors/grey';
 import InfoIcon from '@mui/icons-material/Info'
 
@@ -24,15 +23,11 @@ export default function DisclaimerDialog() {
 		<div>
 			<Button
 				onClick={handleClickOpen}
+        size="small"
 				variant="text" startIcon={<InfoIcon />} sx={{
-					mt: 1,
 					color: grey[500],
-					textTransform: 'none',
-					// alignItems: 'flex-end'
 				}}>
-				<Typography variant="body2" align="left">
-					Mohon membaca <i>disclaimer</i> (penafian) sebelum menggunakan aplikasi ini.
-				</Typography>
+          Penafian
 			</Button>
 			<Dialog
 				open={open}

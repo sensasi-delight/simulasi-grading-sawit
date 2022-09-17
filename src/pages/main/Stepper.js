@@ -9,7 +9,6 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 
 const Stepper = ({ activeStep, handlePrev, handleNext }) => {
-	// console.count('stepper')
 
 	return <Grid item width="100%">
 
@@ -19,7 +18,7 @@ const Stepper = ({ activeStep, handlePrev, handleNext }) => {
 			position="static"
 			activeStep={activeStep}
 			sx={{
-				mt: 4,
+				mt: 2,
 				flexGrow: 1
 			}}
 			nextButton={

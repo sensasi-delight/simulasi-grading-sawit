@@ -95,7 +95,7 @@ export default function Index() {
 	]
 
 	return (
-		<Grid container justifyContent="center" mt={4}>
+		<Grid container justifyContent="center">
 			{Grids[activeStep]}
 			<Stepper activeStep={activeStep} handleNext={handleNext} handlePrev={handlePrev} />
 		</Grid>
