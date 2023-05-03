@@ -19,7 +19,7 @@ function Footer() {
 				<Link color="inherit" href={COMPANY_URL} onClick={ON_CLICK_LINK} target="_blank">
 					Sensasi Apps
 				</Link>
-				{' ' + updatedAt.format('YYYY') + '.'}
+				{' ' + updatedAt.format('DD-MM-YYYY') + '.'}
 			</Typography>
 			<Typography variant='caption' color="text.secondary">v{process.env.REACT_APP_VERSION} ({updatedAt.format('L')})</Typography>
 		</Box>
