@@ -1,10 +1,10 @@
-export const currencyFormat = (number) => number.toLocaleString('id-ID', {
+export const currencyFormat = (number) => number?.toLocaleString('id-ID', {
 	style: 'currency',
 	currency: 'IDR',
 	maximumFractionDigits: 0
 });
 
-export const numberFormat = (number, maximumFractionDigits = 2) => number.toLocaleString('id-ID', {
+export const numberFormat = (number, maximumFractionDigits = 2) => number?.toLocaleString('id-ID', {
 	maximumFractionDigits: maximumFractionDigits
 });
 
