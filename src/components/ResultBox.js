@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 
 import Box from "@mui/system/Box"
 import Button from "@mui/material/Button";
@@ -53,8 +53,12 @@ const getSummaryData = (detailsCalculation) => {
 	return summaryDataset
 }
 
-const ResultBox = () => {
-	let dataset = { ...vars.formValues[0] };
+const ResultBox = () => { 
+	const temp = vars.formValues[0];
+	const dataset = useMemo(() => { 
+		return {...temp}
+	}, [temp]);
+
 	const [isDetailOpen, setIsDetailOpen] = useState(false)
 	const [summaryData, setSummaryData] = useState([])
 	const [pricePerKg, setPricePerKg] = useState(dataset.pricePerKg || '');
@@ -62,17 +66,16 @@ const ResultBox = () => {
 	const detailBtnRef = useRef(null);
 
 	useEffect(() => {
-		dataset.pricePerKg = pricePerKg;
-		vars.formValues[1](dataset);
+		vars.formValues[1]({...vars.formValues[0], pricePerKg: pricePerKg});
 
-		calculationResults = calculatePalmGrade(dataset);
+		calculationResults = calculatePalmGrade(vars.formValues[0]);
 
 		setSummaryData(getSummaryData(calculationResults));
 	}, [pricePerKg]);
 
 	useEffect(() => {
 		setPricePerKg(dataset.pricePerKg || '');
-	}, [dataset.savedAt]);
+	}, [dataset.savedAt, dataset.pricePerKg]);
 
 
 	return (

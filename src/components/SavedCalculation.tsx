@@ -32,7 +32,7 @@ const Transition = React.forwardRef(function Transition(
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default () => {
+export default function SavedCalculationDialog() {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClose = () => {
