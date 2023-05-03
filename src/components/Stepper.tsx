@@ -1,14 +1,19 @@
-import PropTypes from 'prop-types';
+import React from "react";
 
-import MobileStepper from "@mui/material/MobileStepper"
-import Grid from "@mui/material/Grid"
-import Button from "@mui/material/Button"
+import MobileStepper from "@mui/material/MobileStepper";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
+type Props = {
+	activeStep: number,
+	handlePrev: () => void,
+	handleNext: () => void
+}
 
-const Stepper = ({ activeStep, handlePrev, handleNext }) => {
+export default function Stepper({ activeStep, handlePrev, handleNext }: Props) {
 
 	return <Grid item width="100%">
 
@@ -40,12 +45,3 @@ const Stepper = ({ activeStep, handlePrev, handleNext }) => {
 		/>
 	</Grid>
 }
-
-Stepper.propTypes = {
-	activeStep: PropTypes.number,
-	handleNext: PropTypes.func,
-	handlePrev: PropTypes.func
-};
-
-
-export default Stepper

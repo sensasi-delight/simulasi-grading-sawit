@@ -1,9 +1,6 @@
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
-
-import isLocalhost from "./isLocalhost";
-import isProduction from "./isProduction";
-
+import { isLocalhost, isProduction } from ".";
 
 if (!isLocalhost && isProduction) {
 	Sentry.init({

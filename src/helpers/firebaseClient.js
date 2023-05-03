@@ -1,9 +1,7 @@
 import { initializeApp, } from "firebase/app";
 import { getAnalytics, setUserProperties, logEvent, isSupported as isSupportedAnalytics } from "firebase/analytics";
 import { getMessaging, getToken, onMessage, isSupported as isSupportedMessaging } from "firebase/messaging";
-
-import isLocalhost from "./isLocalhost";
-import isProduction from "./isProduction";
+import { isLocalhost, isProduction } from ".";
 
 let GALog = () => undefined
 

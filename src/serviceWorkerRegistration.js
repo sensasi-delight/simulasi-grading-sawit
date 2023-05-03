@@ -1,6 +1,4 @@
-import isLocalhost from "./helpers/isLocalhost";
-import isProduction from "./helpers/isProduction";
-
+import { isLocalhost, isProduction } from "./helpers";
 
 export function register(config) {
   if (isProduction && 'serviceWorker' in navigator) {

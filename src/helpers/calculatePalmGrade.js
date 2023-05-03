@@ -1,171 +1,101 @@
-const CATEGORIES = {
-	nRipe: {
-		name: 'BUAH MATANG',
-		cutPercentage: 0,
-		unit: 'Janjang'
-	}, nRaw: {
-		name: 'BUAH MENTAH',
-		cutPercentage: 0.5,
-		unit: 'Janjang'
-	}, nUnripe: {
-		name: 'BUAH LEWAT MATANG',
-		cutPercentage: 0.25,
-		unit: 'Janjang'
-	},
-	nEmptyLadder: {
-		name: 'BUAH JANJANG KOSONG',
-		cutPercentage: 1,
-		unit: 'Janjang'
-	},
-	nRestan: {
-		name: 'BUAH MENGINAP',
-		cutPercentage: 0.25,
-		unit: 'Janjang'
-	},
-	nLongRod: {
-		name: 'TANGKAI PANJANG',
-		cutPercentage: 0.01,
-		unit: 'Janjang'
-	},
-	nSmallLadder: {
-		name: 'JANJANG KECIL',
-		cutPercentage: 0.7,
-		unit: 'Janjang'
-	},
-	nPiece: {
-		name: 'BERONDOLAN',
-		cutPercentage: 0.3,
-		unit: 'kg'
-	},
-	nDirtyPiece: {
-		name: 'BERONDOLAN KOTOR',
-		cutPercentage: 2,
-		unit: 'kg'
-	}
-}
+import { currencyFormat, numberFormat } from '.';
+import categoryDataset from '../data/categories';
 
+let totalWeight = 0;
+let pricePerKg = 0;
 
-function getCutResult(id, qty, totalLadder, totalWeight, price) {
-	let returnObj = {}
+const setTotalWeight = (weight) => totalWeight = weight;
+const setPricePerKg = price => pricePerKg = price;
 
-	returnObj.id = id
-	returnObj.name = CATEGORIES[id].name
-	returnObj.unit = CATEGORIES[id].unit
-	returnObj.qty = qty
+const rulesCalculation = (rules, percentage) => rules.map(rule => {
+	let diff = 0;
+	let cutWorth = 0;
+	let cutNote = '';
+	let addWorth = 0;
+	let addNote = '';
 
-	returnObj.percentage = returnObj.qty / totalLadder
-	returnObj.weight = totalWeight * returnObj.percentage
-
-	if (returnObj.unit === 'kg') {
-		returnObj.weight = qty
-		returnObj.percentage = qty / totalWeight
+	if (rule.limit.type === 'max') {
+		diff = percentage - rule.limit.value;
 	}
 
-	returnObj.worth = returnObj.weight * price
-
-
-	//CALC CUT ----->
-
-	//default
-	returnObj.cutPercentage = CATEGORIES[returnObj.id].cutPercentage
-	returnObj.cutWeight = returnObj.percentage * totalWeight * returnObj.cutPercentage
-	returnObj.description = '-'
-
-	if (['nUnripe', 'nRestan'].includes(returnObj.id)) {
-		const diff = returnObj.percentage - 0.05
-		returnObj.cutPercentage = diff > 0 ? CATEGORIES[returnObj.id].cutPercentage : 0
-		returnObj.cutWeight = diff > 0 ? diff * totalWeight * returnObj.cutPercentage : 0
-		returnObj.description = diff > 0 ? `Selisih ${(diff * 100).toLocaleString('id-ID', { maximumFractionDigits: 2 })}% dari ketentuan` : 'Persentase TBS < 5%'
+	if (rule.limit.type === 'min') {
+		diff = rule.limit.value - percentage;
 	}
 
-	if (returnObj.id === 'nPiece') {
-		const diff = returnObj.percentage - 0.125
-		returnObj.cutPercentage = diff > 0 ? 0 : CATEGORIES[returnObj.id].cutPercentage
-		returnObj.cutWeight = diff > 0 ? 0 : diff * -1 * totalWeight * returnObj.cutPercentage
-		returnObj.description = diff > 0 ? 'Persentase TBS > 12,5%' : `Selisih ${(diff * -100).toLocaleString('id-ID', { maximumFractionDigits: 2 })}% dari ketentuan`
+	if (diff > 0) {
+		if (rule.operation === 'subtraction') {
+			cutWorth = rule.operand * (diff * totalWeight) * pricePerKg;
+			cutNote = `${rule.operand * 100}% × ${numberFormat(diff * 100)}% × ${totalWeight}kg × Rp. ${pricePerKg}`;
+		}
+
+		if (rule.operation === 'addition') {
+			addWorth = rule.operand * (diff * totalWeight) * pricePerKg;
+			addNote = `${rule.operand * 100}% × ${numberFormat(diff * 100)}% × ${totalWeight}kg × Rp. ${pricePerKg}`;
+		}
 	}
-
-	//<----CALC CUT END
-
-
-	returnObj.cutWorth = returnObj.cutWeight * price
-
-	return returnObj
-}
-
-const getDetailCuts = (dataset, totalLadder, totalWeight, pricePerKg) => {
-	let theCuts = []
-
-	Object.keys(CATEGORIES).map(key => theCuts.push(
-		getCutResult(key, dataset[key], totalLadder, totalWeight, pricePerKg)
-	))
-
-	return theCuts
-}
-
-const getTotalLadder = dataset => {
-	const {nRipe, nRaw, nUnripe, nEmptyLadder} = {...dataset}
-	return (nRipe || 0) + (nRaw || 0) + (nUnripe || 0) + (nEmptyLadder || 0)
-}
-
-const getIncentive = (totalCutWorth, totalWorth) => {
-
-	if (totalCutWorth === 0) {
-		return totalWorth * 0.04
-	}
-
-	return 0
-}
-
-export default function calculatePalmGrade(dataset) {
-	const { nWeight, price } = {...dataset}
-
-	const pricePerKg = price
-	const totalLadder = getTotalLadder(dataset)
-	const totalWeight = nWeight || 0
-	
-	const detailCuts = getDetailCuts(dataset, totalLadder, totalWeight, pricePerKg);
-	
-	
-
-	
-	
-	const totalCutWeight = detailCuts.reduce((a, b) => a + (b.cutWeight || 0), 0)
-	const totalCutWorth = totalCutWeight * pricePerKg
-		
-	const totalWorth = totalWeight * pricePerKg
-	const incentive = getIncentive(totalCutWorth, totalWorth)
-
-	const weightDiff = totalWeight - totalCutWeight
-	const worthDiff = weightDiff * price + incentive
-
-
-	let summaryData = [{
-		name: 'TBS',
-		weight: totalWeight,
-		worth: totalWorth
-	}, {
-		name: 'POTONGAN',
-		weight: totalCutWeight,
-		worth: totalCutWorth
-	}]
-
-	if (incentive) {
-		summaryData.push({
-			name: 'INSENTIF',
-			weight: 0,
-			worth: incentive
-		})
-	}
-
-	summaryData.push({
-		name: 'PENDAPATAN',
-		weight: weightDiff,
-		worth: worthDiff
-	})
 
 	return {
-		detailCuts: detailCuts,
-		summaryData: summaryData
+		cutWorth: cutWorth,
+		cutNote: cutNote,
+		addWorth: addWorth,
+		addNote: addNote,
 	}
+}).reduce((acc, cur) => {
+	return {
+		cutWorth: acc.cutWorth + cur.cutWorth,
+		addWorth: acc.addWorth + cur.addWorth,
+		cutNote: acc.cutNote + cur.cutNote,
+		addNote: acc.addNote + cur.addNote,
+	}
+}, {
+	cutWorth: 0,
+	addWorth: 0,
+	cutNote: '',
+	addNote: ''
+});
+
+const getResult = dataset => {
+	setTotalWeight(dataset.totalWeight);
+	setPricePerKg(dataset.pricePerKg);
+
+	const totalLadder = ['BM', 'BLM', 'BMTG'].map(code => dataset[code]).reduce((acc, cur) => acc + cur, 0);
+
+	const weightPerLadder = totalWeight / totalLadder;
+
+	return categoryDataset.map(category => {
+		const userInput = dataset[category.code];
+		const weight = category.unit === 'kg' ? userInput : userInput * weightPerLadder;
+
+		let percentage = weight / dataset.totalWeight;
+		let percentageNote = `${numberFormat(weight)} / ${dataset.totalWeight} Kg`;
+
+
+		if (category.unit !== 'kg') {
+			percentage = userInput / totalLadder;
+			percentageNote = `${numberFormat(userInput)} / ${totalLadder} Janjang`;
+		}
+
+
+		const worth = weight * pricePerKg;
+		const { cutWorth, addWorth, cutNote, addNote } = rulesCalculation(category.rules, percentage);
+		const finalWorth = worth - cutWorth + addWorth;
+
+		return {
+			qty: userInput,
+			category: category,
+			percentage: percentage,
+			percentageNote: percentageNote,
+			weight: weight,
+			weightNote: category.unit !== 'kg' ? `${numberFormat(percentage * 100)}% × ${totalWeight}kg` : '',
+			worth: worth,
+			worthNote: `${numberFormat(weight)}kg × Rp. ${currencyFormat(pricePerKg)}`,
+			cutWorth: cutWorth,
+			cutNote: cutNote,
+			addWorth: addWorth,
+			addNote: addNote,
+			finalWorth: finalWorth
+		}
+	})
 }
+
+export default getResult;
