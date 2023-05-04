@@ -17,8 +17,6 @@ import moment from "moment";
 
 import SaveIcon from "@mui/icons-material/Save";
 
-let pricePerKgGlob = 0;
-
 const getSummaryData = (detailsCalculation) => {
 	const dataset = vars.formValues[0];
 
@@ -26,10 +24,10 @@ const getSummaryData = (detailsCalculation) => {
 		{
 			name: 'Tandan Buah Segar',
 			weight: dataset.totalWeight,
-			worth: dataset.totalWeight * pricePerKgGlob,
-			tooltip: `${numberFormat(dataset.totalWeight)} × ${currencyFormat(pricePerKgGlob)}`
+			worth: dataset.totalWeight * dataset.pricePerKg,
+			tooltip: `${numberFormat(dataset.totalWeight)} × ${currencyFormat(dataset.pricePerKg)}`
 		}
-	]
+	];
 
 	const { totalCutWorth, totalAddWorth } = detailsCalculation.reduce((acc, detail) => ({
 		totalCutWorth: acc.totalCutWorth + detail.cutWorth,
@@ -41,25 +39,25 @@ const getSummaryData = (detailsCalculation) => {
 
 	summaryDataset.push({
 		name: 'Potongan',
-		weight: totalCutWorth / pricePerKgGlob,
+		weight: totalCutWorth / dataset.pricePerKg,
 		worth: totalCutWorth
-	})
+	});
 
 	summaryDataset.push({
 		name: 'Insentif',
-		weight: totalAddWorth / pricePerKgGlob,
+		weight: totalAddWorth / dataset.pricePerKg,
 		worth: totalAddWorth
-	})
+	});
 
-	return summaryDataset
+	return summaryDataset;
 }
 
 let calculationResults = [];
 
 const ResultBox = () => {
 	const temp = vars.formValues[0];
-	const dataset = useMemo(() => { 
-		return {...temp}
+	const dataset = useMemo(() => {
+		return { ...temp }
 	}, [temp]);
 
 	const [isDetailOpen, setIsDetailOpen] = useState(false)
@@ -69,8 +67,8 @@ const ResultBox = () => {
 	const detailBtnRef = useRef(null);
 
 	useEffect(() => {
-		pricePerKgGlob = pricePerKg;
-		vars.formValues[1]({...vars.formValues[0], pricePerKg: pricePerKg});
+		vars.formValues[0].pricePerKg = pricePerKg;
+		vars.formValues[1]({ ...vars.formValues[0] });
 
 		calculationResults = calculatePalmGrade(vars.formValues[0]);
 
