@@ -11,13 +11,13 @@ import SummaryTable from './SummaryTable';
 import TextField from "./TextField";
 
 import { GALog } from "../helpers/firebaseClient";
-import { getSavedDatasets } from "../helpers";
+import { currencyFormat, getSavedDatasets, numberFormat } from "../helpers";
 import vars from "../helpers/vars.ts";
 import moment from "moment";
 
 import SaveIcon from "@mui/icons-material/Save";
 
-let calculationResults = [];
+let pricePerKgGlob = 0;
 
 const getSummaryData = (detailsCalculation) => {
 	const dataset = vars.formValues[0];
@@ -26,7 +26,8 @@ const getSummaryData = (detailsCalculation) => {
 		{
 			name: 'Tandan Buah Segar',
 			weight: dataset.totalWeight,
-			worth: dataset.totalWeight * dataset.pricePerKg
+			worth: dataset.totalWeight * pricePerKgGlob,
+			tooltip: `${numberFormat(dataset.totalWeight)} × ${currencyFormat(pricePerKgGlob)}`
 		}
 	]
 
@@ -40,20 +41,22 @@ const getSummaryData = (detailsCalculation) => {
 
 	summaryDataset.push({
 		name: 'Potongan',
-		weight: totalCutWorth / dataset.pricePerKg,
+		weight: totalCutWorth / pricePerKgGlob,
 		worth: totalCutWorth
 	})
 
 	summaryDataset.push({
 		name: 'Insentif',
-		weight: totalAddWorth / dataset.pricePerKg,
+		weight: totalAddWorth / pricePerKgGlob,
 		worth: totalAddWorth
 	})
 
 	return summaryDataset
 }
 
-const ResultBox = () => { 
+let calculationResults = [];
+
+const ResultBox = () => {
 	const temp = vars.formValues[0];
 	const dataset = useMemo(() => { 
 		return {...temp}
@@ -66,6 +69,7 @@ const ResultBox = () => {
 	const detailBtnRef = useRef(null);
 
 	useEffect(() => {
+		pricePerKgGlob = pricePerKg;
 		vars.formValues[1]({...vars.formValues[0], pricePerKg: pricePerKg});
 
 		calculationResults = calculatePalmGrade(vars.formValues[0]);
