@@ -36,9 +36,9 @@ const INPUT_CODES = [
     // 'JK', // skipped because 100% cut
     'BR',
     // 'BP', // skipped because 100% cut
+    'BK',
     'PBB',
     'totalWeight'
-    // 'BK' // skipped because 100% cut
   ]
 ];
 
