@@ -1,3 +1,6 @@
+import Category from "./category";
+import Rule from "./rule";
+
 export default class Item {
 	static totalInUnit: number = 0;
 	static totalInWeight: number = 0;
@@ -5,7 +8,11 @@ export default class Item {
 	weight: number;
 	worth: number;
 	qty: number;
-	category: Category;
+	category: {
+		code: CategoryCodeEnum;
+		description: string;
+		rules: Array<Rule>;
+	};
 
 	constructor(category: Category, weight: number, worth: number, qty: number) {
 		this.weight = weight;
@@ -13,4 +20,17 @@ export default class Item {
 		this.qty = qty;
 		this.category = category;
 	}
+}
+
+enum CategoryCodeEnum {
+	nRaw = "nRaw",
+	nUnripe = "nUnripe",
+	nEmptyLadder = "nEmptyLadder",
+	nRipe = "nRipe",
+	nLongRod = "nLongRod",
+	nSmallLadder = "nSmallLadder",
+	nRestan = "nRestan",
+	nRipenedUnripe = "nRipenedUnripe",
+	nPiece = "nPiece",
+	nDirtyPiece = "nDirtyPiece",
 }

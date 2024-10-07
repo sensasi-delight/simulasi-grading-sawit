@@ -1,14 +1,15 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
+import dayjs from "dayjs";
+import packageJson from "../../package.json";
 
 // import { GALog } from "../helpers/firebaseClient";
-// import moment from 'moment/moment';
 
 const SX = { mt: 4, mb: 4, textAlign: "center" };
 const COMPANY_URL = "https://github.com/sensasi-apps";
 // const ON_CLICK_LINK = (e) => GALog('click_company_page')
-// const updatedAt = moment(process.env.REACT_APP_UPDATED_AT);
+const versionDateDayjs = dayjs(packageJson.versionDate);
 
 function Footer() {
 	return (
@@ -23,11 +24,15 @@ function Footer() {
 				>
 					Sensasi Apps
 				</Link>
-				{/* {' ' + updatedAt.format('YYYY')} */}
+				{" " + versionDateDayjs.format("YYYY")}
 			</Typography>
-			{/* <Typography variant='caption' color="text.secondary">v{process.env.REACT_APP_VERSION}</Typography> */}
+			<Typography variant="caption" color="text.secondary">
+				v{packageJson.version}
+			</Typography>
 			<Box>
-				{/* <Typography variant='caption' color="text.secondary">{updatedAt.format('DD-MM-YYYY')}</Typography> */}
+				<Typography variant="caption" color="text.secondary">
+					{versionDateDayjs.format("DD-MM-YYYY")}
+				</Typography>
 			</Box>
 		</Box>
 	);

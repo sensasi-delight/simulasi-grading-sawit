@@ -3,15 +3,11 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import Box from "@mui/system/Box";
 
-import PaidIcon from "@mui/icons-material/Paid";
-import QrisDialog from './QrisDialog';
-import SaweriaDialog from './SaweriaDialog';
-
-export default function DonationDialog() {
+export default function SaweriaDialog() {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -23,14 +19,18 @@ export default function DonationDialog() {
 	};
 
 	return (
-		<div>
+		<span>
 			<Button
 				onClick={handleClickOpen}
-				variant="text"
-				startIcon={<PaidIcon />}
-				size="large"
+				variant="contained"
+				sx={{
+					ml: 1,
+					// 	color: grey[500],
+					// 	textTransform: 'none',
+					// 	// alignItems: 'flex-end'
+				}}
 			>
-				Donasi
+				Saweria
 			</Button>
 			<Dialog
 				maxWidth="xs"
@@ -39,16 +39,23 @@ export default function DonationDialog() {
 				aria-labelledby="dialog-title"
 				aria-describedby="dialog-description"
 			>
-				<DialogTitle id="dialog-title">{"Donasi untuk pengembang"}</DialogTitle>
+				<DialogTitle id="dialog-title">{"Donasi melalui Saweria"}</DialogTitle>
 				<DialogContent>
-					<DialogContentText id="dialog-description" component="span">
-						<Typography gutterBottom sx={{ mb: 2 }}>
-							Silahkan melakukan donasi untuk pengembang aplikasi, melalui salah
-							satu metode di bawah ini:
-						</Typography>
-						<QrisDialog />
-						<SaweriaDialog />
-					</DialogContentText>
+					<img
+						width="100%"
+						src="images/donations/saweria.png"
+						alt="Saweria"
+						// border="0"
+					/>
+					<Box textAlign="center" marginTop="1em">
+						<Link
+							sx={{ fontSize: "1.3em" }}
+							href="https://saweria.co/delight"
+							target="_blank"
+						>
+							https://saweria.co/delight
+						</Link>
+					</Box>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose} autoFocus>
@@ -56,6 +63,6 @@ export default function DonationDialog() {
 					</Button>
 				</DialogActions>
 			</Dialog>
-		</div>
+		</span>
 	);
 }

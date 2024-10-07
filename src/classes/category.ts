@@ -1,3 +1,5 @@
+import Rule from './rule';
+
 enum CategoryCodeEnum {
 	nRaw = 'nRaw',
 	nUnripe = 'nUnripe',
@@ -12,7 +14,7 @@ enum CategoryCodeEnum {
 
 }
 
-class Category {
+export default class Category {
 	code: CategoryCodeEnum;
 	description: string;
 	rules: Array<Rule>;

@@ -3,7 +3,7 @@ enum OperationEnum {
 	subtraction = 'subtraction'
 }
 
-class Rule {
+export default class Rule {
 	operation: OperationEnum;
 	limit: {
 		type: string;
