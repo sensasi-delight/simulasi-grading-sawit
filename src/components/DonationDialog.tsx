@@ -8,8 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 
 import PaidIcon from '@mui/icons-material/Paid'
-import QrisDialog from './QrisDialog';
-import SaweriaDialog from './SaweriaDialog';
+// import QrisDialog from './QrisDialog';
+// import SaweriaDialog from './SaweriaDialog';
 
 
 export default function DonationDialog() {
@@ -47,8 +47,8 @@ export default function DonationDialog() {
             <Typography gutterBottom sx={{ mb: 2 }}>
               Silahkan melakukan donasi untuk pengembang aplikasi, melalui salah satu metode di bawah ini:
             </Typography>
-            <QrisDialog />
-            <SaweriaDialog />
+            {/* <QrisDialog /> */}
+            {/* <SaweriaDialog /> */}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

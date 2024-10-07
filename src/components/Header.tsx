@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Box from '@mui/system/Box';
 
 import Typography from '@mui/material/Typography';

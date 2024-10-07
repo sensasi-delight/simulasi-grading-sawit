@@ -10,12 +10,12 @@ import Container from '@mui/material/Container';
 import DisclaimerDialog from './components/DisclaimerDialog';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Stepper from './components/Stepper.tsx';
-import Notification from './components/Notification';
+import Stepper from './components/Stepper';
+// import Notification from './components/Notification';
 import DonationDialog from './components/DonationDialog';
-import SavedCalculation from './components/SavedCalculation.tsx';
-import Form from './components/Form';
-import ResultBox from './components/ResultBox';
+import SavedCalculation from './components/SavedCalculation';
+// import Form from './components/Form';
+// import ResultBox from './components/ResultBox';
 
 import vars from './helpers/vars.ts';
 import { Fade } from '@mui/material';
@@ -46,22 +46,22 @@ function App() {
   vars.formValues = useState({});
   vars.activeStep = useState(0);
 
-  const [notifications, setNotifications] = useState([])
+//   const [notifications, setNotifications] = useState([])
 
-  window.onmessage = (event) => {
-    if (event.data.notification) {
-      const notification = {
-        id: event.data.messageId || Date.now(),
-        text: event.data.notification.body || 'terjadi kesalahan',
-        isShow: true,
-        buttonText: event.data.data.buttonText,
-        buttonUrl: event.data.data.buttonUrl
-      }
+//   window.onmessage = (event) => {
+//     if (event.data.notification) {
+//       const notification = {
+//         id: event.data.messageId || Date.now(),
+//         text: event.data.notification.body || 'terjadi kesalahan',
+//         isShow: true,
+//         buttonText: event.data.data.buttonText,
+//         buttonUrl: event.data.data.buttonUrl
+//       }
 
-      notifications.push(<Notification key={notification.id} data={notification} />)
-      setNotifications([...notifications])
-    }
-  };
+//       notifications.push(<Notification key={notification.id} data={notification} />)
+//       setNotifications([...notifications])
+//     }
+//   };
 
   const [isTextFieldErrors, setIsTextFieldErrors] = useState({});
 
@@ -94,7 +94,7 @@ function App() {
     }
   }
 
-  const handlePrev = () => vars.activeStep[1](prev => prev - 1);
+  const handlePrev = () => vars.activeStep[1]((prev: number) => prev - 1);
 
   return (
     <ThemeProvider theme={THEME}>
@@ -114,12 +114,12 @@ function App() {
           {
             vars.activeStep[0] === 0 && <Fade in={vars.activeStep[0] === 0}>
               <Box>
-                <Form
+                {/* <Form
                   inputCodes={INPUT_CODES[0]}
                   handleNext={handleNext}
                   values={vars.formValues[0]}
                   isErrors={isTextFieldErrors}
-                />
+                /> */}
               </Box>
             </Fade>
           }
@@ -127,12 +127,12 @@ function App() {
           {
             vars.activeStep[0] === 1 && <Fade in={vars.activeStep[0] === 1}>
               <Box>
-                <Form
+                {/* <Form
                   inputCodes={INPUT_CODES[1]}
                   handleNext={handleNext}
                   values={vars.formValues[0]}
                   isErrors={isTextFieldErrors}
-                />
+                /> */}
               </Box>
 
             </Fade>
@@ -141,7 +141,7 @@ function App() {
           {
             vars.activeStep[0] === 2 && <Fade in={vars.activeStep[0] === 2}>
               <Box>
-                <ResultBox />
+                {/* <ResultBox /> */}
               </Box>
             </Fade>
           }
@@ -149,8 +149,8 @@ function App() {
           <Stepper activeStep={vars.activeStep[0]} handleNext={handleNext} handlePrev={handlePrev} />
         </Box>
 
-        <Footer />
-        {notifications}
+        <Footer /> 
+        {/* {notifications}  */}
 
       </Container>
     </ThemeProvider>
