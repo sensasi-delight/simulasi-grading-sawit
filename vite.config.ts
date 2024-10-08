@@ -1,15 +1,18 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), sentryVitePlugin({
-    org: "sensasi-apps",
-    project: "simulasi-grading-sawit"
-  })],
+    plugins: [
+        react(),
+        sentryVitePlugin({
+            org: 'sensasi-apps',
+            project: 'simulasi-grading-sawit',
+        }),
+    ],
 
-  build: {
-    sourcemap: true
-  }
+    build: {
+        sourcemap: true,
+    },
 })
