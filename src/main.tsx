@@ -9,7 +9,7 @@ import red from "@mui/material/colors/red";
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import App from "./app";
 
 const THEME = createTheme({
 	palette: {

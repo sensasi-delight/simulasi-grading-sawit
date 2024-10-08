@@ -8,8 +8,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Typography from "@mui/material/Typography";
 
 import PaidIcon from "@mui/icons-material/Paid";
-import QrisDialog from "./components/QrisDialog";
-import SaweriaDialog from "./components/SaweriaDialog";
+import QrisDialog from "./components/qris-dialog";
+import SaweriaDialog from "./components/saweria-dialog";
 
 export default function DonationDialog() {
 	const [open, setOpen] = React.useState(false);
