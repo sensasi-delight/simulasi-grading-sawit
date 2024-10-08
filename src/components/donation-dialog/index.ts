@@ -1,1 +1,1 @@
-export { default } from "./donation-dialog";
+export { default } from './donation-dialog'

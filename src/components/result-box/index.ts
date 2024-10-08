@@ -1,1 +1,1 @@
-export { default } from "./result-box";
+export { default } from './result-box'

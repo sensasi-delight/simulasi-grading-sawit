@@ -1,11 +1,11 @@
 const vars: {
-    summaryData: any[];
-    formValues: any[];
-    activeStep: any[];
+    summaryData: any[]
+    formValues: any[]
+    activeStep: any[]
 } = {
-	summaryData: [],
-	formValues: [],
-	activeStep: []
-};
+    summaryData: [],
+    formValues: [],
+    activeStep: [],
+}
 
-export default vars;
+export default vars
