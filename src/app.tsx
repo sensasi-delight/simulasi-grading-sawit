@@ -8,10 +8,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Stepper from "./components/Stepper";
 // import Notification from './components/Notification';
-import DonationDialog from "./components/DonationDialog";
+import DonationDialog from "./components/DonationDialog/index.ts";
 import SavedCalculation from "./components/SavedCalculation";
 import Form from "./components/Form";
-import ResultBox from "./components/ResultBox";
+import ResultBox from "./components/ResultBox/index.ts";
 
 import vars from "./helpers/vars.ts";
 import { Fade } from "@mui/material";
