@@ -11,7 +11,7 @@ import Stepper from "./components/Stepper";
 import DonationDialog from "./components/DonationDialog";
 import SavedCalculation from "./components/SavedCalculation";
 import Form from "./components/Form";
-import ResultBox from "./components/ResultBox.tsx";
+import ResultBox from "./components/ResultBox";
 
 import vars from "./helpers/vars.ts";
 import { Fade } from "@mui/material";
@@ -110,46 +110,61 @@ export default function App() {
 			</Box>
 
 			<Box>
-				{vars.activeStep[0] === 0 && (
-					<Fade in={vars.activeStep[0] === 0}>
-						<Box>
-							<Form
-								inputCodes={INPUT_CODES[0]}
-								handleNext={handleNext}
-								values={vars.formValues[0]}
-								isErrors={isTextFieldErrors}
-							/>
-						</Box>
-					</Fade>
-				)}
+				<Fade
+					in={vars.activeStep[0] === 0}
+					timeout={{
+						enter: 500,
+						exit: 0,
+					}}
+					unmountOnExit
+				>
+					<Box>
+						<Form
+							inputCodes={INPUT_CODES[0]}
+							handleNext={handleNext}
+							values={vars.formValues[0]}
+							isErrors={isTextFieldErrors}
+						/>
+					</Box>
+				</Fade>
 
-				{vars.activeStep[0] === 1 && (
-					<Fade in={vars.activeStep[0] === 1}>
-						<Box>
-							<Form
-								inputCodes={INPUT_CODES[1]}
-								handleNext={handleNext}
-								values={vars.formValues[0]}
-								isErrors={isTextFieldErrors}
-							/>
-						</Box>
-					</Fade>
-				)}
+				<Fade
+					in={vars.activeStep[0] === 1}
+					timeout={{
+						enter: 500,
+						exit: 0,
+					}}
+					unmountOnExit
+				>
+					<Box>
+						<Form
+							inputCodes={INPUT_CODES[1]}
+							handleNext={handleNext}
+							values={vars.formValues[0]}
+							isErrors={isTextFieldErrors}
+						/>
+					</Box>
+				</Fade>
 
-				{vars.activeStep[0] === 2 && (
-					<Fade in={vars.activeStep[0] === 2}>
-						<Box>
-							<ResultBox />
-						</Box>
-					</Fade>
-				)}
-
-				<Stepper
-					activeStep={vars.activeStep[0]}
-					handleNext={handleNext}
-					handlePrev={handlePrev}
-				/>
+				<Fade
+					in={vars.activeStep[0] === 2}
+					timeout={{
+						enter: 500,
+						exit: 0,
+					}}
+					unmountOnExit
+				>
+					<Box>
+						<ResultBox />
+					</Box>
+				</Fade>
 			</Box>
+
+			<Stepper
+				activeStep={vars.activeStep[0]}
+				handleNext={handleNext}
+				handlePrev={handlePrev}
+			/>
 
 			<Footer />
 			{/* {notifications}  */}
