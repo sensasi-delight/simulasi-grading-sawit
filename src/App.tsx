@@ -1,9 +1,5 @@
 import { useState } from "react";
 
-import createTheme from "@mui/material/styles/createTheme";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import red from "@mui/material/colors/red";
-
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 
@@ -15,18 +11,10 @@ import Stepper from "./components/Stepper";
 import DonationDialog from "./components/DonationDialog";
 import SavedCalculation from "./components/SavedCalculation";
 import Form from "./components/Form";
-import ResultBox from "./components/ResultBox.tsx";
+import ResultBox from "./components/ResultBox";
 
 import vars from "./helpers/vars.ts";
 import { Fade } from "@mui/material";
-
-const THEME = createTheme({
-	palette: {
-		primary: {
-			main: red["A700"],
-		},
-	},
-});
 
 const INPUT_CODES = [
 	[
@@ -46,7 +34,7 @@ const INPUT_CODES = [
 	],
 ];
 
-function App() {
+export default function App() {
 	vars.formValues = useState({});
 	vars.activeStep = useState(0);
 
@@ -106,66 +94,80 @@ function App() {
 	const handlePrev = () => vars.activeStep[1]((prev: number) => prev - 1);
 
 	return (
-		<ThemeProvider theme={THEME}>
-			<Container className="App" maxWidth="sm">
-				<Header />
-				<Box display="flex" justifyContent="space-between">
-					<Box>
-						<SavedCalculation />
-					</Box>
-					<Box display="flex" alignItems="center">
-						<DisclaimerDialog />
-						<DonationDialog />
-					</Box>
-				</Box>
+		<Container maxWidth="sm">
+			<Header />
 
+			<Box display="flex" justifyContent="space-between">
 				<Box>
-					{vars.activeStep[0] === 0 && (
-						<Fade in={vars.activeStep[0] === 0}>
-							<Box>
-								<Form
-									inputCodes={INPUT_CODES[0]}
-									handleNext={handleNext}
-									values={vars.formValues[0]}
-									isErrors={isTextFieldErrors}
-								/>
-							</Box>
-						</Fade>
-					)}
-
-					{vars.activeStep[0] === 1 && (
-						<Fade in={vars.activeStep[0] === 1}>
-							<Box>
-								<Form
-									inputCodes={INPUT_CODES[1]}
-									handleNext={handleNext}
-									values={vars.formValues[0]}
-									isErrors={isTextFieldErrors}
-								/>
-							</Box>
-						</Fade>
-					)}
-
-					{vars.activeStep[0] === 2 && (
-						<Fade in={vars.activeStep[0] === 2}>
-							<Box>
-								<ResultBox />
-							</Box>
-						</Fade>
-					)}
-
-					<Stepper
-						activeStep={vars.activeStep[0]}
-						handleNext={handleNext}
-						handlePrev={handlePrev}
-					/>
+					<SavedCalculation />
 				</Box>
 
-				<Footer />
-				{/* {notifications}  */}
-			</Container>
-		</ThemeProvider>
+				<Box display="flex" alignItems="center">
+					<DisclaimerDialog />
+
+					<DonationDialog />
+				</Box>
+			</Box>
+
+			<Box>
+				<Fade
+					in={vars.activeStep[0] === 0}
+					timeout={{
+						enter: 500,
+						exit: 0,
+					}}
+					unmountOnExit
+				>
+					<Box>
+						<Form
+							inputCodes={INPUT_CODES[0]}
+							handleNext={handleNext}
+							values={vars.formValues[0]}
+							isErrors={isTextFieldErrors}
+						/>
+					</Box>
+				</Fade>
+
+				<Fade
+					in={vars.activeStep[0] === 1}
+					timeout={{
+						enter: 500,
+						exit: 0,
+					}}
+					unmountOnExit
+				>
+					<Box>
+						<Form
+							inputCodes={INPUT_CODES[1]}
+							handleNext={handleNext}
+							values={vars.formValues[0]}
+							isErrors={isTextFieldErrors}
+						/>
+					</Box>
+				</Fade>
+
+				<Fade
+					in={vars.activeStep[0] === 2}
+					timeout={{
+						enter: 500,
+						exit: 0,
+					}}
+					unmountOnExit
+				>
+					<Box>
+						<ResultBox />
+					</Box>
+				</Fade>
+			</Box>
+
+			<Stepper
+				activeStep={vars.activeStep[0]}
+				handleNext={handleNext}
+				handlePrev={handlePrev}
+			/>
+
+			<Footer />
+			{/* {notifications}  */}
+		</Container>
 	);
 }
-
-export default App;

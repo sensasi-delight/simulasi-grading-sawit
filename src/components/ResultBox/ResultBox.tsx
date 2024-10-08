@@ -5,18 +5,18 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 
-import calculatePalmGrade from "../helpers/calculatePalmGrade";
-import DetailDialog from "./DetailDialog";
-import SummaryTable from "./SummaryTable";
-import TextField from "./TextField";
+import calculatePalmGrade from "../../helpers/calculatePalmGrade";
+import DetailDialog from "./components/DetailDialog";
+import SummaryTable from "./components/SummaryTable";
+import TextField from "../TextField";
 
 // import { GALog } from "../helpers/firebaseClient";
 import {
 	currencyFormat,
 	getSavedDatasets,
 	numberFormat,
-} from "../helpers/index";
-import vars from "../helpers/vars";
+} from "../../helpers/index";
+import vars from "../../helpers/vars";
 import moment from "moment";
 
 import SaveIcon from "@mui/icons-material/Save";

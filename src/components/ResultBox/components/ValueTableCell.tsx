@@ -2,7 +2,7 @@ import Box from "@mui/system/Box"
 import TableCell from "@mui/material/TableCell"
 import Tooltip from "@mui/material/Tooltip";
 
-import { numberFormat } from "../helpers";
+import { numberFormat } from "../../../helpers";
 
 type Props = {
 	value: number,

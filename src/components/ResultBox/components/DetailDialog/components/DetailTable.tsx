@@ -5,7 +5,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableFooter from "@mui/material/TableFooter";
-import ValueTableCell from "./ValueTableCell.tsx";
+import ValueTableCell from "../../ValueTableCell.tsx";
 
 const SX_BORDER_RIGHT = { borderRight: 1 };
 const SX_TH_BOLD = { th: { fontWeight: "bold" } };
