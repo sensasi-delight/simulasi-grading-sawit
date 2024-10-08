@@ -4,13 +4,13 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 
 import DisclaimerDialog from "./components/DisclaimerDialog";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Stepper from "./components/Stepper";
+import Header from "./components/header";
+import Footer from "./components/footer";
+import Stepper from "./components/stepper";
 // import Notification from './components/Notification';
 import DonationDialog from "./components/DonationDialog/index.ts";
 import SavedCalculation from "./components/SavedCalculation";
-import Form from "./components/Form";
+import Form from "./components/form";
 import ResultBox from "./components/ResultBox/index.ts";
 
 import vars from "./helpers/vars.ts";
