@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 
-import TextField from "./TextField";
+import TextField from "./text-field";
 
 const SX_SUBMIT_BUTTON = { display: 'none' }
 

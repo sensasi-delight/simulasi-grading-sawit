@@ -1,4 +1,4 @@
-import { currencyFormat, numberFormat } from ".";
+import { currencyFormat, numberFormat } from "./index.ts";
 import categoryDataset from "../data/categories.ts";
 
 let totalWeight = 0;

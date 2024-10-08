@@ -5,7 +5,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableFooter from "@mui/material/TableFooter";
-import ValueTableCell from "./ValueTableCell";
+import ValueTableCell from "./value-table-cell";
 
 const SX_TABLE_CONTAINER = { mt: 2 };
 const SX_TABLE = {

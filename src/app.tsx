@@ -3,15 +3,15 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 
-import DisclaimerDialog from "./components/DisclaimerDialog";
+import DisclaimerDialog from "./components/disclaimer-dialog";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Stepper from "./components/stepper";
 // import Notification from './components/Notification';
-import DonationDialog from "./components/DonationDialog/index.ts";
-import SavedCalculation from "./components/SavedCalculation";
+import DonationDialog from "./components/donation-dialog";
+import SavedCalculation from "./components/saved-calculation";
 import Form from "./components/form";
-import ResultBox from "./components/ResultBox/index.ts";
+import ResultBox from "./components/result-box";
 
 import vars from "./helpers/vars.ts";
 import { Fade } from "@mui/material";

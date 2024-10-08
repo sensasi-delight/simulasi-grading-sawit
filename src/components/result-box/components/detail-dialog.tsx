@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Slide from "@mui/material/Slide";
 import CloseIcon from "@mui/icons-material/Close";
-import DetailTable from "./DetailDialog/components/DetailTable";
+import DetailTable from "./detail-dialog/components/detail-table";
 
 const SX_MY = { my: 4 };
 const SX_ML_FLEX = { ml: 2, flex: 1 };

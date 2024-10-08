@@ -5,10 +5,10 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 
-import calculatePalmGrade from "../../helpers/calculatePalmGrade";
-import DetailDialog from "./components/DetailDialog";
-import SummaryTable from "./components/SummaryTable";
-import TextField from "../TextField";
+import calculatePalmGrade from "../../helpers/calculate-palm-grade";
+import DetailDialog from "./components/detail-dialog";
+import SummaryTable from "./components/summary-table";
+import TextField from "../text-field";
 
 // import { GALog } from "../helpers/firebaseClient";
 import {
