@@ -16,7 +16,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MoreVert from '@mui/icons-material/MoreVert';
 import moment from 'moment';
-import { currencyFormat, getSavedDatasets, numberFormat } from '../helpers';
+import { currencyFormat, getSavedDatasets, numberFormat } from '../helpers/index.ts';
 import vars from '../helpers/vars.ts';
 import Tooltip from '@mui/material/Tooltip';
 import ListIcon from '@mui/icons-material/List';

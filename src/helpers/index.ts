@@ -1,10 +1,10 @@
-export const currencyFormat = (number) => number?.toLocaleString('id-ID', {
+export const currencyFormat = (number: number) => number?.toLocaleString('id-ID', {
 	style: 'currency',
 	currency: 'IDR',
 	maximumFractionDigits: 0
 });
 
-export const numberFormat = (number, maximumFractionDigits = 2) => number?.toLocaleString('id-ID', {
+export const numberFormat = (number: number, maximumFractionDigits = 2) => number?.toLocaleString('id-ID', {
 	maximumFractionDigits: maximumFractionDigits
 });
 
@@ -21,10 +21,16 @@ export const isProduction = Boolean(
 )
 
 export const getSavedDatasets = () => {
-	let savedDatasets = [];
+	let savedDatasets: {
+        finalWorth: number,
+        totalWeight: number,
+        savedAt: string
+    }[] = [];
+
+    const savedDatasetsString = localStorage.getItem('savedDatasets');
 
 	try {
-		savedDatasets = JSON.parse(window.localStorage.getItem('savedDatasets')) || [];
+		savedDatasets = savedDatasetsString ? JSON.parse(savedDatasetsString) : [];
 	} catch (error) {
 	}
 

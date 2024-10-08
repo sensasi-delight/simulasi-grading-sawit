@@ -1,5 +1,3 @@
-import React from "react";
-
 import MobileStepper from "@mui/material/MobileStepper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
