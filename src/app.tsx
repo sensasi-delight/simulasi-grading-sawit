@@ -1,20 +1,18 @@
+// vendors
 import { useState } from 'react'
-
-import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
-
-import DisclaimerDialog from './components/disclaimer-dialog'
-import Header from './components/header'
-import Footer from './components/footer'
-import Stepper from './components/stepper'
-// import Notification from './components/Notification';
+import { Box, Container, Fade } from '@mui/material'
+// components
 import DonationDialog from './components/donation-dialog'
-import SavedCalculation from './components/saved-calculation'
+import DisclaimerDialog from './components/disclaimer-dialog'
+import Footer from './components/footer'
 import Form from './components/form'
+import Header from './components/header'
 import ResultBox from './components/result-box'
+import Stepper from './components/stepper'
+import SavedCalculation from './components/saved-calculation'
+// import Notification from './components/Notification';
 
 import vars from './helpers/vars'
-import { Fade } from '@mui/material'
 
 const INPUT_CODES = [
     [
