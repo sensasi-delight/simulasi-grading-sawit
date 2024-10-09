@@ -19,7 +19,7 @@ export default tseslint.config(
             ecmaVersion: 2020,
             globals: globals.browser,
             parserOptions: {
-                project: './tsconfig.node.json',
+                project: './tsconfig.app.json',
             },
         },
         plugins: {
