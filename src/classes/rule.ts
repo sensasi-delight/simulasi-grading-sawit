@@ -1,21 +1,26 @@
 enum OperationEnum {
-	addition = 'addition',
-	subtraction = 'subtraction'
+    addition = 'addition',
+    subtraction = 'subtraction',
 }
 
-class Rule {
-	operation: OperationEnum;
-	limit: {
-		type: string;
-		value: number;
-	};
-	operand: number;
-	description: string;
+export default class Rule {
+    operation: OperationEnum
+    limit: {
+        type: string
+        value: number
+    }
+    operand: number
+    description: string
 
-	constructor(operation: OperationEnum, limit: any, operand: number, description: string) {
-		this.operation = operation;
-		this.limit = limit;
-		this.operand = operand;
-		this.description = description;
-	}
+    constructor(
+        operation: OperationEnum,
+        limit: any,
+        operand: number,
+        description: string,
+    ) {
+        this.operation = operation
+        this.limit = limit
+        this.operand = operand
+        this.description = description
+    }
 }
