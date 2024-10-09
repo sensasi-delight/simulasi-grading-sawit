@@ -6,12 +6,12 @@ import categoriesDataset from '../data/categories'
 
 export default function TextField({
     code,
-    toParent,
+    onValueChange,
     onBlur,
     ...props
 }: {
     code: string
-    toParent: (value: number) => void
+    onValueChange: (value: number) => void
     onBlur?: () => void
     value?: string | number
     isError?: boolean
@@ -45,10 +45,10 @@ export default function TextField({
     return (
         <TextFieldVendor
             value={value}
-            onChange={e => {
-                if (isError) setIsError(false)
-                toParent(parseFloat(e.target.value))
-                return setValue(e.target.value)
+            onChange={({ target: { value } }) => {
+                setIsError(false)
+                onValueChange(parseFloat(value))
+                setValue(value)
             }}
             label={category?.name}
             onBlur={onBlur}
