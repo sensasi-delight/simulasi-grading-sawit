@@ -11,8 +11,8 @@ import ResultBox from './components/result-box'
 import Stepper from './components/stepper'
 import SavedCalculation from './components/saved-calculation'
 // import Notification from './components/Notification';
-
-import { useGlobals } from './hooks/use-globals'
+// hooks
+import useGlobals from './hooks/use-globals'
 
 const INPUT_CODES = [
     [

@@ -1,25 +1,26 @@
 // vendors
 import { useRef, useState, useEffect, useMemo } from 'react'
 import { Box, Button, IconButton, Tooltip } from '@mui/material'
-import moment from 'moment'
+import dayjs from 'dayjs'
 // icons
 import { Save as SaveIcon } from '@mui/icons-material'
 // helpers
 import { currencyFormat, numberFormat } from '../../helpers'
 import calculatePalmGrade from '../../helpers/calculate-palm-grade'
-// import { GALog } from "../helpers/firebaseClient";
 // components
 import DetailDialog from './components/detail-dialog'
 import SummaryTable from './components/summary-table'
 import TextField from '../text-field'
 // hooks
-import { useGlobals } from '../../hooks/use-globals'
+import useGlobals from '../../hooks/use-globals'
+import useFirebase from '../../hooks/use-firebase'
 // functions
 import { getSavedDatasets } from '../../functions/get-saved-datasets'
 
 let calculationResults: AnuType[] = []
 
 export default function ResultBox() {
+    const { logEvent } = useFirebase()
     const { formValues: temp, setFormValues, setActiveStep } = useGlobals()
 
     const dataset = useMemo(() => {
@@ -63,7 +64,7 @@ export default function ResultBox() {
             savedDatasets.splice(delIndex, 1)
         }
 
-        dataset.savedAt = moment().format()
+        dataset.savedAt = dayjs().format()
         dataset.finalWeight =
             summaryData[0]?.weight -
             summaryData[1]?.weight +
@@ -91,7 +92,7 @@ export default function ResultBox() {
                     code="price"
                     toParent={value => setPricePerKg(value)}
                     value={pricePerKg}
-                    // onBlur={(e) => GALog("enter_price")}
+                    onBlur={() => logEvent('enter_price')}
                 />
 
                 <Button type="submit" sx={{ display: 'none' }}></Button>
@@ -104,9 +105,9 @@ export default function ResultBox() {
                     <Button
                         variant="outlined"
                         onClick={() => {
-                            // GALog('click_reset');
                             setActiveStep(0)
                             setFormValues({})
+                            logEvent('click_reset')
                         }}>
                         Ulangi
                     </Button>
@@ -129,8 +130,8 @@ export default function ResultBox() {
                         disabled={!pricePerKg}
                         variant="contained"
                         onClick={() => {
-                            // GALog('click_detail_cuts')
                             setIsDetailOpen(true)
+                            logEvent('click_detail_cuts')
                         }}>
                         Rincian
                     </Button>

@@ -7,21 +7,19 @@ import {
     useState,
 } from 'react'
 
-const DEFAULT_GLOBAL_VARIABLES: {
+const CONTEXT = createContext<{
     activeStep: number
     setActiveStep: Dispatch<SetStateAction<number>>
 
     formValues: Record<string, any>
     setFormValues: Dispatch<SetStateAction<Record<string, any>>>
-} = {
+}>({
     activeStep: 0,
     setActiveStep: () => {},
 
     formValues: {},
     setFormValues: () => {},
-}
-
-const CONTEXT = createContext(DEFAULT_GLOBAL_VARIABLES)
+})
 
 export function GlobalsProvider({ children }: { children: ReactNode }) {
     const [activeStep, setActiveStep] = useState(0)
