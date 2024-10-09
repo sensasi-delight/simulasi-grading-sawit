@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES2022",
-        "lib": ["ES2023", "DOM"],
+        "lib": ["ES2023", "DOM", "webworker"],
         "module": "ESNext",
         "skipLibCheck": true,
 
@@ -18,7 +18,9 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
 
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+
+        "types": ["@serwist/vite/typings"]
     },
     "include": ["vite.config.ts", "src"]
 }
