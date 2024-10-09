@@ -1,29 +1,152 @@
+// vendors
 import { useRef, useState, useEffect, useMemo } from 'react'
-
-import Box from '@mui/system/Box'
-import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
-import Tooltip from '@mui/material/Tooltip'
-
+import { Box, Button, IconButton, Tooltip } from '@mui/material'
+import moment from 'moment'
+// icons
+import { Save as SaveIcon } from '@mui/icons-material'
+// helpers
+import { currencyFormat, numberFormat } from '../../helpers'
 import calculatePalmGrade from '../../helpers/calculate-palm-grade'
+// import { GALog } from "../helpers/firebaseClient";
+// components
 import DetailDialog from './components/detail-dialog'
 import SummaryTable from './components/summary-table'
 import TextField from '../text-field'
+// hooks
+import { useGlobals } from '../../hooks/use-globals'
+// functions
+import { getSavedDatasets } from '../../functions/get-saved-datasets'
 
-// import { GALog } from "../helpers/firebaseClient";
-import {
-    currencyFormat,
-    getSavedDatasets,
-    numberFormat,
-} from '../../helpers/index'
-import vars from '../../helpers/vars'
-import moment from 'moment'
+let calculationResults: AnuType[] = []
 
-import SaveIcon from '@mui/icons-material/Save'
+export default function ResultBox() {
+    const { formValues: temp, setFormValues, setActiveStep } = useGlobals()
 
-const getSummaryData = (detailsCalculation: AnuType[]) => {
-    const dataset = vars.formValues[0]
+    const dataset = useMemo(() => {
+        return { ...temp }
+    }, [temp])
 
+    const [isDetailOpen, setIsDetailOpen] = useState(false)
+    const [summaryData, setSummaryData] = useState<TypeB[]>([])
+    const [pricePerKg, setPricePerKg] = useState(dataset.pricePerKg || '')
+
+    const detailBtnRef = useRef<HTMLButtonElement>(null)
+
+    useEffect(() => {
+        setFormValues({ ...temp, pricePerKg })
+
+        calculationResults = calculatePalmGrade(temp)
+
+        setSummaryData(getSummaryData(calculationResults, temp))
+    }, [pricePerKg])
+
+    useEffect(() => {
+        setPricePerKg(dataset.pricePerKg || '')
+    }, [dataset.savedAt, dataset.pricePerKg])
+
+    const isSaveDisabled =
+        !pricePerKg ||
+        JSON.stringify(dataset) ===
+            JSON.stringify(
+                getSavedDatasets().find(
+                    data => data.savedAt === dataset.savedAt,
+                ),
+            )
+
+    function handleSave() {
+        const savedDatasets = getSavedDatasets()
+
+        if (dataset.savedAt) {
+            const delIndex = savedDatasets.findIndex(
+                data => data.savedAt === dataset.savedAt,
+            )
+            savedDatasets.splice(delIndex, 1)
+        }
+
+        dataset.savedAt = moment().format()
+        dataset.finalWeight =
+            summaryData[0]?.weight -
+            summaryData[1]?.weight +
+            summaryData[2]?.weight
+        dataset.finalWorth =
+            summaryData[0]?.worth -
+            summaryData[1]?.worth +
+            summaryData[2]?.worth
+
+        setFormValues({ ...dataset })
+        savedDatasets.push({ ...dataset } as any)
+
+        localStorage.setItem('savedDatasets', JSON.stringify(savedDatasets))
+    }
+
+    return (
+        <>
+            <Box
+                component="form"
+                onSubmit={e => {
+                    e.preventDefault()
+                    return detailBtnRef.current?.focus()
+                }}>
+                <TextField
+                    code="price"
+                    toParent={value => setPricePerKg(value)}
+                    value={pricePerKg}
+                    // onBlur={(e) => GALog("enter_price")}
+                />
+
+                <Button type="submit" sx={{ display: 'none' }}></Button>
+            </Box>
+
+            <SummaryTable dataset={summaryData} />
+
+            <Box justifyContent="space-between" display="flex" mt={6}>
+                <Box>
+                    <Button
+                        variant="outlined"
+                        onClick={() => {
+                            // GALog('click_reset');
+                            setActiveStep(0)
+                            setFormValues({})
+                        }}>
+                        Ulangi
+                    </Button>
+                </Box>
+
+                <Box gap={2} display="flex" alignItems="center">
+                    <Tooltip title="Simpan hasil perhitungan" placement="top">
+                        <span>
+                            <IconButton
+                                color="primary"
+                                disabled={isSaveDisabled}
+                                onClick={handleSave}>
+                                <SaveIcon />
+                            </IconButton>
+                        </span>
+                    </Tooltip>
+
+                    <Button
+                        ref={detailBtnRef}
+                        disabled={!pricePerKg}
+                        variant="contained"
+                        onClick={() => {
+                            // GALog('click_detail_cuts')
+                            setIsDetailOpen(true)
+                        }}>
+                        Rincian
+                    </Button>
+                </Box>
+            </Box>
+
+            <DetailDialog
+                isOpen={isDetailOpen}
+                setIsOpen={setIsDetailOpen}
+                dataset={calculationResults}
+            />
+        </>
+    )
+}
+
+function getSummaryData(detailsCalculation: AnuType[], dataset: any) {
     const summaryDataset: TypeB[] = [
         {
             name: 'Tandan Buah Segar',
@@ -60,142 +183,6 @@ const getSummaryData = (detailsCalculation: AnuType[]) => {
 
     return summaryDataset
 }
-
-let calculationResults: AnuType[] = []
-
-const ResultBox = () => {
-    const temp = vars.formValues[0]
-    const dataset = useMemo(() => {
-        return { ...temp }
-    }, [temp])
-
-    const [isDetailOpen, setIsDetailOpen] = useState(false)
-    const [summaryData, setSummaryData] = useState<TypeB[]>([])
-    const [pricePerKg, setPricePerKg] = useState(dataset.pricePerKg || '')
-
-    const detailBtnRef = useRef<HTMLButtonElement>(null)
-
-    useEffect(() => {
-        vars.formValues[0].pricePerKg = pricePerKg
-        vars.formValues[1]({ ...vars.formValues[0] })
-
-        calculationResults = calculatePalmGrade(vars.formValues[0])
-
-        setSummaryData(getSummaryData(calculationResults))
-    }, [pricePerKg])
-
-    useEffect(() => {
-        setPricePerKg(dataset.pricePerKg || '')
-    }, [dataset.savedAt, dataset.pricePerKg])
-
-    return (
-        <>
-            <Box
-                component="form"
-                onSubmit={e => {
-                    e.preventDefault()
-                    return detailBtnRef.current?.focus()
-                }}>
-                <TextField
-                    code="price"
-                    toParent={value => setPricePerKg(value)}
-                    value={pricePerKg}
-                    // onBlur={(e) => GALog("enter_price")}
-                />
-
-                <Button type="submit" sx={{ display: 'none' }}></Button>
-            </Box>
-
-            <SummaryTable dataset={summaryData} />
-
-            <Box justifyContent="space-between" display="flex" mt={6}>
-                <Box>
-                    <Button
-                        variant="outlined"
-                        onClick={() => {
-                            // GALog('click_reset');
-                            vars.activeStep[1](0)
-                            vars.formValues[1]({})
-                        }}>
-                        Ulangi
-                    </Button>
-                </Box>
-
-                <Box gap={2} display="flex" alignItems="center">
-                    <Tooltip title="Simpan hasil perhitungan" placement="top">
-                        <span>
-                            <IconButton
-                                color="primary"
-                                disabled={
-                                    !pricePerKg ||
-                                    JSON.stringify(dataset) ===
-                                        JSON.stringify(
-                                            getSavedDatasets().find(
-                                                data =>
-                                                    data.savedAt ===
-                                                    dataset.savedAt,
-                                            ),
-                                        )
-                                }
-                                onClick={() => {
-                                    const savedDatasets = getSavedDatasets()
-
-                                    if (dataset.savedAt) {
-                                        const delIndex =
-                                            savedDatasets.findIndex(
-                                                data =>
-                                                    data.savedAt ===
-                                                    dataset.savedAt,
-                                            )
-                                        savedDatasets.splice(delIndex, 1)
-                                    }
-
-                                    dataset.savedAt = moment().format()
-                                    dataset.finalWeight =
-                                        summaryData[0]?.weight -
-                                        summaryData[1]?.weight +
-                                        summaryData[2]?.weight
-                                    dataset.finalWorth =
-                                        summaryData[0]?.worth -
-                                        summaryData[1]?.worth +
-                                        summaryData[2]?.worth
-
-                                    vars.formValues[1]({ ...dataset })
-                                    savedDatasets.push({ ...dataset })
-
-                                    window.localStorage.setItem(
-                                        'savedDatasets',
-                                        JSON.stringify(savedDatasets),
-                                    )
-                                }}>
-                                <SaveIcon />
-                            </IconButton>
-                        </span>
-                    </Tooltip>
-
-                    <Button
-                        ref={detailBtnRef}
-                        disabled={!pricePerKg}
-                        variant="contained"
-                        onClick={() => {
-                            // GALog('click_detail_cuts')
-                            setIsDetailOpen(true)
-                        }}>
-                        Rincian
-                    </Button>
-                </Box>
-            </Box>
-
-            <DetailDialog
-                isOpen={isDetailOpen}
-                setIsOpen={setIsDetailOpen}
-                dataset={calculationResults}
-            />
-        </>
-    )
-}
-
-export default ResultBox
 
 interface AnuType {
     qty: number

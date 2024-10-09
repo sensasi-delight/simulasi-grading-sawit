@@ -24,21 +24,3 @@ export const isProduction = Boolean(
     process.env.NODE_ENV === 'production' &&
         process.env.REACT_APP_ENV === 'production',
 )
-
-export const getSavedDatasets = () => {
-    let savedDatasets: {
-        finalWorth: number
-        totalWeight: number
-        savedAt: string
-    }[] = []
-
-    const savedDatasetsString = localStorage.getItem('savedDatasets')
-
-    try {
-        savedDatasets = savedDatasetsString
-            ? JSON.parse(savedDatasetsString)
-            : []
-    } catch (error) {}
-
-    return savedDatasets
-}
