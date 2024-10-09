@@ -25,10 +25,11 @@ import {
     MoreVert as MoreVertIcon,
     Visibility as VisibilityIcon,
 } from '@mui/icons-material'
-import moment from 'moment'
+import dayjs from 'dayjs'
+// hooks
+import useGlobals from '../hooks/use-globals'
 // helpers
 import { currencyFormat, numberFormat } from '../helpers'
-import { useGlobals } from '../hooks/use-globals'
 import { getSavedDatasets } from '../functions/get-saved-datasets'
 
 export default function SavedCalculationDialog() {
@@ -166,7 +167,7 @@ function DatasetsList({ onSelected }: { onSelected: (item: any) => void }) {
                             }
                             secondary={
                                 'disimpan tanggal: ' +
-                                moment(item.savedAt).format(
+                                dayjs(item.savedAt).format(
                                     'DD-MM-YYYY hh:mm:ss',
                                 )
                             }
