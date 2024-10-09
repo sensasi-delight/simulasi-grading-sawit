@@ -1,5 +1,5 @@
 // vendors
-import { useRef, useState, useEffect, useMemo } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Box, Button, IconButton, Tooltip } from '@mui/material'
 import dayjs from 'dayjs'
 // icons
@@ -21,25 +21,13 @@ let calculationResults: AnuType[] = []
 
 export default function ResultBox() {
     const { logEvent } = useFirebase()
-    const { formValues: temp, setFormValues, setActiveStep } = useGlobals()
-
-    const dataset = useMemo(() => {
-        return { ...temp }
-    }, [temp])
+    const { formValues: dataset, setFormValues, setActiveStep } = useGlobals()
 
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const [summaryData, setSummaryData] = useState<TypeB[]>([])
     const [pricePerKg, setPricePerKg] = useState(dataset.pricePerKg || '')
 
     const detailBtnRef = useRef<HTMLButtonElement>(null)
-
-    useEffect(() => {
-        setFormValues({ ...temp, pricePerKg })
-
-        calculationResults = calculatePalmGrade(temp)
-
-        setSummaryData(getSummaryData(calculationResults, temp))
-    }, [pricePerKg])
 
     useEffect(() => {
         setPricePerKg(dataset.pricePerKg || '')
@@ -80,6 +68,21 @@ export default function ResultBox() {
         localStorage.setItem('savedDatasets', JSON.stringify(savedDatasets))
     }
 
+    function handlePriceChange(value: number) {
+        setPricePerKg(value)
+        setFormValues(prev => {
+            const newValues = {
+                ...prev,
+                pricePerKg: value,
+            }
+
+            calculationResults = calculatePalmGrade(newValues)
+            setSummaryData(getSummaryData(calculationResults, newValues))
+
+            return newValues
+        })
+    }
+
     return (
         <>
             <Box
@@ -90,7 +93,7 @@ export default function ResultBox() {
                 }}>
                 <TextField
                     code="price"
-                    toParent={value => setPricePerKg(value)}
+                    onValueChange={handlePriceChange}
                     value={pricePerKg}
                     onBlur={() => logEvent('enter_price')}
                 />
