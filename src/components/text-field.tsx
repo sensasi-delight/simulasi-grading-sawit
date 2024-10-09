@@ -1,13 +1,10 @@
+// vendors
 import { useEffect, useState } from 'react'
-
-import InputAdornment from '@mui/material/InputAdornment'
-import TextField from '@mui/material/TextField'
+import { InputAdornment, TextField as TextFieldVendor } from '@mui/material'
+// data
 import categoriesDataset from '../data/categories'
 
-const getCategory = (code: string): (typeof categoriesDataset)[0] | undefined =>
-    categoriesDataset.find(category => category.code === code)
-
-const MyTextField = ({
+export default function TextField({
     code,
     toParent,
     onBlur,
@@ -18,57 +15,35 @@ const MyTextField = ({
     onBlur?: () => void
     value?: string | number
     isError?: boolean
-}) => {
+}) {
     const [value, setValue] = useState(props.value?.toString() ?? '')
     const [isError, setIsError] = useState(props.isError ? true : false)
 
-    let temp:
-        | (typeof categoriesDataset)[0]
-        | {
-              name: string
-              unit: string
-          }
-        | undefined
+    const category =
+        code === 'price'
+            ? {
+                  name: 'Harga Jual',
+                  unit: '/kg',
+              }
+            : code === 'totalWeight'
+              ? {
+                    name: 'Total Bobot (Berat / Tonase)',
+                    unit: 'kg',
+                }
+              : getCategory(code)
 
-    if (code === 'price' || code === 'totalWeight') {
-        if (code === 'price') {
-            temp = {
-                name: 'Harga Jual',
-                unit: '/kg',
-            }
-        }
-
-        if (code === 'totalWeight') {
-            temp = {
-                name: 'Total Bobot (Berat / Tonase)',
-                unit: 'kg',
-            }
-        }
-    } else {
-        temp = getCategory(code)
-    }
-
-    const category = temp
-
-    const getHelperText = () => {
-        const subtractionRule =
-            category && 'rules' in category
-                ? category.rules.find(rule => rule.operation === 'subtraction')
-                : undefined
-
-        if (subtractionRule && subtractionRule.operand === 1)
-            return 'potongan 100% / reject'
-        if (isError) return 'Mohon melengkapi isian'
-
-        return ''
-    }
+    const helperText = isError
+        ? 'Mohon melengkapi isian'
+        : category && 'rules' in category
+          ? getHelperText(category.rules)
+          : undefined
 
     useEffect(() => setIsError(props?.isError ?? false), [props.isError])
 
     useEffect(() => setValue(props.value?.toString() ?? ''), [props.value])
 
     return (
-        <TextField
+        <TextFieldVendor
             value={value}
             onChange={e => {
                 if (isError) setIsError(false)
@@ -78,7 +53,7 @@ const MyTextField = ({
             label={category?.name}
             onBlur={onBlur}
             error={isError}
-            helperText={getHelperText()}
+            helperText={helperText}
             InputProps={{
                 startAdornment:
                     code === 'price' ? (
@@ -95,8 +70,6 @@ const MyTextField = ({
                 // pattern: "[0-9]*",
                 inputProps: { min: 0 },
             }}
-            // style & type
-            size="small"
             fullWidth
             margin="dense"
             type="number"
@@ -106,4 +79,15 @@ const MyTextField = ({
     )
 }
 
-export default MyTextField
+function getHelperText(rules: { operation: string; operand: number }[]) {
+    const subtractionRule = rules.find(rule => rule.operation === 'subtraction')
+
+    if (subtractionRule && subtractionRule.operand === 1)
+        return 'potongan 100% / reject'
+
+    return undefined
+}
+
+function getCategory(code: string) {
+    return categoriesDataset.find(category => category.code === code)
+}
