@@ -13,6 +13,7 @@ import SavedCalculation from './components/saved-calculation'
 // import Notification from './components/Notification';
 // hooks
 import useGlobals from './hooks/use-globals'
+import FeedbackDialog from './components/feedback-dialog'
 
 const INPUT_CODES = [
     [
@@ -102,6 +103,8 @@ export default function App() {
                     <DisclaimerDialog />
 
                     <DonationDialog />
+
+                    <FeedbackDialog />
                 </Box>
             </Box>
 
