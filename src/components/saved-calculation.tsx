@@ -1,57 +1,41 @@
-import * as React from 'react'
-import Container from '@mui/material/Container'
-import Dialog from '@mui/material/Dialog'
-import ListItemText from '@mui/material/ListItemText'
-import ListItem from '@mui/material/ListItem'
-import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
-import AppBar from '@mui/material/AppBar'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import CloseIcon from '@mui/icons-material/Close'
-import Slide from '@mui/material/Slide'
-import { TransitionProps } from '@mui/material/transitions'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import MoreVert from '@mui/icons-material/MoreVert'
-import moment from 'moment'
-import {
-    currencyFormat,
-    getSavedDatasets,
-    numberFormat,
-} from '../helpers'
-import vars from '../helpers/vars'
-import Tooltip from '@mui/material/Tooltip'
-import ListIcon from '@mui/icons-material/List'
+// types
+import type { TransitionProps } from '@mui/material/transitions'
+// vendors
+import { forwardRef, MouseEvent, ReactElement, Ref, useState } from 'react'
 
-const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {
-        children: React.ReactElement
-    },
-    ref: React.Ref<unknown>,
-) {
-    return <Slide direction="up" ref={ref} {...props} />
-})
+import {
+    AppBar,
+    Container,
+    Dialog,
+    Divider,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    Menu,
+    MenuItem,
+    Slide,
+    Tooltip,
+    Typography,
+} from '@mui/material'
+
+import {
+    Close as CloseIcon,
+    List as ListIcon,
+    MoreVert as MoreVertIcon,
+    Visibility as VisibilityIcon,
+} from '@mui/icons-material'
+import moment from 'moment'
+// helpers
+import { currencyFormat, numberFormat } from '../helpers'
+import { useGlobals } from '../hooks/use-globals'
+import { getSavedDatasets } from '../functions/get-saved-datasets'
 
 export default function SavedCalculationDialog() {
-    const [open, setOpen] = React.useState(false)
+    const { setFormValues, setActiveStep } = useGlobals()
+    const [open, setOpen] = useState(false)
 
-    const handleClose = () => {
-        setOpen(false)
-    }
-
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-    const isMoreVertOpen = Boolean(anchorEl)
-    const handleMoreVertClick = (
-        event: React.MouseEvent<HTMLButtonElement>,
-    ) => {
-        setAnchorEl(event.currentTarget)
-    }
-
-    const handleMoreVertClose = () => {
-        setAnchorEl(null)
-    }
+    const handleDialogClose = () => setOpen(false)
 
     return (
         <>
@@ -64,7 +48,7 @@ export default function SavedCalculationDialog() {
             <Dialog
                 fullScreen
                 open={open}
-                onClose={handleClose}
+                onClose={handleDialogClose}
                 TransitionComponent={Transition}>
                 <AppBar sx={{ position: 'relative' }}>
                     <Container
@@ -84,103 +68,120 @@ export default function SavedCalculationDialog() {
                             autoFocus
                             edge="end"
                             color="inherit"
-                            onClick={handleClose}
+                            onClick={handleDialogClose}
                             aria-label="close">
                             <CloseIcon />
                         </IconButton>
                     </Container>
                 </AppBar>
                 <Container maxWidth="md">
-                    <List>
-                        {getSavedDatasets()
-                            .reverse()
-                            .map((item: any | object, i: number) => (
-                                <div key={i}>
-                                    <ListItem
-                                        secondaryAction={
-                                            <>
-                                                <IconButton
-                                                    aria-label="see"
-                                                    onClick={() => {
-                                                        vars.formValues[1]({
-                                                            ...item,
-                                                        })
-                                                        vars.activeStep[1](2)
-                                                        handleClose()
-                                                    }}>
-                                                    <VisibilityIcon />
-                                                </IconButton>
-                                                <IconButton
-                                                    aria-label="more"
-                                                    onClick={
-                                                        handleMoreVertClick
-                                                    }>
-                                                    <MoreVert />
-                                                </IconButton>
-                                                <Menu
-                                                    anchorEl={anchorEl}
-                                                    open={isMoreVertOpen}
-                                                    onClose={
-                                                        handleMoreVertClose
-                                                    }
-                                                    elevation={2}
-                                                    MenuListProps={{
-                                                        'aria-labelledby':
-                                                            'basic-button',
-                                                    }}>
-                                                    <MenuItem
-                                                        onClick={() => {
-                                                            const savedCalculations =
-                                                                getSavedDatasets()
-                                                            savedCalculations.splice(
-                                                                i,
-                                                                1,
-                                                            )
-                                                            window.localStorage.setItem(
-                                                                'savedDatasets',
-                                                                JSON.stringify(
-                                                                    savedCalculations,
-                                                                ),
-                                                            )
-                                                            handleMoreVertClose()
-                                                        }}>
-                                                        Hapus
-                                                    </MenuItem>
-                                                </Menu>
-                                            </>
-                                        }>
-                                        <ListItemText
-                                            primary={
-                                                currencyFormat(
-                                                    item.finalWorth,
-                                                ) +
-                                                ' / ' +
-                                                numberFormat(item.totalWeight) +
-                                                'kg'
-                                            }
-                                            secondary={
-                                                'disimpan tanggal: ' +
-                                                moment(item.savedAt).format(
-                                                    'DD-MM-YYYY hh:mm:ss',
-                                                )
-                                            }
-                                        />
-                                    </ListItem>
-
-                                    {i !== getSavedDatasets().length - 1 && (
-                                        <Divider />
-                                    )}
-                                </div>
-                            ))}
-
-                        {getSavedDatasets().length === 0 && (
-                            <Typography color="#888" align="center" mt={4}>
-                                Belum ada data tersimpan
-                            </Typography>
-                        )}
-                    </List>
+                    <DatasetsList
+                        onSelected={dataset => {
+                            setFormValues({
+                                ...dataset,
+                            })
+                            setActiveStep(2)
+                            handleDialogClose()
+                        }}
+                    />
                 </Container>
             </Dialog>
         </>
+    )
+}
+
+const Transition = forwardRef(function Transition(
+    props: TransitionProps & {
+        children: ReactElement
+    },
+    ref: Ref<unknown>,
+) {
+    return <Slide direction="up" ref={ref} {...props} />
+})
+
+function DatasetsList({ onSelected }: { onSelected: (item: any) => void }) {
+    const savedDatasets = getSavedDatasets()
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+
+    const isMoreVertOpen = Boolean(anchorEl)
+    const handleMoreVertClick = ({
+        currentTarget,
+    }: MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(currentTarget)
+    }
+
+    const handleMoreVertClose = () => {
+        setAnchorEl(null)
+    }
+
+    return (
+        <List>
+            {savedDatasets.reverse().map((item: any | object, i: number) => (
+                <div key={i}>
+                    <ListItem
+                        secondaryAction={
+                            <>
+                                <IconButton
+                                    aria-label="see"
+                                    onClick={() => onSelected({ ...item })}>
+                                    <VisibilityIcon />
+                                </IconButton>
+                                <IconButton
+                                    aria-label="more"
+                                    onClick={handleMoreVertClick}>
+                                    <MoreVertIcon />
+                                </IconButton>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    open={isMoreVertOpen}
+                                    onClose={handleMoreVertClose}
+                                    elevation={2}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}>
+                                    <MenuItem
+                                        onClick={() => {
+                                            const savedCalculations =
+                                                getSavedDatasets()
+                                            savedCalculations.splice(i, 1)
+                                            window.localStorage.setItem(
+                                                'savedDatasets',
+                                                JSON.stringify(
+                                                    savedCalculations,
+                                                ),
+                                            )
+                                            handleMoreVertClose()
+                                        }}>
+                                        Hapus
+                                    </MenuItem>
+                                </Menu>
+                            </>
+                        }>
+                        <ListItemText
+                            primary={
+                                currencyFormat(item.finalWorth) +
+                                ' / ' +
+                                numberFormat(item.totalWeight) +
+                                'kg'
+                            }
+                            secondary={
+                                'disimpan tanggal: ' +
+                                moment(item.savedAt).format(
+                                    'DD-MM-YYYY hh:mm:ss',
+                                )
+                            }
+                        />
+                    </ListItem>
+
+                    {i + 1 !== savedDatasets.length && <Divider />}
+                </div>
+            ))}
+
+            {savedDatasets.length === 0 && (
+                <Typography color="#888" align="center" mt={4}>
+                    Belum ada data tersimpan
+                </Typography>
+            )}
+        </List>
     )
 }

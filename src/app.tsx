@@ -12,7 +12,7 @@ import Stepper from './components/stepper'
 import SavedCalculation from './components/saved-calculation'
 // import Notification from './components/Notification';
 
-import vars from './helpers/vars'
+import { useGlobals } from './hooks/use-globals'
 
 const INPUT_CODES = [
     [
@@ -33,8 +33,7 @@ const INPUT_CODES = [
 ]
 
 export default function App() {
-    vars.formValues = useState({})
-    vars.activeStep = useState(0)
+    const { activeStep, setActiveStep, formValues } = useGlobals()
 
     //   const [notifications, setNotifications] = useState([])
 
@@ -56,10 +55,8 @@ export default function App() {
     const [isTextFieldErrors, setIsTextFieldErrors] = useState({})
 
     const getInvalidTextFieldIds = () => {
-        return INPUT_CODES[vars.activeStep[0]].filter(
-            inputId =>
-                vars.formValues[0][inputId] === '' ||
-                isNaN(vars.formValues[0][inputId]),
+        return INPUT_CODES[activeStep].filter(
+            inputId => formValues[inputId] === '' || isNaN(formValues[inputId]),
         )
     }
 
@@ -86,11 +83,11 @@ export default function App() {
 
     const handleNext = () => {
         if (isFormValuesValid()) {
-            return vars.activeStep[1](vars.activeStep[0] + 1)
+            return setActiveStep(prev => prev + 1)
         }
     }
 
-    const handlePrev = () => vars.activeStep[1]((prev: number) => prev - 1)
+    const handlePrev = () => setActiveStep((prev: number) => prev - 1)
 
     return (
         <Container maxWidth="sm">
@@ -110,7 +107,7 @@ export default function App() {
 
             <Box>
                 <Fade
-                    in={vars.activeStep[0] === 0}
+                    in={activeStep === 0}
                     timeout={{
                         enter: 500,
                         exit: 0,
@@ -120,14 +117,14 @@ export default function App() {
                         <Form
                             inputCodes={INPUT_CODES[0]}
                             handleNext={handleNext}
-                            values={vars.formValues[0]}
+                            values={formValues}
                             isErrors={isTextFieldErrors}
                         />
                     </Box>
                 </Fade>
 
                 <Fade
-                    in={vars.activeStep[0] === 1}
+                    in={activeStep === 1}
                     timeout={{
                         enter: 500,
                         exit: 0,
@@ -137,14 +134,14 @@ export default function App() {
                         <Form
                             inputCodes={INPUT_CODES[1]}
                             handleNext={handleNext}
-                            values={vars.formValues[0]}
+                            values={formValues}
                             isErrors={isTextFieldErrors}
                         />
                     </Box>
                 </Fade>
 
                 <Fade
-                    in={vars.activeStep[0] === 2}
+                    in={activeStep === 2}
                     timeout={{
                         enter: 500,
                         exit: 0,
@@ -157,7 +154,7 @@ export default function App() {
             </Box>
 
             <Stepper
-                activeStep={vars.activeStep[0]}
+                activeStep={activeStep}
                 handleNext={handleNext}
                 handlePrev={handlePrev}
             />
