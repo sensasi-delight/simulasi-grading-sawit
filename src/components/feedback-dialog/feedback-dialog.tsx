@@ -14,7 +14,7 @@ import {
     HowToVote as HowToVoteIcon,
     Send as SendIcon,
 } from '@mui/icons-material'
-import * as sentry from '@sentry/browser'
+import { captureFeedback, captureMessage } from '@sentry/react'
 
 export function FeedbackDialog() {
     const [open, setOpen] = useState(false)
@@ -64,12 +64,11 @@ export function FeedbackDialog() {
                                 return
                             }
 
-                            sentry.captureFeedback({
+                            captureFeedback({
                                 name: formValues.name,
                                 email: formValues.email,
                                 message: formValues.message,
-                                associatedEventId:
-                                    sentry.captureMessage('Feedback'),
+                                associatedEventId: captureMessage('Feedback'),
                             })
 
                             setOpen(false)
