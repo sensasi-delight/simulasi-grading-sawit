@@ -1,36 +1,39 @@
 // types
 import type { TransitionProps } from '@mui/material/transitions'
 // vendors
-import { forwardRef, MouseEvent, ReactElement, Ref, useState } from 'react'
-
 import {
-    AppBar,
-    Container,
-    Dialog,
-    Divider,
-    IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    Menu,
-    MenuItem,
-    Slide,
-    Tooltip,
-    Typography,
-} from '@mui/material'
+    forwardRef,
+    type MouseEvent,
+    type ReactElement,
+    type Ref,
+    useState,
+} from 'react'
 
-import {
-    Close as CloseIcon,
-    List as ListIcon,
-    MoreVert as MoreVertIcon,
-    Visibility as VisibilityIcon,
-} from '@mui/icons-material'
+import AppBar from '@mui/material/AppBar'
+import Container from '@mui/system/Container'
+import Dialog from '@mui/material/Dialog'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Slide from '@mui/material/Slide'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+
+import CloseIcon from '@mui/icons-material/Close'
+import ListIcon from '@mui/icons-material/List'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 import dayjs from 'dayjs'
 // hooks
 import useGlobals from '../hooks/use-globals'
 // helpers
 import { currencyFormat, numberFormat } from '../helpers'
 import { getSavedDatasets } from '../functions/get-saved-datasets'
+import type SavedDataset from '../types/saved-dataset'
 
 export default function SavedCalculationDialog() {
     const { setFormValues, setActiveStep } = useGlobals()
@@ -100,7 +103,11 @@ const Transition = forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />
 })
 
-function DatasetsList({ onSelected }: { onSelected: (item: any) => void }) {
+function DatasetsList({
+    onSelected,
+}: {
+    onSelected: (item: SavedDataset) => void
+}) {
     const savedDatasets = getSavedDatasets()
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
@@ -117,8 +124,8 @@ function DatasetsList({ onSelected }: { onSelected: (item: any) => void }) {
 
     return (
         <List>
-            {savedDatasets.reverse().map((item: any | object, i: number) => (
-                <div key={i}>
+            {savedDatasets.reverse().map((item, i) => (
+                <div key={item.savedAt}>
                     <ListItem
                         secondaryAction={
                             <>

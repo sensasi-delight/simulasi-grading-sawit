@@ -1,10 +1,7 @@
-enum OperationEnum {
-    addition = 'addition',
-    subtraction = 'subtraction',
-}
+type Operation = 'addition' | 'subtraction'
 
 export default class Rule {
-    operation: OperationEnum
+    operation: Operation
     limit: {
         type: string
         value: number
@@ -13,7 +10,7 @@ export default class Rule {
     description: string
 
     constructor(
-        operation: OperationEnum,
+        operation: Operation,
         limit: any,
         operand: number,
         description: string,

@@ -24,7 +24,7 @@ function Footer() {
                     target="_blank">
                     Sensasi Apps
                 </Link>
-                {' ' + versionDateDayjs.format('YYYY')}
+                {` ${versionDateDayjs.format('YYYY')}`}
             </Typography>
             <Typography variant="caption" color="text.secondary">
                 v{packageJson.version}

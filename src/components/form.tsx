@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box'
 
 import TextField from './text-field'
 
@@ -26,7 +26,9 @@ export default function Form({
                     code={code}
                     value={values[code] || ''}
                     isError={isErrors[code]}
-                    onValueChange={value => (values[code] = value)}
+                    onValueChange={value => {
+                        values[code] = value
+                    }}
                 />
             ))}
         </Box>

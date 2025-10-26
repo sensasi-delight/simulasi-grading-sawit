@@ -1,21 +1,17 @@
-import {
-    Alert,
-    AlertTitle,
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    IconButton,
-    TextField,
-    Tooltip,
-    Typography,
-} from '@mui/material'
-import { FormEvent, useState } from 'react'
-import {
-    HowToVote as HowToVoteIcon,
-    Send as SendIcon,
-} from '@mui/icons-material'
+import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import IconButton from '@mui/material/IconButton'
+import TextField from '@mui/material/TextField'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import { type FormEvent, useState } from 'react'
+import HowToVoteIcon from '@mui/icons-material/HowToVote'
+import SendIcon from '@mui/icons-material/Send'
 import { captureFeedback, captureMessage } from '@sentry/react'
 
 export function FeedbackDialog() {

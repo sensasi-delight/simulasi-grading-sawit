@@ -1,23 +1,11 @@
-import Rule from './rule'
-
-enum CategoryCodeEnum {
-    nRaw = 'nRaw',
-    nUnripe = 'nUnripe',
-    nEmptyLadder = 'nEmptyLadder',
-    nRipe = 'nRipe',
-    nLongRod = 'nLongRod',
-    nSmallLadder = 'nSmallLadder',
-    nRestan = 'nRestan',
-    nRipenedUnripe = 'nRipenedUnripe',
-    nPiece = 'nPiece',
-    nDirtyPiece = 'nDirtyPiece',
-}
+import type { CategoryCode } from '../types/category-code'
+import type Rule from './rule'
 
 export default class Category {
-    code: CategoryCodeEnum
+    code: CategoryCode
     description: string
     rules: Rule[]
-    constructor(code: CategoryCodeEnum, description: string, rules: Rule[]) {
+    constructor(code: CategoryCode, description: string, rules: Rule[]) {
         this.code = code
         this.description = description
         this.rules = rules

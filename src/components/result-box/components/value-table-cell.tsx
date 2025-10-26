@@ -23,7 +23,7 @@ export default function ValueTableCell({
 }: Props) {
     return (
         <TableCell sx={sx} component={th ? 'th' : 'td'}>
-            {!isNaN(value) && value !== 0 && (
+            {!Number.isNaN(value) && value !== 0 && (
                 <Box
                     sx={{
                         display: 'flex',
