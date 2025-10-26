@@ -73,14 +73,16 @@ export default function DetailTable({
         addNote: string
     }[]
 }) {
-    const TableRows = dataset.map((data, i) => <Row key={i} data={data} />)
+    const TableRows = dataset.map(data => (
+        <Row key={data.category.name} data={data} />
+    ))
 
     const cutWorthTotal = dataset.reduce(
-        (acc: number, curr: any) => acc + curr.cutWorth,
+        (acc: number, curr) => acc + curr.cutWorth,
         0,
     )
     const addWorthTotal = dataset.reduce(
-        (acc: number, curr: any) => acc + curr.addWorth,
+        (acc: number, curr) => acc + curr.addWorth,
         0,
     )
 

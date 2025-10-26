@@ -1,5 +1,5 @@
 import MobileStepper from '@mui/material/MobileStepper'
-import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
@@ -13,7 +13,7 @@ interface Props {
 
 export default function Stepper({ activeStep, handlePrev, handleNext }: Props) {
     return (
-        <Grid item width="100%">
+        <Box>
             <MobileStepper
                 variant="progress"
                 steps={3}
@@ -44,6 +44,6 @@ export default function Stepper({ activeStep, handlePrev, handleNext }: Props) {
                     </Button>
                 }
             />
-        </Grid>
+        </Box>
     )
 }

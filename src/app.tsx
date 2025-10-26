@@ -1,6 +1,8 @@
 // vendors
 import { useState } from 'react'
-import { Box, Container, Fade } from '@mui/material'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Fade from '@mui/material/Fade'
 // components
 import DonationDialog from './components/donation-dialog'
 import DisclaimerDialog from './components/disclaimer-dialog'
@@ -57,7 +59,8 @@ export default function App() {
 
     const getInvalidTextFieldIds = () => {
         return INPUT_CODES[activeStep].filter(
-            inputId => formValues[inputId] === '' || isNaN(formValues[inputId]),
+            inputId =>
+                formValues[inputId] === '' || Number.isNaN(formValues[inputId]),
         )
     }
 

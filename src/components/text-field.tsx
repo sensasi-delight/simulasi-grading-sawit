@@ -1,6 +1,7 @@
 // vendors
 import { useEffect, useState } from 'react'
-import { InputAdornment, TextField as TextFieldVendor } from '@mui/material'
+import TextFieldVendor from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
 // data
 import categoriesDataset from '../data/categories'
 
@@ -17,7 +18,7 @@ export default function TextField({
     isError?: boolean
 }) {
     const [value, setValue] = useState(props.value?.toString() ?? '')
-    const [isError, setIsError] = useState(props.isError ? true : false)
+    const [isError, setIsError] = useState(!!props.isError)
 
     const category =
         code === 'price'

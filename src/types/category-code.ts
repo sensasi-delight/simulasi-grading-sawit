@@ -1,0 +1,11 @@
+export type CategoryCode =
+    | 'nRaw'
+    | 'nUnripe'
+    | 'nEmptyLadder'
+    | 'nRipe'
+    | 'nLongRod'
+    | 'nSmallLadder'
+    | 'nRestan'
+    | 'nRipenedUnripe'
+    | 'nPiece'
+    | 'nDirtyPiece'

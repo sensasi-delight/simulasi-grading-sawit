@@ -4,8 +4,12 @@ import categoryDataset from '../data/categories'
 let totalWeight = 0
 let pricePerKg = 0
 
-const setTotalWeight = (weight: number) => (totalWeight = weight)
-const setPricePerKg = (price: number) => (pricePerKg = price)
+const setTotalWeight = (weight: number) => {
+    totalWeight = weight
+}
+const setPricePerKg = (price: number) => {
+    pricePerKg = price
+}
 
 const rulesCalculation = (
     rules: {

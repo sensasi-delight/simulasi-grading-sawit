@@ -1,6 +1,6 @@
 // vendors
 import { useEffect, type ReactNode } from 'react'
-import { createTheme, ThemeProvider } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { getSerwist } from 'virtual:serwist'
 import { red } from '@mui/material/colors'
 // local providers

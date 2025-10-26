@@ -18,7 +18,7 @@ const DetailDialog = ({
 }: {
     dataset: any
     isOpen: boolean
-    setIsOpen: any
+    setIsOpen: (isOpen: boolean) => void
 }) => {
     return (
         <Dialog

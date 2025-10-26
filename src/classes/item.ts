@@ -1,5 +1,6 @@
-import Category from './category'
-import Rule from './rule'
+import type { CategoryCode } from '../types/category-code'
+import type Category from './category'
+import type Rule from './rule'
 
 export default class Item {
     static totalInUnit = 0
@@ -9,7 +10,7 @@ export default class Item {
     worth: number
     qty: number
     category: {
-        code: CategoryCodeEnum
+        code: CategoryCode
         description: string
         rules: Rule[]
     }
@@ -25,17 +26,4 @@ export default class Item {
         this.qty = qty
         this.category = category
     }
-}
-
-enum CategoryCodeEnum {
-    nRaw = 'nRaw',
-    nUnripe = 'nUnripe',
-    nEmptyLadder = 'nEmptyLadder',
-    nRipe = 'nRipe',
-    nLongRod = 'nLongRod',
-    nSmallLadder = 'nSmallLadder',
-    nRestan = 'nRestan',
-    nRipenedUnripe = 'nRipenedUnripe',
-    nPiece = 'nPiece',
-    nDirtyPiece = 'nDirtyPiece',
 }

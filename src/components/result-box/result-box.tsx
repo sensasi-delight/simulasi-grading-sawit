@@ -1,9 +1,12 @@
 // vendors
 import { useRef, useState, useEffect } from 'react'
-import { Box, Button, IconButton, Tooltip } from '@mui/material'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 import dayjs from 'dayjs'
 // icons
-import { Save as SaveIcon } from '@mui/icons-material'
+import SaveIcon from '@mui/icons-material/Save'
 // helpers
 import { currencyFormat, numberFormat } from '../../helpers'
 import calculatePalmGrade from '../../helpers/calculate-palm-grade'
@@ -25,13 +28,13 @@ export default function ResultBox() {
 
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const [summaryData, setSummaryData] = useState<TypeB[]>([])
-    const [pricePerKg, setPricePerKg] = useState(dataset.pricePerKg || '')
+    const [pricePerKg, setPricePerKg] = useState(dataset.pricePerKg ?? '')
 
     const detailBtnRef = useRef<HTMLButtonElement>(null)
 
     useEffect(() => {
-        setPricePerKg(dataset.pricePerKg || '')
-    }, [dataset.savedAt, dataset.pricePerKg])
+        setPricePerKg(dataset.pricePerKg)
+    }, [dataset.pricePerKg])
 
     const isSaveDisabled =
         !pricePerKg ||
