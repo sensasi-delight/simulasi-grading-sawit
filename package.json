@@ -1,8 +1,8 @@
 {
     "name": "simulasi-grading-sawit",
     "private": true,
-    "version": "4.0.2",
-    "versionDate": "2025-10-26",
+    "version": "4.0.3",
+    "versionDate": "2025-12-05",
     "type": "module",
     "scripts": {
         "build": "tsc -b && vite build",
@@ -14,28 +14,28 @@
     "dependencies": {
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
-        "@fontsource/roboto": "^5.2.8",
-        "@mui/icons-material": "^7.3.4",
-        "@mui/material": "^7.3.4",
-        "@sentry/react": "^10.22.0",
-        "@sentry/vite-plugin": "^4.5.0",
-        "dayjs": "^1.11.18",
-        "firebase": "^12.4.0",
-        "react": "^19.2.0",
-        "react-dom": "^19.2.0"
+        "@fontsource/roboto": "^5.2.9",
+        "@mui/icons-material": "^7.3.6",
+        "@mui/material": "^7.3.6",
+        "@sentry/react": "^10.29.0",
+        "@sentry/vite-plugin": "^4.6.1",
+        "dayjs": "^1.11.19",
+        "firebase": "^12.6.0",
+        "react": "^19.2.1",
+        "react-dom": "^19.2.1"
     },
     "devDependencies": {
         "@biomejs/biome": "2.3.0",
-        "@serwist/vite": "^9.2.1",
-        "@serwist/window": "^9.2.1",
-        "@types/node": "^22.18.12",
-        "@types/react": "^19.2.2",
-        "@types/react-dom": "^19.2.2",
-        "@vitejs/plugin-react": "^5.1.0",
+        "@serwist/vite": "^9.2.3",
+        "@serwist/window": "^9.2.3",
+        "@types/node": "^22.19.1",
+        "@types/react": "^19.2.7",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^5.1.1",
         "babel-plugin-react-compiler": "^1.0.0",
-        "globals": "^16.4.0",
-        "serwist": "^9.2.1",
+        "globals": "^16.5.0",
+        "serwist": "^9.2.3",
         "typescript": "^5.9.3",
-        "vite": "^7.1.12"
+        "vite": "^7.2.6"
     }
 }
