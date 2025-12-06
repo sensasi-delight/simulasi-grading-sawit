@@ -6,17 +6,17 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Fade from '@mui/material/Fade'
 // components
-import DonationDialog from './components/donation-dialog'
-import DisclaimerDialog from './components/disclaimer-dialog'
-import Form from './components/form'
-import Header from './components/header'
-import ResultBox from './components/result-box'
-import Stepper from './components/stepper'
-import SavedCalculation from './components/saved-calculation'
+import DonationDialog from './donation-dialog'
+import DisclaimerDialog from './disclaimer-dialog'
+import Form from './form'
+import Header from './header'
+import ResultBox from './result-box'
+import Stepper from './stepper'
+import SavedCalculation from './saved-calculation'
 // import Notification from './components/Notification';
 // hooks
-import useGlobals from './hooks/use-globals'
-import FeedbackDialog from './components/feedback-dialog'
+import useGlobals from '../hooks/use-globals'
+import FeedbackDialog from './feedback-dialog'
 
 const INPUT_CODES = [
     [
@@ -36,7 +36,10 @@ const INPUT_CODES = [
     ],
 ]
 
-export default function App() {
+/**
+ * Calculator main component
+ */
+export default function Calculator() {
     const { activeStep, setActiveStep, formValues } = useGlobals()
 
     //   const [notifications, setNotifications] = useState([])

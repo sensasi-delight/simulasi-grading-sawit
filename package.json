@@ -1,14 +1,14 @@
 {
     "name": "simulasi-grading-sawit",
     "private": true,
-    "version": "4.0.5",
-    "versionDate": "2025-12-06",
+    "version": "4.0.6",
+    "versionDate": "2025-12-07",
     "type": "module",
     "scripts": {
         "build": "next build --webpack",
         "dev": "next dev --webpack",
         "start": "next start",
-        "lint": "biome check && next lint",
+        "lint": "biome check",
         "lint:fix": "biome check --write",
         "preview": "firebase emulators:start --only hosting"
     },
@@ -29,7 +29,7 @@
         "react-dom": "^19.2.1"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.3.0",
+        "@biomejs/biome": "2.3.8",
         "@types/node": "^22.19.1",
         "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",

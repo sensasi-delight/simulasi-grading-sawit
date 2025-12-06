@@ -10,17 +10,17 @@ import dayjs from 'dayjs'
 // icons
 import SaveIcon from '@mui/icons-material/Save'
 // helpers
-import { currencyFormat, numberFormat } from '../../helpers'
-import calculatePalmGrade from '../../helpers/calculate-palm-grade'
+import { currencyFormat, numberFormat } from '@/helpers'
+import calculatePalmGrade from '@/helpers/calculate-palm-grade'
 // components
 import DetailDialog from './components/detail-dialog'
 import SummaryTable from './components/summary-table'
-import TextField from '../text-field'
+import TextField from '@/components/text-field'
 // hooks
-import useGlobals from '../../hooks/use-globals'
-import useFirebase from '../../hooks/use-firebase'
+import useGlobals from '@/hooks/use-globals'
+import useFirebase from '@/hooks/use-firebase'
 // functions
-import { getSavedDatasets } from '../../functions/get-saved-datasets'
+import { getSavedDatasets } from '@/functions/get-saved-datasets'
 
 let calculationResults: AnuType[] = []
 

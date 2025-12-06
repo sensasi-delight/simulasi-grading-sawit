@@ -29,10 +29,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import dayjs from 'dayjs'
 // hooks
-import useGlobals from '../hooks/use-globals'
+import useGlobals from '@/hooks/use-globals'
 // helpers
-import { currencyFormat, numberFormat } from '../helpers'
-import { getSavedDatasets } from '../functions/get-saved-datasets'
+import { currencyFormat, numberFormat } from '@/helpers'
+import { getSavedDatasets } from '@/functions/get-saved-datasets'
 import type SavedDataset from '../types/saved-dataset'
 
 export default function SavedCalculationDialog() {
