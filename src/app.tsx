@@ -6,7 +6,6 @@ import Fade from '@mui/material/Fade'
 // components
 import DonationDialog from './components/donation-dialog'
 import DisclaimerDialog from './components/disclaimer-dialog'
-import Footer from './components/footer'
 import Form from './components/form'
 import Header from './components/header'
 import ResultBox from './components/result-box'
@@ -165,7 +164,6 @@ export default function App() {
                 handlePrev={handlePrev}
             />
 
-            <Footer />
             {/* {notifications}  */}
         </Container>
     )
