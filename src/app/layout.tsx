@@ -23,6 +23,9 @@ export const metadata: Metadata = {
         title: APP_DEFAULT_TITLE,
         // startUpImage: [],
     },
+    other: {
+        'google-adsense-account': 'ca-pub-8776232484970024',
+    },
     formatDetection: {
         telephone: false,
     },
