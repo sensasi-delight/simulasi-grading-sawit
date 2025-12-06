@@ -6,6 +6,7 @@ import {
     getAnalytics,
     logEvent as logEventVendor,
     setUserProperties,
+    isSupported,
 } from 'firebase/analytics'
 import packageJson from '@/../package.json'
 
@@ -26,17 +27,20 @@ const FIREBASE_APP = process.env.FIREBASE_API_KEY
       })
     : null
 
-const analytics = FIREBASE_APP ? getAnalytics(FIREBASE_APP) : null
+async function logEvent(eventName: string) {
+    const analytics =
+        FIREBASE_APP && (await isSupported())
+            ? getAnalytics(FIREBASE_APP)
+            : null
 
-function logEvent(eventName: string) {
-    if (!analytics) return
+    if (analytics === null) return
 
     setUserProperties(analytics, { wpa_version: packageJson.version })
-    return logEventVendor(analytics, eventName)
+    logEventVendor(analytics, eventName)
 }
 
 const CONTEXT = createContext<{
-    logEvent: (eventName: string) => void
+    logEvent: (eventName: string) => Promise<void>
 }>({
     logEvent: logEvent,
 })
