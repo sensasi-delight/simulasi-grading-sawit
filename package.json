@@ -5,38 +5,35 @@
     "versionDate": "2025-12-06",
     "type": "module",
     "scripts": {
-        "build": "tsc -b && vite build",
-        "dev": "vite",
-        "lint": "biome check && tsc --noEmit",
+        "build": "next build --webpack",
+        "dev": "next dev --webpack",
+        "start": "next start",
+        "lint": "biome check && next lint",
         "lint:fix": "biome check --write",
-        "preview": "vite preview"
+        "preview": "firebase emulators:start --only hosting"
     },
     "dependencies": {
+        "@emotion/cache": "^11.14.0",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
-        "@fontsource/roboto": "^5.2.9",
         "@mui/icons-material": "^7.3.6",
         "@mui/material": "^7.3.6",
-        "@sentry/react": "^10.29.0",
-        "@sentry/vite-plugin": "^4.6.1",
+        "@mui/material-nextjs": "^7.3.6",
+        "@sentry/nextjs": "^10.29.0",
+        "@serwist/next": "^9.2.3",
         "dayjs": "^1.11.19",
         "firebase": "^12.6.0",
+        "next": "^16.0.7",
+        "next-pwa": "^5.6.0",
         "react": "^19.2.1",
-        "react-dom": "^19.2.1",
-        "react-router": "^7.10.1"
+        "react-dom": "^19.2.1"
     },
     "devDependencies": {
         "@biomejs/biome": "2.3.0",
-        "@serwist/vite": "^9.2.3",
-        "@serwist/window": "^9.2.3",
         "@types/node": "^22.19.1",
         "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",
-        "@vitejs/plugin-react": "^5.1.1",
-        "babel-plugin-react-compiler": "^1.0.0",
-        "globals": "^16.5.0",
         "serwist": "^9.2.3",
-        "typescript": "^5.9.3",
-        "vite": "^7.2.6"
+        "typescript": "^5.9.3"
     }
 }

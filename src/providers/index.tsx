@@ -1,8 +1,10 @@
+'use client'
+
 // vendors
-import { useEffect, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { getSerwist } from 'virtual:serwist'
 import { red } from '@mui/material/colors'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter'
 // local providers
 import { GlobalsProvider } from './components/globals-provider'
 import { FirebaseProvider } from './components/firebase-provider'
@@ -16,29 +18,13 @@ const THEME = createTheme({
 })
 
 export function Providers({ children }: { children: ReactNode }) {
-    useEffect(() => {
-        const loadSerwist = async () => {
-            if ('serviceWorker' in navigator) {
-                const serwist = await getSerwist()
-
-                serwist?.addEventListener('installed', () => {
-                    console.log('Serwist installed!')
-                })
-
-                void serwist?.register()
-            }
-        }
-
-        loadSerwist().catch(err => {
-            throw err
-        })
-    }, [])
-
     return (
-        <ThemeProvider theme={THEME}>
-            <FirebaseProvider>
-                <GlobalsProvider>{children}</GlobalsProvider>
-            </FirebaseProvider>
-        </ThemeProvider>
+        <AppRouterCacheProvider>
+            <ThemeProvider theme={THEME}>
+                <FirebaseProvider>
+                    <GlobalsProvider>{children}</GlobalsProvider>
+                </FirebaseProvider>
+            </ThemeProvider>
+        </AppRouterCacheProvider>
     )
 }

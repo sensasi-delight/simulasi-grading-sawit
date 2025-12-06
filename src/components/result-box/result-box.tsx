@@ -1,3 +1,5 @@
+'use client'
+
 // vendors
 import { useRef, useState, useEffect } from 'react'
 import Box from '@mui/material/Box'

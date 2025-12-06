@@ -1,7 +1,13 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Terms & Conditions - Simulasi Grading Sawit',
+    description: 'Terms and conditions for Simulasi Grading Sawit application',
+}
+
 export default function TermsAndConditionsPage() {
     return (
         <main>
-            <title>Terms & Conditions</title>
             <strong>Terms &amp; Conditions</strong>
             <br />
             <p>
