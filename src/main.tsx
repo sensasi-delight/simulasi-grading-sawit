@@ -7,7 +7,13 @@ import './instrument'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Providers } from './providers'
+import { BrowserRouter, Routes, Route } from 'react-router'
+import Footer from './components/footer'
+// pages
 import App from './app'
+import NotFoundPage from './pages/not-found'
+import PrivacyPolicyPage from './pages/privacy-policy'
+import TermsAndConditionsPage from './pages/terms'
 
 const root = document.getElementById('root')
 
@@ -17,8 +23,19 @@ if (!root) {
 
 createRoot(root).render(
     <StrictMode>
-        <Providers>
-            <App />
-        </Providers>
+        <BrowserRouter>
+            <Providers>
+                <Routes>
+                    <Route path="/" element={<App />} />
+                    <Route
+                        path="/privacy-policy"
+                        element={<PrivacyPolicyPage />}
+                    />
+                    <Route path="/terms" element={<TermsAndConditionsPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+            </Providers>
+            <Footer />
+        </BrowserRouter>
     </StrictMode>,
 )
