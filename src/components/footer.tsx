@@ -1,15 +1,17 @@
+'use client'
+
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import Link from '../components/link'
+import Link from './link'
 import dayjs from 'dayjs'
 import packageJson from '../../package.json'
 // hooks
-import useFirebase from '../hooks/use-firebase'
+import useFirebase from '@/hooks/use-firebase'
 
 const COMPANY_URL = 'https://github.com/sensasi-apps'
 const versionDateYear = dayjs(packageJson.versionDate).format('YYYY')
 
-function Footer() {
+export default function Footer() {
     const { logEvent } = useFirebase()
 
     return (
@@ -65,5 +67,3 @@ function Footer() {
         </Box>
     )
 }
-
-export default Footer

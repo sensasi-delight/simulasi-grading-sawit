@@ -1,7 +1,13 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Privacy Policy - Simulasi Grading Sawit',
+    description: 'Privacy policy for Simulasi Grading Sawit application',
+}
+
 export default function PrivacyPolicyPage() {
     return (
         <main>
-            <title>Privacy Policy</title>
             <strong>Privacy Policy</strong>
             <p>
                 This privacy policy applies to the Simulasi Grading Sawit app
@@ -111,6 +117,7 @@ export default function PrivacyPolicyPage() {
                 </ul>
             </div>
             <br />
+            <strong>Disclosure of Information</strong>
             <p>
                 The Service Provider may disclose User Provided and
                 Automatically Collected Information:
