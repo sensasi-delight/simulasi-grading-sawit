@@ -37,8 +37,8 @@ export const metadata: Metadata = {
 
 export default function TentangPage() {
     return (
-        <Container maxWidth="md" sx={{ py: 4, pb: 10 }}>
-            <Paper elevation={3} sx={{ p: { xs: 2, sm: 4 } }}>
+        <Container maxWidth="md" sx={{ py: 4, pb: 14 }}>
+            <Box>
                 <Typography
                     variant="h3"
                     component="h1"
@@ -448,7 +448,7 @@ export default function TentangPage() {
                         dengan perusahaan atau pabrik kelapa sawit manapun.
                     </Typography>
                 </Box>
-            </Paper>
+            </Box>
         </Container>
     )
 }
