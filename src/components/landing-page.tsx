@@ -386,6 +386,255 @@ export default function LandingPage() {
                     </Stack>
                 </Box>
 
+                <Typography
+                    variant="h5"
+                    component="h3"
+                    gutterBottom
+                    sx={{ mt: 4 }}>
+                    Siapa yang Membutuhkan Aplikasi Ini?
+                </Typography>
+                <Typography paragraph>
+                    Aplikasi Simulasi Grading Sawit dirancang untuk berbagai
+                    pihak yang terlibat dalam industri kelapa sawit:
+                </Typography>
+
+                <Stack spacing={2} sx={{ my: 3 }}>
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography variant="h6" gutterBottom>
+                                🌾 Petani Kelapa Sawit
+                            </Typography>
+                            <Typography variant="body2">
+                                Petani dapat menggunakan aplikasi ini untuk
+                                mengestimasi harga TBS sebelum menjual ke
+                                pabrik. Dengan memahami perhitungan grading,
+                                petani dapat memverifikasi nota pembayaran dari
+                                pabrik dan memastikan tidak ada kesalahan
+                                perhitungan yang merugikan. Aplikasi ini juga
+                                membantu petani mengidentifikasi area perbaikan
+                                dalam praktik panen untuk meningkatkan kualitas
+                                TBS di masa mendatang.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography variant="h6" gutterBottom>
+                                🏭 Pabrik Kelapa Sawit (PKS)
+                            </Typography>
+                            <Typography variant="body2">
+                                Operator pabrik dan staf grading dapat
+                                menggunakan aplikasi ini sebagai alat bantu
+                                untuk menghitung grading dengan cepat dan
+                                akurat. Aplikasi ini juga berguna untuk
+                                pelatihan staf baru tentang sistem grading
+                                standar dan memastikan konsistensi perhitungan
+                                di seluruh tim.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography variant="h6" gutterBottom>
+                                📚 Mahasiswa dan Peneliti
+                            </Typography>
+                            <Typography variant="body2">
+                                Mahasiswa pertanian, agribisnis, dan peneliti
+                                yang mempelajari industri kelapa sawit dapat
+                                menggunakan aplikasi ini untuk memahami sistem
+                                grading dan melakukan simulasi berbagai skenario
+                                kualitas TBS. Data dari aplikasi ini dapat
+                                digunakan sebagai referensi dalam penelitian
+                                tentang sistem perdagangan TBS di Indonesia.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography variant="h6" gutterBottom>
+                                💼 Konsultan dan Penyuluh Pertanian
+                            </Typography>
+                            <Typography variant="body2">
+                                Konsultan agribisnis dan penyuluh pertanian
+                                dapat menggunakan aplikasi ini sebagai alat
+                                edukasi saat memberikan pelatihan kepada petani
+                                kelapa sawit. Aplikasi ini membantu menjelaskan
+                                konsep grading dengan cara yang praktis dan
+                                interaktif.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Stack>
+
+                <Typography
+                    variant="h5"
+                    component="h3"
+                    gutterBottom
+                    sx={{ mt: 4 }}>
+                    Pertanyaan yang Sering Diajukan (FAQ)
+                </Typography>
+
+                <Stack spacing={2} sx={{ my: 3 }}>
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography
+                                variant="h6"
+                                gutterBottom
+                                color="primary">
+                                Apakah aplikasi ini gratis?
+                            </Typography>
+                            <Typography variant="body2">
+                                Ya, aplikasi ini 100% gratis dan akan tetap
+                                gratis selamanya. Tidak ada biaya berlangganan,
+                                tidak ada fitur premium berbayar, dan tidak ada
+                                biaya tersembunyi. Kami percaya bahwa akses
+                                terhadap informasi dan alat bantu perhitungan
+                                harus tersedia untuk semua petani.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography
+                                variant="h6"
+                                gutterBottom
+                                color="primary">
+                                Apakah data saya aman?
+                            </Typography>
+                            <Typography variant="body2">
+                                Semua data perhitungan Anda disimpan secara
+                                lokal di perangkat Anda sendiri (browser). Kami
+                                tidak mengumpulkan, menyimpan, atau mengirim
+                                data perhitungan Anda ke server manapun. Data
+                                Anda sepenuhnya privat dan hanya dapat diakses
+                                oleh Anda.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography
+                                variant="h6"
+                                gutterBottom
+                                color="primary">
+                                Apakah rumus yang digunakan akurat?
+                            </Typography>
+                            <Typography variant="body2">
+                                Rumus perhitungan dalam aplikasi ini berdasarkan
+                                standar industri kelapa sawit di Indonesia,
+                                khususnya wilayah Kalimantan Timur. Namun perlu
+                                diingat bahwa setiap pabrik mungkin memiliki
+                                variasi kecil dalam persentase potongan atau
+                                insentif. Aplikasi ini memberikan estimasi yang
+                                sangat mendekati, namun hasil akhir dapat
+                                berbeda sedikit tergantung kebijakan spesifik
+                                pabrik Anda.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography
+                                variant="h6"
+                                gutterBottom
+                                color="primary">
+                                Bisakah digunakan offline?
+                            </Typography>
+                            <Typography variant="body2">
+                                Ya! Aplikasi ini adalah Progressive Web App
+                                (PWA) yang dapat diinstal di smartphone atau
+                                komputer Anda dan berfungsi sepenuhnya secara
+                                offline setelah diinstal. Anda tidak memerlukan
+                                koneksi internet untuk menggunakan kalkulator.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography
+                                variant="h6"
+                                gutterBottom
+                                color="primary">
+                                Bagaimana cara menginstal aplikasi?
+                            </Typography>
+                            <Typography variant="body2">
+                                Untuk menginstal, buka aplikasi di browser
+                                (Chrome/Edge/Safari), lalu cari opsi "Install
+                                App" atau "Add to Home Screen" di menu browser.
+                                Setelah diinstal, aplikasi akan muncul seperti
+                                aplikasi native di perangkat Anda dengan ikon di
+                                home screen.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography
+                                variant="h6"
+                                gutterBottom
+                                color="primary">
+                                Siapa yang membuat aplikasi ini?
+                            </Typography>
+                            <Typography variant="body2">
+                                Aplikasi ini dikembangkan oleh Sensasi Apps,
+                                sebuah tim developer Indonesia yang fokus pada
+                                pembuatan aplikasi open-source untuk membantu
+                                berbagai industri. Source code aplikasi ini
+                                tersedia secara publik di GitHub dan dapat
+                                diperiksa atau dikontribusi oleh siapa saja.
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Stack>
+
+                <Typography
+                    variant="h5"
+                    component="h3"
+                    gutterBottom
+                    sx={{ mt: 4 }}>
+                    Teknologi yang Digunakan
+                </Typography>
+                <Typography paragraph>
+                    Aplikasi Simulasi Grading Sawit dibangun menggunakan
+                    teknologi web modern untuk memberikan pengalaman pengguna
+                    terbaik:
+                </Typography>
+
+                <Stack spacing={1} sx={{ my: 2 }}>
+                    <Typography variant="body2">
+                        • <strong>Next.js 15</strong> - Framework React untuk
+                        performa optimal dan SEO
+                    </Typography>
+                    <Typography variant="body2">
+                        • <strong>React 19</strong> - Library UI terpopuler
+                        untuk interface yang responsif
+                    </Typography>
+                    <Typography variant="body2">
+                        • <strong>Material-UI (MUI) v7</strong> - Komponen UI
+                        profesional dengan desain Material Design
+                    </Typography>
+                    <Typography variant="body2">
+                        • <strong>TypeScript</strong> - Type-safe programming
+                        untuk mengurangi bugs
+                    </Typography>
+                    <Typography variant="body2">
+                        • <strong>Progressive Web App (PWA)</strong> - Teknologi
+                        untuk instalasi dan offline capability
+                    </Typography>
+                    <Typography variant="body2">
+                        • <strong>Firebase Analytics</strong> - Anonymous usage
+                        analytics untuk perbaikan aplikasi
+                    </Typography>
+                </Stack>
+
                 <Divider sx={{ my: 4 }} />
 
                 <Box sx={{ textAlign: 'center' }}>
