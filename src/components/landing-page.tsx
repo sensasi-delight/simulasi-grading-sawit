@@ -3,12 +3,15 @@
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
@@ -21,176 +24,144 @@ export default function LandingPage() {
     const router = useRouter()
 
     return (
-        <Container maxWidth="md" sx={{ py: 4, pb: 10 }}>
+        <Container maxWidth="md" sx={{ py: 4, pb: 14 }}>
             <Box
                 sx={{
-                    marginTop: 8,
+                    marginTop: 6,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    mb: 4,
+                    mb: 6,
                 }}>
                 <Avatar
                     sx={{
                         m: 1,
                         bgcolor: 'primary.main',
-                        width: 56,
-                        height: 56,
+                        width: 80,
+                        height: 80,
                     }}>
-                    <PercentOutlinedIcon fontSize="large" />
+                    <PercentOutlinedIcon sx={{ fontSize: 48 }} />
                 </Avatar>
-                <Typography mt={2} component="h1" variant="h3" align="center">
+                <Typography mt={3} component="h1" variant="h3" align="center">
                     Simulasi Grading Sawit
                 </Typography>
                 <Typography
                     variant="h6"
-                    color="text.secondary"
+                    color="text.primary"
                     align="center"
-                    sx={{ mt: 1 }}>
+                    sx={{ mt: 2, maxWidth: '75ch' }}>
                     Kalkulator Grading Kelapa Sawit untuk Petani dan Pelaku
                     Industri
                 </Typography>
             </Box>
 
-            <Paper elevation={3} sx={{ p: { xs: 3, sm: 4 }, mb: 4 }}>
-                <Box sx={{ textAlign: 'center', mb: 4 }}>
+            <Box sx={{ mb: 6 }}>
+                <Box sx={{ textAlign: 'center', mb: 6 }}>
                     <Button
                         variant="contained"
                         size="large"
-                        startIcon={<CalculateIcon />}
+                        startIcon={<CalculateIcon sx={{ fontSize: 32 }} />}
                         onClick={() => router.push('/kalkulator')}
-                        sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}>
+                        sx={{
+                            minHeight: 64,
+                            px: 6,
+                            py: 2,
+                            fontSize: '1.25rem',
+                        }}>
                         Mulai Hitung Grading TBS
                     </Button>
                 </Box>
 
-                <Divider sx={{ my: 4 }} />
+                <Divider sx={{ my: 6 }} />
 
                 <Box component="article">
-                    <Typography variant="h4" component="h2" gutterBottom>
+                    <Typography
+                        variant="h4"
+                        component="h2"
+                        gutterBottom
+                        sx={{ mb: 3 }}>
                         Apa Itu Grading Kelapa Sawit?
                     </Typography>
-                    <Typography paragraph>
+                    
+                    <Typography paragraph sx={{ maxWidth: '75ch', mb: 2 }}>
                         <strong>Grading kelapa sawit</strong> adalah sistem
-                        penilaian kualitas Tandan Buah Segar (TBS) yang
-                        digunakan oleh pabrik kelapa sawit untuk menentukan
-                        harga pembelian dari petani. Sistem ini sangat penting
-                        karena kualitas buah sawit secara langsung mempengaruhi
-                        rendemen minyak yang dihasilkan pabrik, sehingga pabrik
-                        memberikan <strong>potongan harga</strong> untuk buah
-                        berkualitas rendah dan <strong>insentif bonus</strong>{' '}
-                        untuk buah berkualitas tinggi.
+                        penilaian kualitas buah kelapa sawit Anda.
                     </Typography>
-                    <Typography paragraph>
-                        Proses grading melibatkan pemeriksaan beberapa kategori
-                        kualitas buah, termasuk tingkat kematangan (buah mentah,
-                        matang, atau lewat matang), kondisi fisik buah (apakah
-                        ada tangkai panjang, buah menginap, atau buah kosong),
-                        dan kebersihan berondolan (buah lepas dari tandan).
-                        Setiap kategori memiliki persentase toleransi dan
-                        persentase potongan yang berbeda-beda, yang pada
-                        akhirnya menentukan harga final yang diterima petani.
+                    
+                    <Typography paragraph sx={{ maxWidth: '75ch', mb: 2 }}>
+                        Pabrik menilai kualitas buah untuk menentukan harga.
+                        Buah berkualitas baik dapat bonus, buah kurang baik kena
+                        potongan harga.
                     </Typography>
 
                     <Typography
                         variant="h5"
                         component="h3"
                         gutterBottom
-                        sx={{ mt: 3 }}>
-                        Mengapa Petani Perlu Memahami Sistem Grading?
+                        sx={{ mt: 5, mb: 3 }}>
+                        Mengapa Penting Bagi Petani?
                     </Typography>
-                    <Typography paragraph>
-                        Banyak petani kelapa sawit yang tidak sepenuhnya
-                        memahami bagaimana harga TBS mereka dihitung setelah
-                        dikurangi berbagai potongan berdasarkan kualitas. Hal
-                        ini sering menyebabkan kebingungan dan kadang
-                        ketidakpuasan ketika menerima pembayaran yang lebih
-                        rendah dari yang diharapkan. Dengan memahami sistem
-                        grading, petani dapat:
+                    
+                    <Typography paragraph sx={{ maxWidth: '75ch', mb: 3 }}>
+                        Dengan memahami grading, petani bisa:
                     </Typography>
-                    <Typography component="div">
-                        <ul>
-                            <li>
-                                <strong>Meningkatkan kualitas panen:</strong>{' '}
-                                Mengetahui kategori mana yang paling merugikan
-                                membantu petani fokus pada praktik panen yang
-                                lebih baik, seperti memanen buah pada tingkat
-                                kematangan optimal dan mengirim TBS ke pabrik
-                                dalam waktu kurang dari 48 jam.
-                            </li>
-                            <li>
-                                <strong>Transparansi harga:</strong> Petani
-                                dapat menghitung sendiri estimasi harga yang
-                                akan mereka terima sebelum menjual TBS, sehingga
-                                dapat memverifikasi perhitungan pabrik dan
-                                bernegosiasi dengan lebih percaya diri.
-                            </li>
-                            <li>
-                                <strong>Maksimalkan pendapatan:</strong> Dengan
-                                memahami bahwa Berondolan Bersih (PBB) yang
-                                lebih dari 10% dari total berat dapat memberikan
-                                insentif tambahan 8%, petani dapat fokus
-                                mengumpulkan brondolan dengan bersih untuk
-                                meningkatkan pendapatan.
-                            </li>
-                            <li>
-                                <strong>Hindari kerugian besar:</strong>{' '}
-                                Kategori seperti Buah Mentah (BM) dan Berondolan
-                                Kotor (BK) memiliki potongan yang sangat besar
-                                (50% hingga 100%), sehingga menghindari kategori
-                                ini dapat menyelamatkan pendapatan petani secara
-                                signifikan.
-                            </li>
-                        </ul>
-                    </Typography>
+                    
+                    <Box component="ul" sx={{ pl: 3, mb: 4 }}>
+                        <Typography component="li" sx={{ mb: 2 }}>
+                            <strong>Tingkatkan kualitas panen</strong> - Tahu
+                            kategori mana yang merugikan
+                        </Typography>
+                        <Typography component="li" sx={{ mb: 2 }}>
+                            <strong>Hitung harga sendiri</strong> - Cek
+                            perhitungan pabrik dengan percaya diri
+                        </Typography>
+                        <Typography component="li" sx={{ mb: 2 }}>
+                            <strong>Dapat bonus lebih</strong> - Kumpulkan
+                            berondolan bersih minimal 10%
+                        </Typography>
+                        <Typography component="li" sx={{ mb: 2 }}>
+                            <strong>Hindari kerugian besar</strong> - Potongan
+                            bisa sampai 50-100%
+                        </Typography>
+                    </Box>
 
                     <Typography
                         variant="h5"
                         component="h3"
                         gutterBottom
-                        sx={{ mt: 3 }}>
-                        Kategori Utama dalam Grading TBS
-                    </Typography>
-                    <Typography paragraph>
-                        Sistem grading TBS umumnya membagi buah kelapa sawit ke
-                        dalam beberapa kategori berdasarkan tingkat kematangan
-                        dan kondisi fisik. Berikut adalah kategori-kategori
-                        utama yang perlu dipahami oleh setiap petani:
+                        sx={{ mt: 5, mb: 3 }}>
+                        Kategori Buah Kelapa Sawit
                     </Typography>
 
-                    <Stack spacing={2} sx={{ my: 3 }}>
+                    <Stack spacing={4} sx={{ my: 4 }}>
                         <Card variant="outlined">
-                            <CardContent>
+                            <CardContent sx={{ p: 3 }}>
                                 <Typography
                                     variant="h6"
                                     color="error"
-                                    gutterBottom>
+                                    gutterBottom
+                                    sx={{ mb: 2 }}>
                                     Buah Mentah (BM) - Potongan 50%
                                 </Typography>
-                                <Typography variant="body2">
-                                    Buah yang belum matang dengan warna
-                                    kehijauan. Rendemen minyak sangat rendah
-                                    karena kandungan minyak belum optimal.
-                                    Pabrik memberikan potongan 50% untuk setiap
-                                    persentase buah mentah yang dibawa petani.
+                                <Typography>
+                                    Buah warna hijau, belum matang. Kena potongan
+                                    besar 50%.
                                 </Typography>
                             </CardContent>
                         </Card>
 
                         <Card variant="outlined">
-                            <CardContent>
+                            <CardContent sx={{ p: 3 }}>
                                 <Typography
                                     variant="h6"
                                     color="warning.main"
-                                    gutterBottom>
+                                    gutterBottom
+                                    sx={{ mb: 2 }}>
                                     Buah Lewat Matang (BLM) - Potongan 25%
                                 </Typography>
-                                <Typography variant="body2">
-                                    Buah yang terlalu matang atau overripe
-                                    dengan kandungan FFA (asam lemak bebas) yang
-                                    tinggi. Jika lebih dari 5% dari total berat,
-                                    akan dikenakan potongan 25% untuk
-                                    kelebihannya.
+                                <Typography>
+                                    Buah terlalu matang. Jika lebih dari 5%,
+                                    kena potongan 25%.
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -198,36 +169,33 @@ export default function LandingPage() {
                         <Card
                             variant="outlined"
                             sx={{ bgcolor: 'success.light' }}>
-                            <CardContent>
+                            <CardContent sx={{ p: 3 }}>
                                 <Typography
                                     variant="h6"
                                     color="success.dark"
-                                    gutterBottom>
-                                    Buah Matang (BMTG) - Tidak Ada Potongan ✓
+                                    gutterBottom
+                                    sx={{ mb: 2 }}>
+                                    Buah Matang (BMTG) - ✓ Tidak Ada Potongan
                                 </Typography>
-                                <Typography variant="body2">
-                                    Buah matang optimal dengan warna
-                                    merah/oranye cerah. Ini adalah kondisi ideal
-                                    yang memberikan rendemen minyak maksimal.
-                                    Tidak ada potongan untuk kategori ini.
+                                <Typography>
+                                    Buah warna merah/oranye cerah. Kondisi
+                                    terbaik, tidak kena potongan.
                                 </Typography>
                             </CardContent>
                         </Card>
 
                         <Card variant="outlined" sx={{ bgcolor: 'info.light' }}>
-                            <CardContent>
+                            <CardContent sx={{ p: 3 }}>
                                 <Typography
                                     variant="h6"
                                     color="info.dark"
-                                    gutterBottom>
-                                    Berondolan Bersih (PBB) - Insentif 8%
+                                    gutterBottom
+                                    sx={{ mb: 2 }}>
+                                    Berondolan Bersih (PBB) - Bonus 8%
                                 </Typography>
-                                <Typography variant="body2">
-                                    Buah lepas yang bersih tanpa kotoran. Jika
-                                    lebih dari 10% dari total berat, petani
-                                    mendapat bonus insentif 8%. Namun jika
-                                    kurang dari 10%, akan dikenakan potongan
-                                    30%.
+                                <Typography>
+                                    Buah lepas yang bersih. Jika lebih dari 10%,
+                                    dapat bonus 8%.
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -237,437 +205,345 @@ export default function LandingPage() {
                         variant="h5"
                         component="h3"
                         gutterBottom
-                        sx={{ mt: 3 }}>
-                        Cara Menggunakan Kalkulator Grading Sawit
+                        sx={{ mt: 5, mb: 3 }}>
+                        Cara Menggunakan Kalkulator
                     </Typography>
-                    <Typography paragraph>
-                        Aplikasi <strong>Simulasi Grading Sawit</strong> ini
-                        dirancang untuk membantu petani dan pelaku industri
-                        kelapa sawit menghitung dengan mudah dan cepat berapa
-                        nilai akhir TBS setelah dikurangi potongan dan ditambah
-                        insentif. Kalkulator ini menggunakan rumus yang
-                        didasarkan pada studi kasus perkebunan kelapa sawit di
-                        salah satu desa di Kalimantan Timur.
-                    </Typography>
-                    <Typography paragraph>
-                        Untuk menggunakan kalkulator, Anda cukup memasukkan
-                        data-data berikut secara bertahap:
-                    </Typography>
-                    <Typography component="div">
-                        <ol>
-                            <li>
-                                <strong>
-                                    Langkah 1 - Kategori Kematangan:
-                                </strong>{' '}
-                                Masukkan jumlah janjang untuk Buah Mentah (BM),
-                                Buah Lewat Matang (BLM), dan Buah Matang (BMTG).
-                                Usahakan sebagian besar TBS Anda adalah Buah
-                                Matang untuk menghindari potongan besar.
-                            </li>
-                            <li>
-                                <strong>Langkah 2 - Kategori Kualitas:</strong>{' '}
-                                Masukkan jumlah untuk Buah Ganggang Panjang
-                                (BGP), Buah Menginap (BR), Berondolan Kotor
-                                (BK), Berondolan Bersih (PBB), dan total berat
-                                TBS dalam kilogram. Pastikan mengumpulkan
-                                Berondolan Bersih minimal 10% untuk mendapat
-                                insentif.
-                            </li>
-                            <li>
-                                <strong>Langkah 3 - Hitung Hasil:</strong>{' '}
-                                Masukkan harga per kilogram TBS yang berlaku,
-                                dan aplikasi akan otomatis menghitung nilai
-                                dasar, total potongan, total insentif, dan nilai
-                                akhir yang akan Anda terima.
-                            </li>
-                        </ol>
-                    </Typography>
-                    <Typography paragraph>
-                        Aplikasi ini juga menyediakan fitur untuk menyimpan
-                        hasil perhitungan Anda sehingga dapat dibandingkan dari
-                        waktu ke waktu. Data tersimpan di perangkat Anda sendiri
-                        dan tidak dikirim ke server, menjaga privasi data Anda.
-                    </Typography>
+                    
+                    <Box component="ol" sx={{ pl: 3, mb: 4 }}>
+                        <Typography component="li" sx={{ mb: 3 }}>
+                            <strong>Langkah 1:</strong> Masukkan jumlah janjang
+                            buah mentah, lewat matang, dan buah matang.
+                        </Typography>
+                        <Typography component="li" sx={{ mb: 3 }}>
+                            <strong>Langkah 2:</strong> Masukkan data kualitas
+                            buah dan total berat (kilogram).
+                        </Typography>
+                        <Typography component="li" sx={{ mb: 3 }}>
+                            <strong>Langkah 3:</strong> Masukkan harga per
+                            kilogram, lalu lihat hasil perhitungan.
+                        </Typography>
+                    </Box>
 
                     <Typography
                         variant="h5"
                         component="h3"
                         gutterBottom
-                        sx={{ mt: 3 }}>
-                        Manfaat Menggunakan Aplikasi Ini
+                        sx={{ mt: 5, mb: 3 }}>
+                        Manfaat Aplikasi Ini
                     </Typography>
-                    <Stack
-                        direction="row"
-                        spacing={2}
-                        sx={{ my: 2, flexWrap: 'wrap', gap: 2 }}>
+                    <Stack spacing={4} sx={{ my: 4 }}>
                         <Card
                             variant="outlined"
                             sx={{
-                                flex: '1 1 calc(50% - 16px)',
-                                minWidth: 200,
+                                display: 'flex',
+                                flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
                             }}>
-                            <CardContent>
-                                <VerifiedIcon
-                                    color="primary"
-                                    sx={{ fontSize: 40, mb: 1 }}
-                                />
-                                <Typography variant="h6" gutterBottom>
-                                    100% Gratis
-                                </Typography>
-                                <Typography variant="body2">
-                                    Tidak ada biaya berlangganan atau biaya
-                                    tersembunyi. Aplikasi ini gratis selamanya
+                            <CardContent sx={{ p: 3, flex: 1 }}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        mb: 2,
+                                    }}>
+                                    <VerifiedIcon
+                                        color="primary"
+                                        sx={{ fontSize: 56, mr: 2 }}
+                                    />
+                                    <Typography variant="h6">
+                                        100% Gratis
+                                    </Typography>
+                                </Box>
+                                <Typography>
+                                    Tidak ada biaya apapun. Gratis selamanya
                                     untuk semua petani.
                                 </Typography>
                             </CardContent>
                         </Card>
+
                         <Card
                             variant="outlined"
                             sx={{
-                                flex: '1 1 calc(50% - 16px)',
-                                minWidth: 200,
+                                display: 'flex',
+                                flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
                             }}>
-                            <CardContent>
-                                <TrendingUpIcon
-                                    color="success"
-                                    sx={{ fontSize: 40, mb: 1 }}
-                                />
-                                <Typography variant="h6" gutterBottom>
-                                    Akurat & Transparan
-                                </Typography>
-                                <Typography variant="body2">
-                                    Menggunakan rumus berdasarkan studi kasus
-                                    nyata dengan presisi tinggi untuk hasil yang
-                                    akurat.
+                            <CardContent sx={{ p: 3, flex: 1 }}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        mb: 2,
+                                    }}>
+                                    <TrendingUpIcon
+                                        color="success"
+                                        sx={{ fontSize: 56, mr: 2 }}
+                                    />
+                                    <Typography variant="h6">
+                                        Akurat & Transparan
+                                    </Typography>
+                                </Box>
+                                <Typography>
+                                    Rumus berdasarkan studi kasus nyata dengan
+                                    hasil yang akurat.
                                 </Typography>
                             </CardContent>
                         </Card>
+
                         <Card
                             variant="outlined"
                             sx={{
-                                flex: '1 1 calc(50% - 16px)',
-                                minWidth: 200,
+                                display: 'flex',
+                                flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
                             }}>
-                            <CardContent>
-                                <MenuBookIcon
-                                    color="info"
-                                    sx={{ fontSize: 40, mb: 1 }}
-                                />
-                                <Typography variant="h6" gutterBottom>
-                                    Panduan Lengkap
-                                </Typography>
-                                <Typography variant="body2">
-                                    Dilengkapi dengan panduan detail tentang
-                                    cara perhitungan manual dan penjelasan
-                                    setiap kategori.
+                            <CardContent sx={{ p: 3, flex: 1 }}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        mb: 2,
+                                    }}>
+                                    <MenuBookIcon
+                                        color="info"
+                                        sx={{ fontSize: 56, mr: 2 }}
+                                    />
+                                    <Typography variant="h6">
+                                        Panduan Lengkap
+                                    </Typography>
+                                </Box>
+                                <Typography>
+                                    Ada panduan detail cara perhitungan manual
+                                    dan penjelasan kategori.
                                 </Typography>
                             </CardContent>
                         </Card>
+
                         <Card
                             variant="outlined"
                             sx={{
-                                flex: '1 1 calc(50% - 16px)',
-                                minWidth: 200,
+                                display: 'flex',
+                                flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                },
                             }}>
-                            <CardContent>
-                                <CalculateIcon
-                                    color="secondary"
-                                    sx={{ fontSize: 40, mb: 1 }}
-                                />
-                                <Typography variant="h6" gutterBottom>
-                                    Mudah Digunakan
-                                </Typography>
-                                <Typography variant="body2">
-                                    Interface sederhana dan intuitif, dapat
-                                    digunakan di smartphone maupun komputer.
+                            <CardContent sx={{ p: 3, flex: 1 }}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        mb: 2,
+                                    }}>
+                                    <CalculateIcon
+                                        color="secondary"
+                                        sx={{ fontSize: 56, mr: 2 }}
+                                    />
+                                    <Typography variant="h6">
+                                        Mudah Digunakan
+                                    </Typography>
+                                </Box>
+                                <Typography>
+                                    Tampilan sederhana, bisa pakai di HP atau
+                                    komputer.
                                 </Typography>
                             </CardContent>
                         </Card>
                     </Stack>
                 </Box>
 
-                <Typography
-                    variant="h5"
-                    component="h3"
-                    gutterBottom
-                    sx={{ mt: 4 }}>
-                    Siapa yang Membutuhkan Aplikasi Ini?
-                </Typography>
-                <Typography paragraph>
-                    Aplikasi Simulasi Grading Sawit dirancang untuk berbagai
-                    pihak yang terlibat dalam industri kelapa sawit:
-                </Typography>
+                <Divider sx={{ my: 6 }} />
 
-                <Stack spacing={2} sx={{ my: 3 }}>
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                🌾 Petani Kelapa Sawit
-                            </Typography>
-                            <Typography variant="body2">
-                                Petani dapat menggunakan aplikasi ini untuk
-                                mengestimasi harga TBS sebelum menjual ke
-                                pabrik. Dengan memahami perhitungan grading,
-                                petani dapat memverifikasi nota pembayaran dari
-                                pabrik dan memastikan tidak ada kesalahan
-                                perhitungan yang merugikan. Aplikasi ini juga
-                                membantu petani mengidentifikasi area perbaikan
-                                dalam praktik panen untuk meningkatkan kualitas
-                                TBS di masa mendatang.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                🏭 Pabrik Kelapa Sawit (PKS)
-                            </Typography>
-                            <Typography variant="body2">
-                                Operator pabrik dan staf grading dapat
-                                menggunakan aplikasi ini sebagai alat bantu
-                                untuk menghitung grading dengan cepat dan
-                                akurat. Aplikasi ini juga berguna untuk
-                                pelatihan staf baru tentang sistem grading
-                                standar dan memastikan konsistensi perhitungan
-                                di seluruh tim.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                📚 Mahasiswa dan Peneliti
-                            </Typography>
-                            <Typography variant="body2">
-                                Mahasiswa pertanian, agribisnis, dan peneliti
-                                yang mempelajari industri kelapa sawit dapat
-                                menggunakan aplikasi ini untuk memahami sistem
-                                grading dan melakukan simulasi berbagai skenario
-                                kualitas TBS. Data dari aplikasi ini dapat
-                                digunakan sebagai referensi dalam penelitian
-                                tentang sistem perdagangan TBS di Indonesia.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                💼 Konsultan dan Penyuluh Pertanian
-                            </Typography>
-                            <Typography variant="body2">
-                                Konsultan agribisnis dan penyuluh pertanian
-                                dapat menggunakan aplikasi ini sebagai alat
-                                edukasi saat memberikan pelatihan kepada petani
-                                kelapa sawit. Aplikasi ini membantu menjelaskan
-                                konsep grading dengan cara yang praktis dan
-                                interaktif.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Stack>
+                <Divider sx={{ my: 6 }} />
 
                 <Typography
                     variant="h5"
                     component="h3"
                     gutterBottom
-                    sx={{ mt: 4 }}>
-                    Pertanyaan yang Sering Diajukan (FAQ)
+                    sx={{ mb: 3 }}>
+                    Informasi Lebih Lanjut
                 </Typography>
 
-                <Stack spacing={2} sx={{ my: 3 }}>
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography
-                                variant="h6"
-                                gutterBottom
-                                color="primary">
-                                Apakah aplikasi ini gratis?
-                            </Typography>
-                            <Typography variant="body2">
-                                Ya, aplikasi ini 100% gratis dan akan tetap
-                                gratis selamanya. Tidak ada biaya berlangganan,
-                                tidak ada fitur premium berbayar, dan tidak ada
-                                biaya tersembunyi. Kami percaya bahwa akses
-                                terhadap informasi dan alat bantu perhitungan
-                                harus tersedia untuk semua petani.
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon sx={{ fontSize: 32 }} />}
+                        sx={{ py: 2 }}>
+                        <Typography variant="h6">
+                            Siapa yang Bisa Pakai Aplikasi Ini?
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ p: 3 }}>
+                        <Stack spacing={3}>
+                            <Box>
+                                <Typography
+                                    variant="h6"
+                                    gutterBottom
+                                    sx={{ mb: 1 }}>
+                                    🌾 Petani Kelapa Sawit
+                                </Typography>
+                                <Typography sx={{ maxWidth: '75ch' }}>
+                                    Hitung estimasi harga TBS sebelum jual ke
+                                    pabrik. Cek nota pembayaran dari pabrik.
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Typography
+                                    variant="h6"
+                                    gutterBottom
+                                    sx={{ mb: 1 }}>
+                                    🏭 Pabrik Kelapa Sawit
+                                </Typography>
+                                <Typography sx={{ maxWidth: '75ch' }}>
+                                    Alat bantu hitung grading dengan cepat.
+                                    Bagus untuk latih staf baru.
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Typography
+                                    variant="h6"
+                                    gutterBottom
+                                    sx={{ mb: 1 }}>
+                                    📚 Mahasiswa dan Peneliti
+                                </Typography>
+                                <Typography sx={{ maxWidth: '75ch' }}>
+                                    Pelajari sistem grading untuk penelitian
+                                    tentang kelapa sawit.
+                                </Typography>
+                            </Box>
+                        </Stack>
+                    </AccordionDetails>
+                </Accordion>
 
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography
-                                variant="h6"
-                                gutterBottom
-                                color="primary">
-                                Apakah data saya aman?
-                            </Typography>
-                            <Typography variant="body2">
-                                Semua data perhitungan Anda disimpan secara
-                                lokal di perangkat Anda sendiri (browser). Kami
-                                tidak mengumpulkan, menyimpan, atau mengirim
-                                data perhitungan Anda ke server manapun. Data
-                                Anda sepenuhnya privat dan hanya dapat diakses
-                                oleh Anda.
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon sx={{ fontSize: 32 }} />}
+                        sx={{ py: 2 }}>
+                        <Typography variant="h6">
+                            Pertanyaan yang Sering Ditanyakan
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ p: 3 }}>
+                        <Stack spacing={3}>
+                            <Box>
+                                <Typography
+                                    variant="h6"
+                                    gutterBottom
+                                    color="primary"
+                                    sx={{ mb: 1 }}>
+                                    Apakah aplikasi ini gratis?
+                                </Typography>
+                                <Typography sx={{ maxWidth: '75ch' }}>
+                                    Ya, 100% gratis selamanya. Tidak ada biaya
+                                    apapun.
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Typography
+                                    variant="h6"
+                                    gutterBottom
+                                    color="primary"
+                                    sx={{ mb: 1 }}>
+                                    Apakah data saya aman?
+                                </Typography>
+                                <Typography sx={{ maxWidth: '75ch' }}>
+                                    Ya, semua data tersimpan di HP/komputer Anda
+                                    sendiri. Tidak dikirim ke server.
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Typography
+                                    variant="h6"
+                                    gutterBottom
+                                    color="primary"
+                                    sx={{ mb: 1 }}>
+                                    Bisakah dipakai tanpa internet?
+                                </Typography>
+                                <Typography sx={{ maxWidth: '75ch' }}>
+                                    Ya! Bisa diinstal dan dipakai offline
+                                    sepenuhnya.
+                                </Typography>
+                            </Box>
+                        </Stack>
+                    </AccordionDetails>
+                </Accordion>
 
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography
-                                variant="h6"
-                                gutterBottom
-                                color="primary">
-                                Apakah rumus yang digunakan akurat?
-                            </Typography>
-                            <Typography variant="body2">
-                                Rumus perhitungan dalam aplikasi ini berdasarkan
-                                studi kasus perkebunan kelapa sawit di salah
-                                satu desa di wilayah Kalimantan Timur. Namun
-                                perlu diingat bahwa setiap pabrik mungkin
-                                memiliki variasi dalam persentase potongan atau
-                                insentif. Aplikasi ini memberikan estimasi yang
-                                mendekati, namun hasil akhir dapat berbeda
-                                tergantung kebijakan spesifik pabrik Anda.
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                <Divider sx={{ my: 6 }} />
 
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography
-                                variant="h6"
-                                gutterBottom
-                                color="primary">
-                                Bisakah digunakan offline?
-                            </Typography>
-                            <Typography variant="body2">
-                                Ya! Aplikasi ini adalah Progressive Web App
-                                (PWA) yang dapat diinstal di smartphone atau
-                                komputer Anda dan berfungsi sepenuhnya secara
-                                offline setelah diinstal. Anda tidak memerlukan
-                                koneksi internet untuk menggunakan kalkulator.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography
-                                variant="h6"
-                                gutterBottom
-                                color="primary">
-                                Bagaimana cara menginstal aplikasi?
-                            </Typography>
-                            <Typography variant="body2">
-                                Untuk menginstal, buka aplikasi di browser
-                                (Chrome/Edge/Safari), lalu cari opsi "Install
-                                App" atau "Add to Home Screen" di menu browser.
-                                Setelah diinstal, aplikasi akan muncul seperti
-                                aplikasi native di perangkat Anda dengan ikon di
-                                home screen.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-
-                    <Card variant="outlined">
-                        <CardContent>
-                            <Typography
-                                variant="h6"
-                                gutterBottom
-                                color="primary">
-                                Siapa yang membuat aplikasi ini?
-                            </Typography>
-                            <Typography variant="body2">
-                                Aplikasi ini dikembangkan oleh Sensasi Apps,
-                                sebuah tim developer Indonesia yang fokus pada
-                                pembuatan aplikasi open-source untuk membantu
-                                berbagai industri. Source code aplikasi ini
-                                tersedia secara publik di GitHub dan dapat
-                                diperiksa atau dikontribusi oleh siapa saja.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Stack>
-
-                <Typography
-                    variant="h5"
-                    component="h3"
-                    gutterBottom
-                    sx={{ mt: 4 }}>
-                    Teknologi yang Digunakan
-                </Typography>
-                <Typography paragraph>
-                    Aplikasi Simulasi Grading Sawit dibangun menggunakan
-                    teknologi web modern untuk memberikan pengalaman pengguna
-                    terbaik:
-                </Typography>
-
-                <Stack spacing={1} sx={{ my: 2 }}>
-                    <Typography variant="body2">
-                        • <strong>Next.js 15</strong> - Framework React untuk
-                        performa optimal dan SEO
-                    </Typography>
-                    <Typography variant="body2">
-                        • <strong>React 19</strong> - Library UI terpopuler
-                        untuk interface yang responsif
-                    </Typography>
-                    <Typography variant="body2">
-                        • <strong>Material-UI (MUI) v7</strong> - Komponen UI
-                        profesional dengan desain Material Design
-                    </Typography>
-                    <Typography variant="body2">
-                        • <strong>TypeScript</strong> - Type-safe programming
-                        untuk mengurangi bugs
-                    </Typography>
-                    <Typography variant="body2">
-                        • <strong>Progressive Web App (PWA)</strong> - Teknologi
-                        untuk instalasi dan offline capability
-                    </Typography>
-                    <Typography variant="body2">
-                        • <strong>Firebase Analytics</strong> - Anonymous usage
-                        analytics untuk perbaikan aplikasi
-                    </Typography>
-                </Stack>
-
-                <Divider sx={{ my: 4 }} />
+                <Divider sx={{ my: 6 }} />
 
                 <Box sx={{ textAlign: 'center' }}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography
+                        variant="h5"
+                        gutterBottom
+                        sx={{ mb: 2, fontWeight: 700 }}>
                         Siap Menghitung Grading TBS Anda?
                     </Typography>
-                    <Typography paragraph color="text.secondary">
-                        Gunakan kalkulator gratis kami sekarang dan dapatkan
-                        transparansi penuh dalam perhitungan harga TBS Anda.
+                    <Typography
+                        paragraph
+                        color="text.primary"
+                        sx={{ mb: 4, maxWidth: '75ch', mx: 'auto' }}>
+                        Mulai hitung grading sekarang untuk tahu harga TBS Anda.
                     </Typography>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        startIcon={<CalculateIcon />}
-                        onClick={() => router.push('/kalkulator')}
-                        sx={{ px: 4, py: 1.5, fontSize: '1.1rem', mb: 2 }}>
-                        Buka Kalkulator Grading
-                    </Button>
-                    <Box sx={{ mt: 2 }}>
+                    <Stack
+                        spacing={3}
+                        sx={{
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
                         <Button
-                            variant="outlined"
-                            startIcon={<MenuBookIcon />}
-                            onClick={() => router.push('/panduan')}
-                            sx={{ mr: 1 }}>
-                            Baca Panduan Lengkap
+                            variant="contained"
+                            size="large"
+                            startIcon={
+                                <CalculateIcon sx={{ fontSize: 32 }} />
+                            }
+                            onClick={() => router.push('/kalkulator')}
+                            sx={{
+                                minHeight: 64,
+                                px: 6,
+                                py: 2,
+                                fontSize: '1.25rem',
+                            }}>
+                            Buka Kalkulator Grading
                         </Button>
-                        <Button
-                            variant="text"
-                            onClick={() => router.push('/tentang')}>
-                            Tentang Aplikasi
-                        </Button>
-                    </Box>
+                        <Box>
+                            <Button
+                                variant="outlined"
+                                size="large"
+                                startIcon={
+                                    <MenuBookIcon sx={{ fontSize: 28 }} />
+                                }
+                                onClick={() => router.push('/panduan')}
+                                sx={{
+                                    minHeight: 56,
+                                    px: 4,
+                                    py: 1.5,
+                                    mr: 2,
+                                    fontSize: '1.1rem',
+                                }}>
+                                Baca Panduan
+                            </Button>
+                            <Button
+                                variant="text"
+                                size="large"
+                                onClick={() => router.push('/tentang')}
+                                sx={{
+                                    minHeight: 56,
+                                    px: 4,
+                                    py: 1.5,
+                                    fontSize: '1.1rem',
+                                }}>
+                                Tentang Aplikasi
+                            </Button>
+                        </Box>
+                    </Stack>
                 </Box>
-            </Paper>
+            </Box>
         </Container>
     )
 }

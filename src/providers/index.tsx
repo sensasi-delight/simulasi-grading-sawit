@@ -15,6 +15,59 @@ const THEME = createTheme({
             main: red[500],
         },
     },
+    typography: {
+        fontSize: 18,
+        htmlFontSize: 18,
+        fontWeightLight: 400,
+        fontWeightRegular: 400,
+        fontWeightMedium: 700,
+        fontWeightBold: 700,
+        h1: {
+            fontSize: '3rem',
+            fontWeight: 700,
+            lineHeight: 1.3,
+        },
+        h2: {
+            fontSize: '2.5rem',
+            fontWeight: 700,
+            lineHeight: 1.3,
+        },
+        h3: {
+            fontSize: '2rem',
+            fontWeight: 700,
+            lineHeight: 1.4,
+        },
+        h4: {
+            fontSize: '1.75rem',
+            fontWeight: 700,
+            lineHeight: 1.4,
+        },
+        h5: {
+            fontSize: '1.5rem',
+            fontWeight: 700,
+            lineHeight: 1.5,
+        },
+        h6: {
+            fontSize: '1.25rem',
+            fontWeight: 700,
+            lineHeight: 1.5,
+        },
+        body1: {
+            fontSize: '1rem',
+            lineHeight: 1.8,
+            fontWeight: 400,
+        },
+        body2: {
+            fontSize: '0.95rem',
+            lineHeight: 1.8,
+            fontWeight: 400,
+        },
+        button: {
+            fontSize: '1.1rem',
+            fontWeight: 700,
+            textTransform: 'none',
+        },
+    },
 })
 
 export function Providers({ children }: { children: ReactNode }) {
