@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     reactStrictMode: true,
     output: 'export',
     distDir: 'dist',
+    reactCompiler: true,
 
     experimental: {
         optimizePackageImports: ['@mui/material', '@mui/icons-material'],
