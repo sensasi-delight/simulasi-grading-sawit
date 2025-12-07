@@ -108,11 +108,11 @@ export default function PanduanPage() {
 
                     <Alert severity="info" sx={{ mt: 2 }}>
                         <strong>Catatan Penting:</strong> Aplikasi ini
-                        menggunakan rumus yang umum digunakan di industri kelapa
-                        sawit di Indonesia, khususnya di Kalimantan Timur.
-                        Setiap pabrik atau perusahaan bisa memiliki aturan
-                        sedikit berbeda. Aplikasi ini bersifat edukatif dan
-                        sebagai alat bantu simulasi.
+                        menggunakan rumus berdasarkan studi kasus perkebunan
+                        kelapa sawit di salah satu desa di Kalimantan Timur.
+                        Setiap pabrik atau perusahaan bisa memiliki aturan yang
+                        berbeda. Aplikasi ini bersifat edukatif dan sebagai alat
+                        bantu simulasi.
                     </Alert>
                 </Box>
 

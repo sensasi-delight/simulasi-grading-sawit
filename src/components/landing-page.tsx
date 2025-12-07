@@ -73,14 +73,13 @@ export default function LandingPage() {
                     <Typography paragraph>
                         <strong>Grading kelapa sawit</strong> adalah sistem
                         penilaian kualitas Tandan Buah Segar (TBS) yang
-                        digunakan oleh pabrik kelapa sawit di seluruh Indonesia
-                        untuk menentukan harga pembelian dari petani. Sistem ini
-                        sangat penting karena kualitas buah sawit secara
-                        langsung mempengaruhi rendemen minyak yang dihasilkan
-                        pabrik, sehingga pabrik memberikan{' '}
-                        <strong>potongan harga</strong> untuk buah berkualitas
-                        rendah dan <strong>insentif bonus</strong> untuk buah
-                        berkualitas tinggi.
+                        digunakan oleh pabrik kelapa sawit untuk menentukan
+                        harga pembelian dari petani. Sistem ini sangat penting
+                        karena kualitas buah sawit secara langsung mempengaruhi
+                        rendemen minyak yang dihasilkan pabrik, sehingga pabrik
+                        memberikan <strong>potongan harga</strong> untuk buah
+                        berkualitas rendah dan <strong>insentif bonus</strong>{' '}
+                        untuk buah berkualitas tinggi.
                     </Typography>
                     <Typography paragraph>
                         Proses grading melibatkan pemeriksaan beberapa kategori
@@ -246,9 +245,9 @@ export default function LandingPage() {
                         dirancang untuk membantu petani dan pelaku industri
                         kelapa sawit menghitung dengan mudah dan cepat berapa
                         nilai akhir TBS setelah dikurangi potongan dan ditambah
-                        insentif. Kalkulator ini menggunakan rumus standar yang
-                        umum dipakai di industri kelapa sawit Indonesia,
-                        khususnya di wilayah Kalimantan Timur.
+                        insentif. Kalkulator ini menggunakan rumus yang
+                        didasarkan pada studi kasus perkebunan kelapa sawit di
+                        salah satu desa di Kalimantan Timur.
                     </Typography>
                     <Typography paragraph>
                         Untuk menggunakan kalkulator, Anda cukup memasukkan
@@ -337,8 +336,9 @@ export default function LandingPage() {
                                     Akurat & Transparan
                                 </Typography>
                                 <Typography variant="body2">
-                                    Menggunakan rumus standar industri dengan
-                                    presisi tinggi untuk hasil yang akurat.
+                                    Menggunakan rumus berdasarkan studi kasus
+                                    nyata dengan presisi tinggi untuk hasil yang
+                                    akurat.
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -526,14 +526,13 @@ export default function LandingPage() {
                             </Typography>
                             <Typography variant="body2">
                                 Rumus perhitungan dalam aplikasi ini berdasarkan
-                                standar industri kelapa sawit di Indonesia,
-                                khususnya wilayah Kalimantan Timur. Namun perlu
-                                diingat bahwa setiap pabrik mungkin memiliki
-                                variasi kecil dalam persentase potongan atau
+                                studi kasus perkebunan kelapa sawit di salah
+                                satu desa di wilayah Kalimantan Timur. Namun
+                                perlu diingat bahwa setiap pabrik mungkin
+                                memiliki variasi dalam persentase potongan atau
                                 insentif. Aplikasi ini memberikan estimasi yang
-                                sangat mendekati, namun hasil akhir dapat
-                                berbeda sedikit tergantung kebijakan spesifik
-                                pabrik Anda.
+                                mendekati, namun hasil akhir dapat berbeda
+                                tergantung kebijakan spesifik pabrik Anda.
                             </Typography>
                         </CardContent>
                     </Card>

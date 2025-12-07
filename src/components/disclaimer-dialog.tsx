@@ -46,9 +46,8 @@ export default function DisclaimerDialog() {
                         <ul>
                             <li>
                                 Aplikasi <b>Simulasi Grading Sawit</b> dibuat
-                                berdasarkan rumus dan ketentuan yang dikeluarkan
-                                oleh PT. XYZ (bukan nama sebenarnya) di
-                                Kalimantan Timur
+                                berdasarkan studi kasus perkebunan kelapa sawit
+                                di salah satu desa di Kalimantan Timur
                             </li>
                             <li>
                                 Aplikasi <b>Simulasi Grading Sawit</b> ini
