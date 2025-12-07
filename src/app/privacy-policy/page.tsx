@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
     return (
-        <Container maxWidth="md" sx={{ py: 4, pb: 14 }}>
+        <Container maxWidth="md" sx={{ pb: 8 }}>
             <Box>
                 <Typography
                     variant="h3"

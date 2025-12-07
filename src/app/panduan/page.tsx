@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function PanduanPage() {
     return (
-        <Container maxWidth="md" sx={{ py: 4, pb: 14 }}>
+        <Container maxWidth="md" sx={{ py: 4, pb: 8 }}>
             <Box>
                 <Typography
                     variant="h3"
