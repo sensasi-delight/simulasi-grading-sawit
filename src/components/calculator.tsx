@@ -13,6 +13,7 @@ import Header from './header'
 import ResultBox from './result-box'
 import Stepper from './stepper'
 import SavedCalculation from './saved-calculation'
+import GuideButton from './guide-button'
 // import Notification from './components/Notification';
 // hooks
 import useGlobals from '../hooks/use-globals'
@@ -107,6 +108,8 @@ export default function Calculator() {
                 </Box>
 
                 <Box display="flex" alignItems="center">
+                    <GuideButton />
+
                     <DisclaimerDialog />
 
                     <DonationDialog />
