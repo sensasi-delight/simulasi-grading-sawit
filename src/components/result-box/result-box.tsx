@@ -48,6 +48,13 @@ export default function ResultBox() {
         setPricePerKg(dataset.pricePerKg)
     }, [dataset.pricePerKg])
 
+    useEffect(() => {
+        if (dataset.pricePerKg) {
+            calculationResults = calculatePalmGrade(dataset)
+            setSummaryData(getSummaryData(calculationResults, dataset))
+        }
+    }, [dataset])
+
     const isSaveDisabled =
         !pricePerKg ||
         JSON.stringify(dataset) ===
@@ -85,17 +92,10 @@ export default function ResultBox() {
 
     function handlePriceChange(value: number) {
         setPricePerKg(value)
-        setFormValues(prev => {
-            const newValues = {
-                ...prev,
-                pricePerKg: value,
-            }
-
-            calculationResults = calculatePalmGrade(newValues)
-            setSummaryData(getSummaryData(calculationResults, newValues))
-
-            return newValues
-        })
+        setFormValues(prev => ({
+            ...prev,
+            pricePerKg: value,
+        }))
     }
 
     const finalWeight =
