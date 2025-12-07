@@ -7,4 +7,6 @@ export default function HomePage() {
 
 export const metadata: Metadata = {
     title: 'Beranda — Simulasi Grading Sawit',
+    description:
+        'Kalkulator grading kelapa sawit untuk menghitung potongan dan insentif TBS. Pelajari cara perhitungan manual di panduan lengkap kami.',
 }

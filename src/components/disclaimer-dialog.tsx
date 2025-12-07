@@ -7,6 +7,8 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import { grey } from '@mui/material/colors'
 import InfoIcon from '@mui/icons-material/Info'
+import MuiLink from '@mui/material/Link'
+import NextLink from 'next/link'
 
 export default function DisclaimerDialog() {
     const [open, setOpen] = React.useState(false)
@@ -54,6 +56,18 @@ export default function DisclaimerDialog() {
                                 pembulatan 16 angka di belakang koma, hal ini
                                 dapat menyebabkan sedikit selisih pada hasil
                                 perhitungan.
+                            </li>
+                            <li>
+                                Untuk memahami lebih dalam tentang sistem
+                                grading dan cara perhitungan manual, silakan
+                                baca{' '}
+                                <MuiLink
+                                    component={NextLink}
+                                    href="/panduan"
+                                    underline="hover">
+                                    Panduan Lengkap
+                                </MuiLink>
+                                .
                             </li>
                         </ul>
                     </DialogContentText>

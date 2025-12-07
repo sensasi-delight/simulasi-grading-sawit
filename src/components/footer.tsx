@@ -50,6 +50,14 @@ export default function Footer() {
                     Beranda
                 </Link>
 
+                <Link href="/tentang" onClick={() => logEvent('click_about')}>
+                    Tentang
+                </Link>
+
+                <Link href="/panduan" onClick={() => logEvent('click_guide')}>
+                    Panduan
+                </Link>
+
                 <Link
                     href="/privacy-policy"
                     onClick={() => logEvent('click_privacy_policy')}
