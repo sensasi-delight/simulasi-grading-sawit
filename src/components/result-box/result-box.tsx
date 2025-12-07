@@ -6,16 +6,24 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
+import Alert from '@mui/material/Alert'
 import dayjs from 'dayjs'
 // icons
 import SaveIcon from '@mui/icons-material/Save'
+import ShareIcon from '@mui/icons-material/Share'
 // helpers
-import { currencyFormat, numberFormat } from '@/helpers'
+import {
+    currencyFormat,
+    numberFormat,
+    generateSummaryShareMessage,
+    generateDetailedShareMessage,
+} from '@/helpers'
 import calculatePalmGrade from '@/helpers/calculate-palm-grade'
 // components
 import DetailDialog from './components/detail-dialog'
 import SummaryTable from './components/summary-table'
 import TextField from '@/components/text-field'
+import ShareDialog from '@/components/share-dialog'
 // hooks
 import useGlobals from '@/hooks/use-globals'
 import useFirebase from '@/hooks/use-firebase'
@@ -31,6 +39,8 @@ export default function ResultBox() {
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const [summaryData, setSummaryData] = useState<TypeB[]>([])
     const [pricePerKg, setPricePerKg] = useState(dataset.pricePerKg ?? '')
+    const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
+    const [showCopyAlert, setShowCopyAlert] = useState(false)
 
     const detailBtnRef = useRef<HTMLButtonElement>(null)
 
@@ -88,6 +98,97 @@ export default function ResultBox() {
         })
     }
 
+    const finalWeight =
+        summaryData[0]?.weight - summaryData[1]?.weight + summaryData[2]?.weight
+    const finalWorth =
+        summaryData[0]?.worth - summaryData[1]?.worth + summaryData[2]?.worth
+
+    function handleShareWhatsApp(messageType: 'summary' | 'detailed') {
+        const message =
+            messageType === 'summary'
+                ? generateSummaryShareMessage(
+                      summaryData,
+                      finalWeight,
+                      finalWorth,
+                      pricePerKg as number,
+                  )
+                : generateDetailedShareMessage(
+                      calculationResults,
+                      summaryData,
+                      finalWeight,
+                      finalWorth,
+                      pricePerKg as number,
+                  )
+
+        setIsShareDialogOpen(false)
+
+        if (navigator.share) {
+            navigator
+                .share({
+                    text: message,
+                })
+                .then(() => {
+                    logEvent(
+                        messageType === 'summary'
+                            ? 'share_summary_whatsapp'
+                            : 'share_detailed_whatsapp',
+                    )
+                })
+                .catch(() => {
+                    // User cancelled share
+                })
+        } else {
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`
+            window.open(whatsappUrl, '_blank')
+            logEvent(
+                messageType === 'summary'
+                    ? 'share_summary_whatsapp'
+                    : 'share_detailed_whatsapp',
+            )
+        }
+    }
+
+    function handleCopy(messageType: 'summary' | 'detailed') {
+        const message =
+            messageType === 'summary'
+                ? generateSummaryShareMessage(
+                      summaryData,
+                      finalWeight,
+                      finalWorth,
+                      pricePerKg as number,
+                  )
+                : generateDetailedShareMessage(
+                      calculationResults,
+                      summaryData,
+                      finalWeight,
+                      finalWorth,
+                      pricePerKg as number,
+                  )
+
+        setIsShareDialogOpen(false)
+
+        if (navigator.clipboard?.writeText) {
+            navigator.clipboard
+                .writeText(message)
+                .then(() => {
+                    setShowCopyAlert(true)
+                    setTimeout(() => setShowCopyAlert(false), 3000)
+                    logEvent(
+                        messageType === 'summary'
+                            ? 'share_summary_copy'
+                            : 'share_detailed_copy',
+                    )
+                })
+                .catch(() => {
+                    // Fallback for clipboard failure
+                    alert('Gagal menyalin teks. Silakan coba lagi.')
+                })
+        } else {
+            // Fallback for browsers without clipboard API
+            alert('Browser Anda tidak mendukung fitur salin otomatis.')
+        }
+    }
+
     return (
         <>
             <Box
@@ -107,6 +208,15 @@ export default function ResultBox() {
             </Box>
 
             <SummaryTable dataset={summaryData} />
+
+            {showCopyAlert && (
+                <Alert
+                    severity="success"
+                    onClose={() => setShowCopyAlert(false)}
+                    sx={{ mt: 2 }}>
+                    Teks berhasil disalin ke clipboard
+                </Alert>
+            )}
 
             <Box justifyContent="space-between" display="flex" mt={6}>
                 <Box>
@@ -133,6 +243,20 @@ export default function ResultBox() {
                         </span>
                     </Tooltip>
 
+                    <Tooltip title="Bagikan hasil" placement="top">
+                        <span>
+                            <IconButton
+                                color="primary"
+                                disabled={!pricePerKg}
+                                onClick={() => {
+                                    setIsShareDialogOpen(true)
+                                    logEvent('click_share')
+                                }}>
+                                <ShareIcon />
+                            </IconButton>
+                        </span>
+                    </Tooltip>
+
                     <Button
                         ref={detailBtnRef}
                         disabled={!pricePerKg}
@@ -150,6 +274,26 @@ export default function ResultBox() {
                 isOpen={isDetailOpen}
                 setIsOpen={setIsDetailOpen}
                 dataset={calculationResults}
+            />
+
+            <ShareDialog
+                open={isShareDialogOpen}
+                onClose={() => setIsShareDialogOpen(false)}
+                summaryMessage={generateSummaryShareMessage(
+                    summaryData,
+                    finalWeight,
+                    finalWorth,
+                    pricePerKg as number,
+                )}
+                detailedMessage={generateDetailedShareMessage(
+                    calculationResults,
+                    summaryData,
+                    finalWeight,
+                    finalWorth,
+                    pricePerKg as number,
+                )}
+                onShareWhatsApp={handleShareWhatsApp}
+                onCopy={handleCopy}
             />
         </>
     )
