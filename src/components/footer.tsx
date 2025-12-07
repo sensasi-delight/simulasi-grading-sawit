@@ -50,6 +50,12 @@ export default function Footer() {
                     Beranda
                 </Link>
 
+                <Link
+                    href="/kalkulator"
+                    onClick={() => logEvent('click_calculator')}>
+                    Kalkulator
+                </Link>
+
                 <Link href="/tentang" onClick={() => logEvent('click_about')}>
                     Tentang
                 </Link>
