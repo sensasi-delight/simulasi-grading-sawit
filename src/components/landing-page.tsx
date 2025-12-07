@@ -24,7 +24,7 @@ export default function LandingPage() {
     const router = useRouter()
 
     return (
-        <Container maxWidth="md" sx={{ py: 4, pb: 14 }}>
+        <Container maxWidth="md" sx={{ py: 4, pb: 8 }}>
             <Box
                 sx={{
                     marginTop: 6,
@@ -82,12 +82,12 @@ export default function LandingPage() {
                         sx={{ mb: 3 }}>
                         Apa Itu Grading Kelapa Sawit?
                     </Typography>
-                    
+
                     <Typography paragraph sx={{ maxWidth: '75ch', mb: 2 }}>
                         <strong>Grading kelapa sawit</strong> adalah sistem
                         penilaian kualitas buah kelapa sawit Anda.
                     </Typography>
-                    
+
                     <Typography paragraph sx={{ maxWidth: '75ch', mb: 2 }}>
                         Pabrik menilai kualitas buah untuk menentukan harga.
                         Buah berkualitas baik dapat bonus, buah kurang baik kena
@@ -101,11 +101,11 @@ export default function LandingPage() {
                         sx={{ mt: 5, mb: 3 }}>
                         Mengapa Penting Bagi Petani?
                     </Typography>
-                    
+
                     <Typography paragraph sx={{ maxWidth: '75ch', mb: 3 }}>
                         Dengan memahami grading, petani bisa:
                     </Typography>
-                    
+
                     <Box component="ul" sx={{ pl: 3, mb: 4 }}>
                         <Typography component="li" sx={{ mb: 2 }}>
                             <strong>Tingkatkan kualitas panen</strong> - Tahu
@@ -144,8 +144,8 @@ export default function LandingPage() {
                                     Buah Mentah (BM) - Potongan 50%
                                 </Typography>
                                 <Typography>
-                                    Buah warna hijau, belum matang. Kena potongan
-                                    besar 50%.
+                                    Buah warna hijau, belum matang. Kena
+                                    potongan besar 50%.
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -208,7 +208,7 @@ export default function LandingPage() {
                         sx={{ mt: 5, mb: 3 }}>
                         Cara Menggunakan Kalkulator
                     </Typography>
-                    
+
                     <Box component="ol" sx={{ pl: 3, mb: 4 }}>
                         <Typography component="li" sx={{ mb: 3 }}>
                             <strong>Langkah 1:</strong> Masukkan jumlah janjang
@@ -499,9 +499,7 @@ export default function LandingPage() {
                         <Button
                             variant="contained"
                             size="large"
-                            startIcon={
-                                <CalculateIcon sx={{ fontSize: 32 }} />
-                            }
+                            startIcon={<CalculateIcon sx={{ fontSize: 32 }} />}
                             onClick={() => router.push('/kalkulator')}
                             sx={{
                                 minHeight: 64,

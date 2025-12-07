@@ -99,7 +99,11 @@ export default function Calculator() {
     const handlePrev = () => setActiveStep((prev: number) => prev - 1)
 
     return (
-        <Container maxWidth="sm">
+        <Container
+            maxWidth="sm"
+            sx={{
+                minHeight: `calc(100vh - 17rem)`,
+            }}>
             <Header />
 
             <Box display="flex" justifyContent="space-between">
